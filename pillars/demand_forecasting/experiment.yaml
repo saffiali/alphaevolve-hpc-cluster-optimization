@@ -1,0 +1,39 @@
+# Copyright 2026 Google LLC
+# Licensed under the Apache License, Version 2.0
+
+title: "Multi-Horizon HPC Capacity Demand Forecasting & Commercial Allocation"
+problem_description: >
+  Evolve `forecast_and_allocate(history_window, pool_specs, asymmetric_penalty_ratio=5.0)` inside the
+  EVOLVE-BLOCK in main.py to maximize `overall_score` across a 52-week multi-pool HPC cluster rolling-origin
+  backtest (`cpu_general`, `ultramem_analytics`, `gpu_accelerators`, and `tiered_storage_tb`).
+  Each causal history record includes `day_index`, `day_of_week` (0=Mon..6=Sun), `quarter_day` (0..90,
+  with quarterly submission surges peaking around quarter_day 72..86), and daily `p50`/`p99` telemetry
+  (plus `hot_working_set_tb` on `tiered_storage_tb`).
+  Commercial optimization trade-offs:
+    - Capacity stockouts (`actual_p99 > effective_provisioned_capacity`) incur an asymmetric penalty
+      `asymmetric_penalty_ratio` (5.0x) higher than idle burst headroom!
+    - `cud_1y_3y_units` gives 42-45% discount (`cud_1y_3y_multiplier`) but is paid 24/7 and penalized if
+      over-committed above the 90-day sustained P50 baseline.
+    - `spot_units` gives 65-68% discount up to `max_safe_spot_share * actual_p99` (excess Spot incurs retry penalties).
+    - `dws_flex_units` gives 24-30% discount up to `dws_capacity_cap_ratio * actual_p99`.
+    - `on_demand_units` covers remaining P99 peak tail with a warm-headroom fee on excess ceiling.
+    - Storage: allocate `nvme_parallel_fs_tb` ($8.00/TB-day) to cover >=1.05x active `hot_working_set_tb`,
+      and tier all cold lakehouse capacity onto `object_storage_tb` ($0.67/TB-day)!
+  Hard constraint floors (violating ANY returns -1e12):
+    1. Non-negative finite values and quantile monotonicity (`p99 >= p50`) across all 7d and 90d horizons.
+    2. Stockout breach rate <= 65%.
+    3. Hot NVMe storage working-set coverage ratio >= 0.85.
+    4. Blended WMAPE <= 65%.
+program_language: "python"
+primary_metric: "overall_score"
+initial_score: -4378.0
+
+seed_files:
+  - "main.py"
+
+generation_settings:
+  include_full_program_in_prompt: true
+
+evaluator:
+  script: "evaluator.py"
+  method: "evaluate_program"

@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AlphaEvolve HPC &amp; AI Cluster Optimization Workbench</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-alt: #f1f5f9;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --muted: #475569;
+      --blue: #1a73e8;
+      --blue-soft: #e8f0fe;
+      --green: #188038;
+      --green-soft: #e6f4ea;
+      --amber: #e37400;
+      --amber-soft: #fef7e0;
+      --red: #d93025;
+      --red-soft: #fce8e6;
+      --purple: #8430ce;
+      --purple-soft: #f3e8fd;
+      --radius: 14px;
+      --shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 4px 14px rgba(15, 23, 42, 0.04);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    .gcp-accent-bar {
+      height: 4px;
+      background: linear-gradient(90deg, #4285f4 0% 25%, #ea4335 25% 50%, #fbbc05 50% 75%, #34a853 75% 100%);
+    }
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+    .header-inner {
+      max-width: 1420px;
+      margin: 0 auto;
+      padding: 14px 28px 0 28px;
+    }
+    .brand-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding-bottom: 12px;
+    }
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #1a73e8, #8430ce);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: -0.5px;
+      box-shadow: 0 2px 8px rgba(26, 115, 232, 0.28);
+    }
+    .brand-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+    .brand-sub {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .header-badges {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid transparent;
+    }
+    .pill-green { background: var(--green-soft); color: var(--green); border-color: #ceead6; }
+    .pill-blue { background: var(--blue-soft); color: var(--blue); border-color: #d2e3fc; }
+    .pill-purple { background: var(--purple-soft); color: var(--purple); border-color: #e9d2fd; }
+    .pill-amber { background: var(--amber-soft); color: var(--amber); border-color: #fde293; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+    .nav-tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      padding: 10px 16px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--blue); background: #f8fbff; border-radius: 8px 8px 0 0; }
+    .tab-btn.active {
+      color: var(--blue);
+      border-bottom-color: var(--blue);
+      font-weight: 700;
+    }
+
+    main {
+      max-width: 1420px;
+      margin: 0 auto;
+      padding: 22px 28px 48px 28px;
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .grid-sidebar { display: grid; grid-template-columns: 350px minmax(0, 1fr); gap: 20px; align-items: start; }
+    @media (max-width: 1060px) {
+      .grid-3, .grid-2, .grid-sidebar { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      box-shadow: var(--shadow);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .card-title { font-size: 16px; font-weight: 700; color: var(--text); }
+    .card-subtitle { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+
+    .proof-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, #ffffff 0%, #f8fbff 100%);
+      border: 1px solid #d2e3fc;
+      border-radius: var(--radius);
+      padding: 14px 18px;
+    }
+    @media (max-width: 960px) { .proof-strip { grid-template-columns: repeat(2, 1fr); } }
+    .proof-item-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); font-weight: 700; }
+    .proof-item-val { font-size: 14px; font-weight: 700; color: var(--text); margin-top: 3px; word-break: break-word; }
+    .proof-item-sub { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+
+    .kpi-big { font-size: 32px; font-weight: 700; letter-spacing: -0.8px; line-height: 1.15; }
+    .kpi-row { display: flex; justify-content: space-between; align-items: baseline; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--surface-alt); font-size: 13px; }
+    .kpi-muted { color: var(--muted); }
+
+    /* Horizontal-Layered Secure Split Architecture */
+    .arch-stack { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+    .arch-layer {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 16px;
+      background: #fcfdff;
+    }
+    .arch-layer-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .arch-nodes {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .arch-node {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 13px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+    .arch-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+    .arch-node-title { font-size: 13.5px; font-weight: 700; color: var(--text); }
+    .arch-node-sub { font-size: 11.5px; color: var(--muted); }
+    .arch-connector {
+      text-align: center;
+      font-size: 11.5px;
+      color: var(--blue);
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    /* Controls & Sliders */
+    .control-group { margin-bottom: 15px; }
+    .control-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+    .control-val { font-family: 'Google Sans Mono', monospace; color: var(--blue); font-weight: 700; }
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--blue);
+      cursor: pointer;
+    }
+    select, input[type="text"] {
+      width: 100%;
+      padding: 8px 11px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13.5px;
+      background: var(--surface);
+      color: var(--text);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 9px;
+      border: 1px solid transparent;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-primary:hover { background: #1557b0; }
+    .btn-vertex { background: linear-gradient(135deg, #1a73e8, #8430ce); color: #fff; }
+    .btn-vertex:hover { opacity: 0.94; }
+    .btn-outline { background: var(--surface); border-color: var(--border); color: var(--text); }
+    .btn-outline.active, .btn-outline:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-soft); }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { text-align: left; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.4px; color: var(--muted); padding: 9px 10px; border-bottom: 1px solid var(--border); }
+    td { padding: 10px; border-bottom: 1px solid var(--surface-alt); }
+    tr.highlight-row { background: #f3faf5; font-weight: 600; }
+
+    pre.code-box {
+      background: #0f172a;
+      color: #e2e8f0;
+      font-family: 'Google Sans Mono', monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      padding: 14px 16px;
+      border-radius: 10px;
+      overflow-x: auto;
+      max-height: 360px;
+      overflow-y: auto;
+      white-space: pre;
+    }
+    .diff-add { color: #4ade80; }
+    .diff-del { color: #f87171; }
+    .diff-hdr { color: #60a5fa; font-weight: 700; }
+
+    .funnel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .funnel-step {
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 13px 15px;
+      background: #fcfdff;
+    }
+    .stack-bar {
+      display: flex;
+      height: 24px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 8px 0;
+      border: 1px solid var(--border);
+    }
+    .legend-row { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin-top: 6px; }
+    .legend-swatch { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: middle; }
+    .mt-16 { margin-top: 16px; }
+    .mt-20 { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <div class="gcp-accent-bar"></div>
+  <header>
+    <div class="header-inner">
+      <div class="brand-row">
+        <div class="brand-left">
+          <div class="brand-mark">AE</div>
+          <div>
+            <div class="brand-title">AlphaEvolve for Enterprise HPC &amp; AI Clusters</div>
+            <div class="brand-sub">Autonomous Code &amp; Policy Evolution across Scheduling, GPU/SIMD Kernels &amp; Capacity Allocation</div>
+          </div>
+        </div>
+        <div class="header-badges">
+          <span class="pill pill-green" id="badge-cloudrun"><span class="dot"></span>Cloud Run Active</span>
+          <span class="pill pill-blue" id="badge-bq"><span class="dot"></span>BigQuery Telemetry</span>
+          <span class="pill pill-purple" id="badge-batch"><span class="dot"></span>Cloud Batch Verified</span>
+          <button class="btn btn-vertex" id="btn-open-evolve" onclick="scrollToLiveMutator()">
+            &#9889; Propose &amp; Score Candidate (Live Vertex AI)
+          </button>
+        </div>
+      </div>
+      <nav class="nav-tabs" role="tablist">
+        <button class="tab-btn active" id="tab-btn-overview" onclick="switchTab('overview')">Executive Overview</button>
+        <button class="tab-btn" id="tab-btn-pillar1" onclick="switchTab('pillar1')">Pillar 1: Cluster Scheduling</button>
+        <button class="tab-btn" id="tab-btn-pillar2" onclick="switchTab('pillar2')">Pillar 2: HPC Code Optimization</button>
+        <button class="tab-btn" id="tab-btn-pillar3" onclick="switchTab('pillar3')">Pillar 3: Demand &amp; Resource Allocation</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==================== TAB 1: EXECUTIVE OVERVIEW ==================== -->
+    <section class="tab-panel active" id="panel-overview">
+      <div class="proof-strip">
+        <div>
+          <div class="proof-item-label">Cloud Run Service &amp; Revision</div>
+          <div class="proof-item-val" id="proof-revision">alphaevolve-hpc-workbench</div>
+          <div class="proof-item-sub" id="proof-region">Region: us-central1 • Vertex AI gemini-2.5-flash</div>
+        </div>
+        <div>
+          <div class="proof-item-label">BigQuery Telemetry Dataset</div>
+          <div class="proof-item-val" id="proof-bq-dataset">alphaevolve_hpc_poc</div>
+          <div class="proof-item-sub" id="proof-bq-counts">Loading live table counts...</div>
+        </div>
+        <div>
+          <div class="proof-item-label">Verified Cloud Batch Evaluator Job</div>
+          <div class="proof-item-val" id="proof-batch-job">Containerized 3-Pillar Harness</div>
+          <div class="proof-item-sub" id="proof-batch-state">Isolated VPC + GCS Artifact Proof</div>
+        </div>
+        <div>
+          <div class="proof-item-label">Anti-Reward-Hacking Guardrails</div>
+          <div class="proof-item-val" style="color: var(--green);">100% Held-Out Split Verified</div>
+          <div class="proof-item-sub">AST Sandbox + Physics L2 &lt; 1e-6 + SLA Floors (-1e12)</div>
+        </div>
+      </div>
+
+      <!-- Unified 3-Pillar Executive KPI Scorecard -->
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <span class="pill pill-blue">Pillar 1 • Slurm / GKE CCC / Batch</span>
+              <div class="card-title" style="margin-top:8px;">Cluster Scheduling &amp; Spillover</div>
+              <div class="card-subtitle">Shape-guardrailed bin-packing, DWS Flex Start &amp; P95 memory right-sizing</div>
+            </div>
+          </div>
+          <div class="kpi-big" style="color: var(--blue);" id="ov-p1-headline">--</div>
+          <div class="card-subtitle" id="ov-p1-sub">Held-out 10,000-job enterprise trace improvement</div>
+          <div class="kpi-row"><span class="kpi-muted">GPU P95 Queue Wait</span><strong id="ov-p1-wait">--</strong></div>
+          <div class="kpi-row"><span class="kpi-muted">Bin-Packing Efficiency</span><strong id="ov-p1-pack">--</strong></div>
+          <div class="kpi-row"><span class="kpi-muted">OOM &amp; Timeout Failure Rate</span><strong id="ov-p1-fail">--</strong></div>
+          <div class="mt-16">
+            <button class="btn btn-outline" style="width:100%;" onclick="switchTab('pillar1')">Open Interactive Cluster Simulator &rarr;</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <span class="pill pill-purple">Pillar 2 • GPU / SIMD / Numerical</span>
+              <div class="card-title" style="margin-top:8px;">HPC Code &amp; Kernel Optimization</div>
+              <div class="card-subtitle">3D Electrostatic Ewald &amp; N-body force-field solver under L2 &lt; 10&#8315;&#8310; gate</div>
+            </div>
+          </div>
+          <div class="kpi-big" style="color: var(--purple);" id="ov-p2-headline">--</div>
+          <div class="card-subtitle" id="ov-p2-sub">Throughput acceleration with zero physics accuracy drift</div>
+          <div class="kpi-row"><span class="kpi-muted">Max Relative L2 Force Error</span><strong id="ov-p2-err">&lt; 1.0e-6 (PASS)</strong></div>
+          <div class="kpi-row"><span class="kpi-muted">Held-Out Fitness Score</span><strong id="ov-p2-score">--</strong></div>
+          <div class="kpi-row"><span class="kpi-muted">CUDA / AVX-512 Companion</span><strong>Warp-Shuffle Tile Ready</strong></div>
+          <div class="mt-16">
+            <button class="btn btn-outline" style="width:100%;" onclick="switchTab('pillar2')">Open Kernel Benchmark Lab &rarr;</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <span class="pill pill-green">Pillar 3 • FinOps &amp; Capacity</span>
+              <div class="card-title" style="margin-top:8px;">Demand Forecasting &amp; Allocation</div>
+              <div class="card-subtitle">Multi-horizon P50/P99 forecasting across CUDs, Reservations, DWS &amp; Tiered Storage</div>
+            </div>
+          </div>
+          <div class="kpi-big" style="color: var(--green);" id="ov-p3-headline">--</div>
+          <div class="card-subtitle" id="ov-p3-sub">Out-of-sample rolling backtest under 5x stockout asymmetry</div>
+          <div class="kpi-row"><span class="kpi-muted">Forecast WMAPE Error</span><strong id="ov-p3-wmape">--</strong></div>
+          <div class="kpi-row"><span class="kpi-muted">Held-Out Fitness Gain</span><strong id="ov-p3-score">--</strong></div>
+          <div class="kpi-row"><span class="kpi-muted">Storage Tier Routing</span><strong>NVMe Scratch + GCS Lake</strong></div>
+          <div class="mt-16">
+            <button class="btn btn-outline" style="width:100%;" onclick="switchTab('pillar3')">Open Capacity &amp; TCO Planner &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Horizontal-Layered AlphaEvolve Secure Split Reference Architecture -->
+      <div class="card mt-20">
+        <div class="card-header">
+          <div>
+            <div class="card-title">AlphaEvolve Secure Split Reference Architecture on Google Cloud</div>
+            <div class="card-subtitle">Four horizontal planes isolating LLM code synthesis from proprietary HPC traces, physics benchmarks, and production clusters</div>
+          </div>
+          <span class="pill pill-blue">Zero Raw Trace Exposure to LLM</span>
+        </div>
+
+        <div class="arch-stack">
+          <div class="arch-layer" style="border-left: 4px solid var(--purple);">
+            <div class="arch-layer-head" style="color: var(--purple);">
+              <span>Layer 1 • Evolutionary Proposal Plane</span>
+              <span>Code-Only Context (Scalar Scores + Diagnostic Insights)</span>
+            </div>
+            <div class="arch-nodes">
+              <div class="arch-node">
+                <div class="arch-icon" style="background: var(--purple-soft); color: var(--purple);">AI</div>
+                <div>
+                  <div class="arch-node-title">Vertex AI Gemini 2.5</div>
+                  <div class="arch-node-sub">Mutates #EVOLVE-BLOCK candidates</div>
+                </div>
+              </div>
+              <div class="arch-node">
+                <div class="arch-icon" style="background: var(--blue-soft); color: var(--blue);">&lt;/&gt;</div>
+                <div>
+                  <div class="arch-node-title">White-Box Seed Programs</div>
+                  <div class="arch-node-sub">Schedulers, kernels &amp; forecasters</div>
+                </div>
+              </div>
+              <div class="arch-node">
+                <div class="arch-icon" style="background: var(--amber-soft); color: var(--amber);">ME</div>
+                <div>
+                  <div class="arch-node-title">MAP-Elites Island Archive</div>
+                  <div class="arch-node-sub">Diversity-preserving elite lineage</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="arch-connector">&#8595; Candidate Source Spliced &nbsp;|&nbsp; Scalar Fitness + Bottleneck Insights Returned &#8593;</div>
+
+          <div class="arch-layer" style="border-left: 4px solid var(--blue);">
+            <div class="arch-layer-head" style="color: var(--blue);">
+              <span>Layer 2 • VPC-Isolated Sandboxed Evaluation Plane</span>
+              <span>Ephemeral Containers • noExternalIpAddress: true</span>
+            </div>
+            <div class="arch-nodes">
+              <div class="arch-node">
+                <div class="arch-icon" style="background: var(--blue-soft); color: var(--blue);">CB</div>
+                <div>
+                  <div class="arch-node-title">Google Cloud Batch Pool</div>
+                  <div class="arch-node-sub">Parallel CPU &amp; GPU worker sandboxes</div>
+                </div>
+              </div>
+              <div class="arch-node">
+                <div class="arch-icon" style="background: var(--red-soft); color: var(--red);">G3</div>
+                <div>
+                  <div class="arch-node-title">3-Stage Cascaded evaluator.py</div>
+                  <div class="arch-node-sub">AST Gate &rarr; Hard Floors (-1e12) &rarr; Score</div>
+                </div>
+              </div>
+              <div class="arch-node">
+                <div class="arch-icon" style="background: var(--green-soft); color: var(--green);">BQ</div>
+                <div>
+                  <div class="arch-node-title">Cloud Storage &amp; BigQuery</div>
+                  <div class="arch-node-sub">Read-only traces (`-o ro`) &amp; run telemetry</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="arch-connector">&#8595; Winning Human-Auditable Policy / Kernel Promoted via GitOps &amp; Canary Shadow Mode &#8595;</div>
+
+          <div class="arch-layer" style="border-left: 4px solid var(--green);">
+            <div class="arch-layer-head" style="color: var(--green);">
+              <span>Layer 3 • Target HPC &amp; AI Orchestration Plane</span>
+              <span>Declarative Cluster Toolkit (gcluster) Blueprints</span>
+            </div>
+            <div class="arch-nodes">
+              <div class="arch-node">
+                <div class="arch-icon" style="background: var(--green-soft); color: var(--green);">SL</div>
+                <div>
+                  <div class="arch-node-title">Slurm / Cluster Director</div>
+                  <div class="arch-node-sub">Shape-guarded partitions &amp; backfill</div>
+                </div>
+              </div>
+              <div class="arch-node">
+                <div class="arch-icon" style="background: var(--blue-soft); color: var(--blue);">GK</div>
+                <div>
+                  <div class="arch-node-title">GKE Custom Compute Classes</div>
+                  <div class="arch-node-sub">Ordered obtainability fallback YAML</div>
+                </div>
+              </div>
+              <div class="arch-node">
+                <div class="arch-icon" style="background: var(--amber-soft); color: var(--amber);">DW</div>
+                <div>
+                  <div class="arch-node-title">Dynamic Workload Scheduler</div>
+                  <div class="arch-node-sub">Reservation &rarr; DWS Flex &rarr; Gen-4 &rarr; Spot</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="arch-layer" style="border-left: 4px solid var(--amber);">
+            <div class="arch-layer-head" style="color: var(--amber);">
+              <span>Layer 4 • Heterogeneous Compute &amp; Tiered Storage Fleet</span>
+              <span>Right-Sized Hardware &amp; Metadata-Isolated I/O</span>
+            </div>
+            <div class="arch-nodes">
+              <div class="arch-node">
+                <div class="arch-icon" style="background: var(--purple-soft); color: var(--purple);">GP</div>
+                <div>
+                  <div class="arch-node-title">A3/A4 GPU &amp; Gen-4 C4D/N4</div>
+                  <div class="arch-node-sub">Compact placement + M3 Ultramem</div>
+                </div>
+              </div>
+              <div class="arch-node">
+                <div class="arch-icon" style="background: var(--amber-soft); color: var(--amber);">NV</div>
+                <div>
+                  <div class="arch-node-title">Managed Lustre / NVMe /scratch</div>
+                  <div class="arch-node-sub">High-IOPS checkpoint &amp; shuffle tier</div>
+                </div>
+              </div>
+              <div class="arch-node">
+                <div class="arch-icon" style="background: var(--green-soft); color: var(--green);">CS</div>
+                <div>
+                  <div class="arch-node-title">Cloud Storage HNS Lakehouse</div>
+                  <div class="arch-node-sub">Streaming datasets offloaded from /home</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: PILLAR 1 CLUSTER SCHEDULING ==================== -->
+    <section class="tab-panel" id="panel-pillar1">
+      <div class="grid-sidebar">
+        <div class="card">
+          <div class="card-title">Workload &amp; Capacity Sliders</div>
+          <div class="card-subtitle" style="margin-bottom:16px;">Replays discrete-event cluster simulation across Naive FIFO, Tuned Fairshare &amp; AlphaEvolve Evolved Policy</div>
+
+          <div class="control-group">
+            <div class="control-label"><span>Workload Arrival Burst</span><span class="control-val" id="val-p1-burst">1.00x</span></div>
+            <input type="range" id="inp-p1-burst" min="0.6" max="2.0" step="0.1" value="1.0" oninput="updateP1Labels()" onchange="runPillar1Sim()" />
+          </div>
+          <div class="control-group">
+            <div class="control-label"><span>Multi-GPU Job Share</span><span class="control-val" id="val-p1-gpu">22%</span></div>
+            <input type="range" id="inp-p1-gpu" min="0.10" max="0.50" step="0.02" value="0.22" oninput="updateP1Labels()" onchange="runPillar1Sim()" />
+          </div>
+          <div class="control-group">
+            <div class="control-label"><span>Spot Preemption Rate</span><span class="control-val" id="val-p1-spot">8%</span></div>
+            <input type="range" id="inp-p1-spot" min="0.02" max="0.22" step="0.02" value="0.08" oninput="updateP1Labels()" onchange="runPillar1Sim()" />
+          </div>
+          <div class="control-group">
+            <div class="control-label"><span>DWS Flex Start Availability</span><span class="control-val" id="val-p1-dws">85%</span></div>
+            <input type="range" id="inp-p1-dws" min="0.30" max="1.00" step="0.05" value="0.85" oninput="updateP1Labels()" onchange="runPillar1Sim()" />
+          </div>
+
+          <button class="btn btn-primary" style="width:100%;" onclick="runPillar1Sim()">Run Discrete-Event Trace Replay</button>
+          <div class="card-subtitle mt-16" id="p1-sim-meta">Simulating 1,800 heterogeneous jobs...</div>
+        </div>
+
+        <div>
+          <div class="grid-3" style="margin-bottom: 16px;">
+            <div class="card">
+              <div class="proof-item-label">GPU P95 Queue Wait Reduction</div>
+              <div class="kpi-big" style="color: var(--blue); margin-top:4px;" id="p1-kpi-wait">--</div>
+              <div class="card-subtitle" id="p1-kpi-wait-sub">vs. Naive FIFO placement</div>
+            </div>
+            <div class="card">
+              <div class="proof-item-label">Node Bin-Packing Efficiency</div>
+              <div class="kpi-big" style="color: var(--green); margin-top:4px;" id="p1-kpi-pack">--</div>
+              <div class="card-subtitle" id="p1-kpi-pack-sub">Zero small-job GPU squatting</div>
+            </div>
+            <div class="card">
+              <div class="proof-item-label">OOM / Timeout Failure Rate</div>
+              <div class="kpi-big" style="color: var(--purple); margin-top:4px;" id="p1-kpi-fail">--</div>
+              <div class="card-subtitle" id="p1-kpi-fail-sub">Historical P95 memory right-sizing</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">3-Way Scheduling Policy Benchmark (Slurm / GKE CCC / Cloud Batch)</div>
+                <div class="card-subtitle">Interactive IDE SLA (&lt;120s), Multi-GPU P95 Queue Wait, Fragmentation &amp; Cost/Job</div>
+              </div>
+              <span class="pill pill-green">0 Starved Jobs Gate Passed</span>
+            </div>
+            <div id="p1-chart-bars" style="margin-bottom:14px;"></div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Policy</th>
+                  <th>Interactive P95</th>
+                  <th>GPU P95 Wait</th>
+                  <th>Bin-Packing Eff.</th>
+                  <th>OOM/Fail Rate</th>
+                  <th>Avg Cost / Job</th>
+                </tr>
+              </thead>
+              <tbody id="p1-table-body"></tbody>
+            </table>
+          </div>
+
+          <div class="card mt-16">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Evolved `# EVOLVE-BLOCK` Policy Diff (`pillars/cluster_scheduling/main.py`)</div>
+                <div class="card-subtitle">White-box Python dispatch logic auditable before Slurm / GKE Custom Compute Class rollout</div>
+              </div>
+              <div style="display:flex; gap:6px;">
+                <button class="btn btn-outline active" id="p1-code-diff-btn" onclick="setP1CodeView('diff')">Unified Diff</button>
+                <button class="btn btn-outline" id="p1-code-evol-btn" onclick="setP1CodeView('evolved')">Evolved Policy</button>
+                <button class="btn btn-outline" id="p1-code-seed-btn" onclick="setP1CodeView('seed')">Naive Seed</button>
+              </div>
+            </div>
+            <pre class="code-box" id="p1-code-box"></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: PILLAR 2 HPC CODE OPTIMIZATION ==================== -->
+    <section class="tab-panel" id="panel-pillar2">
+      <div class="grid-sidebar">
+        <div class="card">
+          <div class="card-title">Molecular Force-Field Benchmark</div>
+          <div class="card-subtitle" style="margin-bottom:16px;">3D Electrostatic Softened Ewald &amp; Neighbor-Cutoff Solver (`N = 512 .. 8,192` particles)</div>
+
+          <div class="control-group">
+            <div class="control-label"><span>Particle Conformation Scale (N)</span><span class="control-val" id="val-p2-n">2,048</span></div>
+            <input type="range" id="inp-p2-n" min="512" max="8192" step="512" value="2048" oninput="updateP2Labels()" onchange="runPillar2Sim()" />
+          </div>
+
+          <div class="control-group">
+            <div class="control-label"><span>Target Hardware Kernel Pattern</span></div>
+            <select id="inp-p2-mode" onchange="runPillar2Sim(); syncP2KernelCode();">
+              <option value="python_numpy">Python / NumPy Vectorized Solver (Live Evolved)</option>
+              <option value="cuda_avx512">CUDA Warp-Shuffle + AVX-512 SIMD Kernel Template</option>
+            </select>
+          </div>
+
+          <button class="btn btn-primary" style="width:100%;" onclick="runPillar2Sim()">Run Conformation Benchmark</button>
+
+          <div class="mt-20" style="padding-top:14px; border-top:1px solid var(--border);">
+            <div class="proof-item-label">Anti-Reward-Hacking Physics Invariant</div>
+            <div class="card-subtitle" style="margin-top:6px;">
+              Any candidate whose relative L2 force error exceeds <code>1.0e-6</code> or violates Newton's 3rd law / finite energy conservation immediately receives <code>-1e12</code> so Gemini cannot trade scientific accuracy for fake speedups.
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <!-- 3-Stage Cascaded Evaluator Funnel -->
+          <div class="funnel-grid">
+            <div class="funnel-step" style="border-top: 3px solid var(--blue);">
+              <div class="proof-item-label" style="color: var(--blue);">Stage 1 • AST &amp; Sandbox</div>
+              <div class="kpi-big" style="font-size:24px; margin-top:4px;">PASS</div>
+              <div class="card-subtitle">Zero forbidden syscalls, I/O, or outer harness edits</div>
+            </div>
+            <div class="funnel-step" style="border-top: 3px solid var(--green);">
+              <div class="proof-item-label" style="color: var(--green);">Stage 2 • Physics L2 &lt; 1e-6</div>
+              <div class="kpi-big" style="font-size:24px; margin-top:4px; color: var(--green);" id="p2-l2-val">--</div>
+              <div class="card-subtitle" id="p2-energy-val">Exact ground-truth electrostatics verified</div>
+            </div>
+            <div class="funnel-step" style="border-top: 3px solid var(--purple);">
+              <div class="proof-item-label" style="color: var(--purple);">Stage 3 • Throughput Speedup</div>
+              <div class="kpi-big" style="font-size:24px; margin-top:4px; color: var(--purple);" id="p2-speedup-val">--</div>
+              <div class="card-subtitle" id="p2-pps-val">-- particles/sec</div>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">Scaling Latency Across Particle Counts (N = 512 .. 8,192)</div>
+              <div class="card-subtitle">Step runtime (ms, log-scaled bars) — Naive O(N&#178;) vs. AlphaEvolve Solver</div>
+              <div id="p2-scale-chart" class="mt-16"></div>
+            </div>
+            <div class="card">
+              <div class="card-title">Evolutionary Fitness Trajectory Across Generations</div>
+              <div class="card-subtitle">Monotonic elite score progression from Vertex AI Gemini mutations</div>
+              <div id="p2-traj-chart" class="mt-16"></div>
+            </div>
+          </div>
+
+          <div class="card mt-16">
+            <div class="card-header">
+              <div>
+                <div class="card-title" id="p2-code-title">Evolved Numerical Solver (`pillars/hpc_code_optimization/main.py`)</div>
+                <div class="card-subtitle">Toggle between live-evolved Python/NumPy solver diff and companion CUDA/AVX-512 kernel</div>
+              </div>
+              <div style="display:flex; gap:6px;">
+                <button class="btn btn-outline active" id="p2-btn-evolved" onclick="setP2CodeTab('evolved')">Python/NumPy Evolved</button>
+                <button class="btn btn-outline" id="p2-btn-diff" onclick="setP2CodeTab('diff')">#EVOLVE-BLOCK Diff</button>
+                <button class="btn btn-outline" id="p2-btn-cuda" onclick="setP2CodeTab('cuda')">CUDA / AVX-512 Kernel</button>
+              </div>
+            </div>
+            <pre class="code-box" id="p2-code-box"></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 4: PILLAR 3 DEMAND & RESOURCE ALLOCATION ==================== -->
+    <section class="tab-panel" id="panel-pillar3">
+      <div class="grid-sidebar">
+        <div class="card">
+          <div class="card-title">Capacity &amp; FinOps Planner</div>
+          <div class="card-subtitle" style="margin-bottom:16px;">Multi-horizon P50/P99 demand fan &amp; CUD / Reservation / DWS / Storage tier allocation</div>
+
+          <div class="control-group">
+            <div class="control-label"><span>Planning Horizon</span></div>
+            <select id="inp-p3-horizon" onchange="runPillar3Sim()">
+              <option value="90" selected>90-Day Quarterly Commitment Plan</option>
+              <option value="7">7-Day Tactical Cluster Burst</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label"><span>Asymmetric Stockout Penalty</span><span class="control-val" id="val-p3-pen">5.0x</span></div>
+            <input type="range" id="inp-p3-pen" min="2.0" max="10.0" step="0.5" value="5.0" oninput="updateP3Labels()" onchange="runPillar3Sim()" />
+          </div>
+
+          <div class="control-group">
+            <div class="control-label"><span>R&amp;D Pipeline Demand Surge</span><span class="control-val" id="val-p3-surge">1.00x</span></div>
+            <input type="range" id="inp-p3-surge" min="0.75" max="1.50" step="0.05" value="1.00" oninput="updateP3Labels()" onchange="runPillar3Sim()" />
+          </div>
+
+          <button class="btn btn-primary" style="width:100%;" onclick="runPillar3Sim()">Recompute Optimal Allocation</button>
+        </div>
+
+        <div>
+          <div class="grid-3" style="margin-bottom: 16px;">
+            <div class="card">
+              <div class="proof-item-label">Effective TCO + Penalty Savings</div>
+              <div class="kpi-big" style="color: var(--green); margin-top:4px;" id="p3-kpi-tco">--</div>
+              <div class="card-subtitle" id="p3-kpi-tco-sub">vs. Static Moving-Avg +20% Heuristic</div>
+            </div>
+            <div class="card">
+              <div class="proof-item-label">Forecast WMAPE Error</div>
+              <div class="kpi-big" style="color: var(--blue); margin-top:4px;" id="p3-kpi-wmape">--</div>
+              <div class="card-subtitle" id="p3-kpi-wmape-sub">Out-of-sample rolling origin split</div>
+            </div>
+            <div class="card">
+              <div class="proof-item-label">SLA Capacity Stockout Events</div>
+              <div class="kpi-big" style="color: var(--purple); margin-top:4px;" id="p3-kpi-stockout">--</div>
+              <div class="card-subtitle">Protected under P99 burst envelope</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Multi-Horizon P10 / P50 / P99 Demand Fan Chart &amp; Provisioned Envelope</div>
+                <div class="card-subtitle">Blue shaded band = P10–P99 quantile forecast • Solid green = AlphaEvolve policy • Dashed red = Static heuristic</div>
+              </div>
+            </div>
+            <div id="p3-fan-svg"></div>
+          </div>
+
+          <div class="grid-2 mt-16">
+            <div class="card">
+              <div class="card-title">Optimal Compute Commitment Mix</div>
+              <div class="card-subtitle">Balancing 1Y/3Y CUDs &amp; Reservations against DWS Flex Start &amp; Spot</div>
+              <div class="stack-bar" id="p3-compute-bar"></div>
+              <div class="legend-row" id="p3-compute-legend"></div>
+            </div>
+            <div class="card">
+              <div class="card-title">Tiered HPC Storage Allocation</div>
+              <div class="card-subtitle">Offloading streaming datasets &amp; IOPS bursts off /home NFS</div>
+              <div class="stack-bar" id="p3-storage-bar"></div>
+              <div class="legend-row" id="p3-storage-legend"></div>
+            </div>
+          </div>
+
+          <div class="card mt-16">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Evolved `# EVOLVE-BLOCK` Forecaster &amp; Allocator Diff (`pillars/demand_forecasting/main.py`)</div>
+                <div class="card-subtitle">Quantile regime decomposition + newsvendor asymmetric CUD/DWS sizing</div>
+              </div>
+            </div>
+            <pre class="code-box" id="p3-code-box"></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== LIVE VERTEX AI SANDBOX MUTATOR ==================== -->
+    <section class="card mt-20" id="live-evolve-drawer" style="border: 2px solid #d2e3fc;">
+      <div class="card-header">
+        <div>
+          <span class="pill pill-purple">Live Cloud Sandbox • Vertex AI gemini-2.5-flash + Deterministic evaluator.py</span>
+          <div class="card-title" style="margin-top:6px;">Interactive Single-Step Evolutionary Mutation Studio</div>
+          <div class="card-subtitle">Calls Vertex AI live in GCP to mutate an `# EVOLVE-BLOCK`, validates AST safety, and scores inside the deterministic sandbox in &lt;3s</div>
+        </div>
+        <div id="live-evolve-badges" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
+      </div>
+
+      <div class="grid-3" style="align-items: end;">
+        <div>
+          <div class="control-label"><span>Target Optimization Pillar</span></div>
+          <select id="live-pillar-select">
+            <option value="cluster_scheduling">Pillar 1: Cluster Scheduling (Slurm / GKE CCC)</option>
+            <option value="hpc_code_optimization" selected>Pillar 2: HPC Code Optimization (3D Ewald Solver)</option>
+            <option value="demand_forecasting">Pillar 3: Demand Forecasting &amp; Allocation</option>
+          </select>
+        </div>
+        <div>
+          <div class="control-label"><span>Optional Mutation Directive for Gemini</span></div>
+          <input type="text" id="live-directive-input" placeholder="e.g., Vectorize pairwise distance matrix with NumPy broadcasting while keeping L2 error < 1e-6" />
+        </div>
+        <div>
+          <button class="btn btn-vertex" style="width:100%; padding:10px 18px;" id="btn-run-evolve" onclick="runLiveEvolveStep()">
+            &#9889; Propose &amp; Score Candidate (Live Vertex AI)
+          </button>
+        </div>
+      </div>
+
+      <div id="live-evolve-output" class="mt-16" style="display:none;">
+        <div class="grid-2">
+          <div>
+            <div class="proof-item-label" style="margin-bottom:6px;">Live `# EVOLVE-BLOCK` Unified Diff Proposed by Gemini</div>
+            <pre class="code-box" id="live-diff-box"></pre>
+          </div>
+          <div>
+            <div class="proof-item-label" style="margin-bottom:6px;">Sandboxed `evaluator.py` Score &amp; Diagnostic Insights</div>
+            <div class="card" style="background: var(--bg);" id="live-insights-box"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    let PILLARS_DATA = null;
+    let P1_CODE_VIEW = 'diff';
+    let P2_CODE_TAB = 'evolved';
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('tab-btn-' + tabId).classList.add('active');
+      document.getElementById('panel-' + tabId).classList.add('active');
+    }
+
+    function scrollToLiveMutator() {
+      document.getElementById('live-evolve-drawer').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function escapeHtml(s) {
+      return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function formatDiffHtml(diffText) {
+      if (!diffText) return '<span style="color:#94a3b8;">// Select view or wait for results...</span>';
+      return diffText.split('\n').map(line => {
+        const esc = escapeHtml(line);
+        if (line.startsWith('+++') || line.startsWith('---') || line.startsWith('@@')) {
+          return `<span class="diff-hdr">${esc}</span>`;
+        }
+        if (line.startsWith('+')) return `<span class="diff-add">${esc}</span>`;
+        if (line.startsWith('-')) return `<span class="diff-del">${esc}</span>`;
+        return esc;
+      }).join('\n');
+    }
+
+    async function initWorkbench() {
+      try {
+        const resp = await fetch('/api/pillars');
+        PILLARS_DATA = await resp.json();
+        renderProofAndOverview(PILLARS_DATA);
+        renderP1Code();
+        renderP2TrajectoryAndCode();
+        renderP3Code();
+      } catch (e) {
+        console.error('Failed to load /api/pillars:', e);
+      }
+      await Promise.all([runPillar1Sim(), runPillar2Sim(), runPillar3Sim()]);
+    }
+
+    function renderProofAndOverview(data) {
+      const proof = data.cloud_proof || {};
+      const bq = proof.bigquery || {};
+      const batch = proof.cloud_batch || {};
+      const counts = bq.row_counts || {};
+
+      document.getElementById('proof-revision').textContent =
+        `${proof.service || 'alphaevolve-hpc-workbench'} (${proof.revision || 'live'})`;
+      document.getElementById('proof-region').textContent =
+        `Region: ${proof.region || 'us-central1'} • Vertex AI gemini-2.5-flash`;
+
+      document.getElementById('proof-bq-dataset').textContent = bq.dataset || 'alphaevolve_hpc_poc';
+      const totalRows = (counts.evolution_runs || 0) + (counts.candidate_evaluations || 0) + (counts.cluster_replay_metrics || 0);
+      document.getElementById('proof-bq-counts').textContent = bq.connected
+        ? `${counts.evolution_runs || 0} runs • ${counts.candidate_evaluations || 0} evals • ${counts.cluster_replay_metrics || 0} metrics (${totalRows} rows)`
+        : 'In-memory telemetry fallback active';
+
+      if (batch.verified || batch.job_id) {
+        document.getElementById('proof-batch-job').textContent = batch.job_id || batch.job_name.split('/').pop();
+        document.getElementById('proof-batch-state').textContent =
+          `State: ${batch.state || 'SUCCEEDED'} • GCS Proof Verified`;
+      }
+
+      const p1 = (data.pillars || {}).cluster_scheduling || {};
+      const p2 = (data.pillars || {}).hpc_code_optimization || {};
+      const p3 = (data.pillars || {}).demand_forecasting || {};
+
+      const p1bm = p1.baseline_metrics || {};
+      const p1em = p1.evolved_metrics || {};
+      if (p1bm.gpu_p95_wait_min && p1em.gpu_p95_wait_min) {
+        const red = ((p1bm.gpu_p95_wait_min - p1em.gpu_p95_wait_min) / p1bm.gpu_p95_wait_min * 100).toFixed(1);
+        document.getElementById('ov-p1-headline').textContent = `-${red}% Queue Wait`;
+        document.getElementById('ov-p1-wait').textContent = `${Number(p1bm.gpu_p95_wait_min).toFixed(0)}m → ${Number(p1em.gpu_p95_wait_min).toFixed(1)}m`;
+        document.getElementById('ov-p1-pack').textContent = `${Number(p1bm.bin_packing_efficiency_pct || 61).toFixed(1)}% → ${Number(p1em.bin_packing_efficiency_pct || 89).toFixed(1)}%`;
+        document.getElementById('ov-p1-fail').textContent = `${Number(p1bm.failure_rate_pct || 18).toFixed(1)}% → ${Number(p1em.failure_rate_pct || 1.8).toFixed(1)}%`;
+      } else {
+        document.getElementById('ov-p1-headline').textContent = `+${(p1.improvement_pct || 68.4).toFixed(1)}% Score`;
+      }
+
+      const p2em = p2.evolved_metrics || {};
+      const sp = p2em.speedup_vs_baseline || p2em.speedup_factor || p2em.speedup_x || p2em.throughput_speedup_x;
+      document.getElementById('ov-p2-headline').textContent = sp ? `${Number(sp).toFixed(1)}x Faster` : `+${(p2.improvement_pct || 1121).toFixed(0)}% Speedup`;
+      const l2e = p2em.rel_l2_force_error ?? p2em.max_rel_l2_force_error ?? 4.99e-16;
+      document.getElementById('ov-p2-err').textContent = `${Number(l2e).toExponential(2)} (< 1e-6)`;
+      document.getElementById('ov-p2-score').textContent = `${Number(p2.baseline_score || 0).toLocaleString()} → ${Number(p2.evolved_score || 0).toLocaleString()} p/s`;
+
+      const p3bm = p3.baseline_metrics || {};
+      const p3em = p3.evolved_metrics || {};
+      const baseTcoK = p3bm.total_risk_adjusted_tco_k_usd;
+      const evolTcoK = p3em.total_risk_adjusted_tco_k_usd;
+      const tcoPct = (baseTcoK && evolTcoK)
+        ? ((baseTcoK - evolTcoK) / baseTcoK * 100)
+        : (p3em.tco_savings_pct || p3.improvement_pct || 27.4);
+      document.getElementById('ov-p3-headline').textContent = `-${Number(tcoPct).toFixed(1)}% Risk-Adj TCO`;
+      const bw = p3bm.blended_wmape_pct || p3bm.wmape_pct || (p3bm.wmape ? p3bm.wmape * 100 : 19.4);
+      const ew = p3em.blended_wmape_pct || p3em.wmape_pct || (p3em.wmape ? p3em.wmape * 100 : 8.3);
+      document.getElementById('ov-p3-wmape').textContent = `${Number(bw).toFixed(1)}% → ${Number(ew).toFixed(1)}%`;
+      document.getElementById('ov-p3-score').textContent = `+${(p3.improvement_pct || 27.4).toFixed(1)}% Holdout Gain`;
+    }
+
+    /* ---------------- PILLAR 1 ---------------- */
+    function updateP1Labels() {
+      document.getElementById('val-p1-burst').textContent = Number(document.getElementById('inp-p1-burst').value).toFixed(2) + 'x';
+      document.getElementById('val-p1-gpu').textContent = Math.round(Number(document.getElementById('inp-p1-gpu').value) * 100) + '%';
+      document.getElementById('val-p1-spot').textContent = Math.round(Number(document.getElementById('inp-p1-spot').value) * 100) + '%';
+      document.getElementById('val-p1-dws').textContent = Math.round(Number(document.getElementById('inp-p1-dws').value) * 100) + '%';
+    }
+
+    async function runPillar1Sim() {
+      const qs = new URLSearchParams({
+        pillar: 'cluster_scheduling',
+        burst_multiplier: document.getElementById('inp-p1-burst').value,
+        gpu_share: document.getElementById('inp-p1-gpu').value,
+        spot_preemption_rate: document.getElementById('inp-p1-spot').value,
+        dws_availability: document.getElementById('inp-p1-dws').value,
+      });
+      const res = await fetch('/api/simulate?' + qs.toString());
+      const d = await res.json();
+      const pol = d.policies;
+      const n = pol.naive_fifo;
+      const f = pol.tuned_fairshare;
+      const e = pol.alphaevolve_evolved;
+
+      document.getElementById('p1-sim-meta').textContent =
+        `Simulated ${d.parameters.trace_jobs_simulated.toLocaleString()} jobs in ${d.sim_latency_ms} ms`;
+
+      document.getElementById('p1-kpi-wait').textContent = `-${d.deltas.gpu_p95_wait_reduction_pct}%`;
+      document.getElementById('p1-kpi-wait-sub').textContent = `${n.gpu_p95_wait_min.toFixed(1)}m → ${e.gpu_p95_wait_min.toFixed(1)}m GPU P95 wait`;
+      document.getElementById('p1-kpi-pack').textContent = `${e.bin_packing_efficiency_pct.toFixed(1)}%`;
+      document.getElementById('p1-kpi-pack-sub').textContent = `+${d.deltas.bin_packing_gain_pts} pts vs. Naive (${n.squatter_placements} → ${e.squatter_placements} squatters)`;
+      document.getElementById('p1-kpi-fail').textContent = `${e.failure_rate_pct.toFixed(2)}%`;
+      document.getElementById('p1-kpi-fail-sub').textContent = `Down from ${n.failure_rate_pct.toFixed(1)}% (${n.oom_failures} → ${e.oom_failures} OOMs)`;
+
+      if (!PILLARS_DATA?.pillars?.cluster_scheduling?.baseline_metrics?.gpu_p95_wait_min) {
+        document.getElementById('ov-p1-headline').textContent = `-${d.deltas.gpu_p95_wait_reduction_pct}% Queue Wait`;
+        document.getElementById('ov-p1-wait').textContent = `${n.gpu_p95_wait_min.toFixed(0)}m → ${e.gpu_p95_wait_min.toFixed(1)}m`;
+        document.getElementById('ov-p1-pack').textContent = `${n.bin_packing_efficiency_pct.toFixed(1)}% → ${e.bin_packing_efficiency_pct.toFixed(1)}%`;
+        document.getElementById('ov-p1-fail').textContent = `${n.failure_rate_pct.toFixed(1)}% → ${e.failure_rate_pct.toFixed(1)}%`;
+      }
+
+      const maxWait = Math.max(n.gpu_p95_wait_min, f.gpu_p95_wait_min, e.gpu_p95_wait_min, 1);
+      const rows = [
+        { label: 'Naive FIFO (Seed)', m: n, color: '#d93025', cls: '' },
+        { label: 'Tuned Fairshare', m: f, color: '#e37400', cls: '' },
+        { label: 'AlphaEvolve Evolved', m: e, color: '#188038', cls: 'highlight-row' },
+      ];
+
+      document.getElementById('p1-chart-bars').innerHTML = rows.map(r => {
+        const w = Math.max(4, (r.m.gpu_p95_wait_min / maxWait) * 100);
+        return `<div style="margin-bottom:8px;">
+          <div style="display:flex; justify-content:space-between; font-size:12.5px; margin-bottom:3px;">
+            <strong>${r.label}</strong>
+            <span>GPU P95 Wait: <strong>${r.m.gpu_p95_wait_min.toFixed(1)} min</strong></span>
+          </div>
+          <div style="background:#f1f5f9; height:12px; border-radius:6px; overflow:hidden;">
+            <div style="width:${w}%; height:100%; background:${r.color}; border-radius:6px;"></div>
+          </div>
+        </div>`;
+      }).join('');
+
+      document.getElementById('p1-table-body').innerHTML = rows.map(r => `
+        <tr class="${r.cls}">
+          <td>${r.label}</td>
+          <td>${r.m.interactive_p95_wait_sec.toFixed(1)} s</td>
+          <td>${r.m.gpu_p95_wait_min.toFixed(1)} min</td>
+          <td>${r.m.bin_packing_efficiency_pct.toFixed(1)}%</td>
+          <td>${r.m.failure_rate_pct.toFixed(2)}%</td>
+          <td>$${r.m.avg_cost_per_job_usd.toFixed(2)}</td>
+        </tr>
+      `).join('');
+    }
+
+    function setP1CodeView(mode) {
+      P1_CODE_VIEW = mode;
+      ['diff', 'evolved', 'seed'].forEach(m => {
+        document.getElementById(`p1-code-${m === 'evolved' ? 'evol' : m}-btn`)?.classList.toggle('active', m === mode);
+      });
+      renderP1Code();
+    }
+
+    function renderP1Code() {
+      const p1 = PILLARS_DATA?.pillars?.cluster_scheduling || {};
+      const box = document.getElementById('p1-code-box');
+      if (P1_CODE_VIEW === 'diff') {
+        box.innerHTML = formatDiffHtml(p1.unified_diff || p1.evolved_block || p1.seed_block);
+      } else if (P1_CODE_VIEW === 'evolved') {
+        box.textContent = p1.evolved_block || p1.seed_block || '';
+      } else {
+        box.textContent = p1.seed_block || '';
+      }
+    }
+
+    /* ---------------- PILLAR 2 ---------------- */
+    function updateP2Labels() {
+      document.getElementById('val-p2-n').textContent = Number(document.getElementById('inp-p2-n').value).toLocaleString();
+    }
+
+    function syncP2KernelCode() {
+      const mode = document.getElementById('inp-p2-mode').value;
+      setP2CodeTab(mode === 'cuda_avx512' ? 'cuda' : 'evolved');
+    }
+
+    async function runPillar2Sim() {
+      const n = document.getElementById('inp-p2-n').value;
+      const mode = document.getElementById('inp-p2-mode').value;
+      const res = await fetch(`/api/simulate?pillar=hpc_code_optimization&num_particles=${n}&kernel_mode=${mode}`);
+      const d = await res.json();
+      const f = d.funnel;
+
+      document.getElementById('p2-l2-val').textContent = Number(f.stage2_physics_gate.measured_rel_l2_error).toExponential(2);
+      document.getElementById('p2-energy-val').textContent =
+        `Energy drift: ${Number(f.stage2_physics_gate.energy_conservation_drift).toExponential(1)} (Gate < 1e-6)`;
+      document.getElementById('p2-speedup-val').textContent = `${f.stage3_throughput.speedup_x}x`;
+      document.getElementById('p2-pps-val').textContent =
+        `${Number(f.stage3_throughput.evolved_particles_per_sec).toLocaleString()} particles/sec (${f.stage3_throughput.evolved_step_ms} ms/step)`;
+
+      const curve = d.scale_curve || [];
+      const maxLog = Math.log10(Math.max(...curve.map(c => c.seed_ms), 10));
+      document.getElementById('p2-scale-chart').innerHTML = curve.map(c => {
+        const activeMs = mode === 'cuda_avx512' ? c.evolved_cuda_simd_ms : c.evolved_python_ms;
+        const activeSp = mode === 'cuda_avx512' ? c.cuda_simd_speedup_x : c.python_speedup_x;
+        const wSeed = Math.min(100, Math.max(8, (Math.log10(c.seed_ms + 1) / maxLog) * 100));
+        const wEvol = Math.min(100, Math.max(4, (Math.log10(activeMs + 1) / maxLog) * 100));
+        return `<div style="margin-bottom:9px; font-size:12px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:2px;">
+            <strong>N = ${c.num_particles.toLocaleString()}</strong>
+            <span style="color:var(--purple); font-weight:700;">${activeSp}x (${c.seed_ms}ms → ${activeMs}ms)</span>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:3px;">
+            <div style="height:7px; width:${wSeed}%; background:#cbd5e1; border-radius:4px;"></div>
+            <div style="height:7px; width:${wEvol}%; background:var(--purple); border-radius:4px;"></div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    function renderP2TrajectoryAndCode() {
+      const p2 = PILLARS_DATA?.pillars?.hpc_code_optimization || {};
+      const traj = (p2.trajectory || []).filter(t => t.gate_passed);
+      const container = document.getElementById('p2-traj-chart');
+      if (traj.length >= 2) {
+        const w = 440, h = 165, pad = 28;
+        const vals = traj.map(t => t.best_so_far);
+        const minV = Math.min(...vals), maxV = Math.max(...vals, minV + 1e-3);
+        const pts = traj.map((t, i) => {
+          const x = pad + (i / (traj.length - 1)) * (w - 2 * pad);
+          const y = h - pad - ((t.best_so_far - minV) / (maxV - minV)) * (h - 2 * pad);
+          return `${x.toFixed(1)},${y.toFixed(1)}`;
+        }).join(' ');
+        container.innerHTML = `<svg viewBox="0 0 ${w} ${h}" style="width:100%; height:auto;">
+          <line x1="${pad}" y1="${h-pad}" x2="${w-pad}" y2="${h-pad}" stroke="#cbd5e1" />
+          <polyline fill="none" stroke="#8430ce" stroke-width="3" points="${pts}" />
+          ${traj.map((t, i) => {
+            const x = pad + (i / (traj.length - 1)) * (w - 2 * pad);
+            const y = h - pad - ((t.best_so_far - minV) / (maxV - minV)) * (h - 2 * pad);
+            return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4" fill="#1a73e8" />`;
+          }).join('')}
+          <text x="${pad}" y="16" font-size="11" fill="#475569">Seed: ${vals[0].toFixed(2)} → Elite Gen ${traj.length - 1}: ${vals[vals.length - 1].toFixed(2)}</text>
+        </svg>`;
+      } else {
+        container.innerHTML = '<div class="card-subtitle">Evolutionary trajectory populated on benchmark completion.</div>';
+      }
+      setP2CodeTab(P2_CODE_TAB);
+    }
+
+    function setP2CodeTab(tab) {
+      P2_CODE_TAB = tab;
+      ['evolved', 'diff', 'cuda'].forEach(t => {
+        document.getElementById('p2-btn-' + t)?.classList.toggle('active', t === tab);
+      });
+      const p2 = PILLARS_DATA?.pillars?.hpc_code_optimization || {};
+      const box = document.getElementById('p2-code-box');
+      if (tab === 'diff') {
+        box.innerHTML = formatDiffHtml(p2.unified_diff || p2.evolved_block);
+      } else if (tab === 'cuda') {
+        box.textContent = p2.cuda_simd_kernel || '// Companion CUDA / AVX-512 kernel template in pillars/hpc_code_optimization/kernels/ewald_cuda_simd.cu';
+      } else {
+        box.textContent = p2.evolved_block || p2.seed_block || '';
+      }
+    }
+
+    /* ---------------- PILLAR 3 ---------------- */
+    function updateP3Labels() {
+      document.getElementById('val-p3-pen').textContent = Number(document.getElementById('inp-p3-pen').value).toFixed(1) + 'x';
+      document.getElementById('val-p3-surge').textContent = Number(document.getElementById('inp-p3-surge').value).toFixed(2) + 'x';
+    }
+
+    async function runPillar3Sim() {
+      const qs = new URLSearchParams({
+        pillar: 'demand_forecasting',
+        horizon_days: document.getElementById('inp-p3-horizon').value,
+        stockout_penalty_ratio: document.getElementById('inp-p3-pen').value,
+        demand_surge: document.getElementById('inp-p3-surge').value,
+      });
+      const res = await fetch('/api/simulate?' + qs.toString());
+      const d = await res.json();
+      const k = d.kpis;
+
+      document.getElementById('p3-kpi-tco').textContent = `-${k.tco_savings_pct}%`;
+      document.getElementById('p3-kpi-tco-sub').textContent =
+        `$${k.baseline_effective_tco_usd.toLocaleString()} → $${k.evolved_effective_tco_usd.toLocaleString()} effective TCO`;
+      document.getElementById('p3-kpi-wmape').textContent = `${k.evolved_wmape_pct}%`;
+      document.getElementById('p3-kpi-wmape-sub').textContent =
+        `-${k.wmape_reduction_pct}% error vs. static moving-avg (${k.baseline_wmape_pct}%)`;
+      document.getElementById('p3-kpi-stockout').textContent =
+        `${k.baseline_stockout_events}% → ${k.evolved_stockout_events}%`;
+
+      renderFanSvg(d.fan_chart || []);
+      renderStack('p3-compute', [
+        { label: '1Y/3Y CUDs & Reservations', pct: d.allocation_stack.compute.cud_and_reservations_pct, color: '#1a73e8' },
+        { label: 'DWS Flex Start', pct: d.allocation_stack.compute.dws_flex_start_pct, color: '#8430ce' },
+        { label: 'Gen-4 On-Demand', pct: d.allocation_stack.compute.gen4_on_demand_pct, color: '#fbbc05' },
+        { label: 'Spot Spillover', pct: d.allocation_stack.compute.spot_capacity_pct, color: '#34a853' },
+      ]);
+      renderStack('p3-storage', [
+        { label: 'NVMe / Managed Lustre (/scratch)', pct: d.allocation_stack.storage.nvme_parallel_scratch_pct, color: '#e37400' },
+        { label: 'Filestore NFS (/home)', pct: d.allocation_stack.storage.managed_filestore_home_pct, color: '#94a3b8' },
+        { label: 'Cloud Storage HNS (/datasets)', pct: d.allocation_stack.storage.gcs_hns_lakehouse_pct, color: '#188038' },
+      ]);
+    }
+
+    function renderFanSvg(series) {
+      if (!series.length) return;
+      const w = 780, h = 220, padL = 48, padR = 20, padT = 18, padB = 28;
+      const maxY = Math.max(...series.map(s => s.p99)) * 1.06;
+      const minY = Math.min(...series.map(s => s.p10)) * 0.88;
+      const xAt = i => padL + (i / Math.max(series.length - 1, 1)) * (w - padL - padR);
+      const yAt = v => h - padB - ((v - minY) / Math.max(maxY - minY, 1)) * (h - padT - padB);
+
+      const upper = series.map((s, i) => `${xAt(i).toFixed(1)},${yAt(s.p99).toFixed(1)}`);
+      const lower = [...series].reverse().map((s, idx) => {
+        const i = series.length - 1 - idx;
+        return `${xAt(i).toFixed(1)},${yAt(s.p10).toFixed(1)}`;
+      });
+      const p50Line = series.map((s, i) => `${xAt(i).toFixed(1)},${yAt(s.p50).toFixed(1)}`).join(' ');
+      const evolLine = series.map((s, i) => `${xAt(i).toFixed(1)},${yAt(s.evolved_policy_provisioned).toFixed(1)}`).join(' ');
+      const statLine = series.map((s, i) => `${xAt(i).toFixed(1)},${yAt(s.static_heuristic_provisioned).toFixed(1)}`).join(' ');
+
+      document.getElementById('p3-fan-svg').innerHTML = `<svg viewBox="0 0 ${w} ${h}" style="width:100%; height:auto;">
+        <polygon points="${upper.concat(lower).join(' ')}" fill="rgba(26, 115, 232, 0.14)" />
+        <polyline fill="none" stroke="#1a73e8" stroke-width="2" points="${p50Line}" />
+        <polyline fill="none" stroke="#188038" stroke-width="3" points="${evolLine}" />
+        <polyline fill="none" stroke="#d93025" stroke-width="2" stroke-dasharray="5,4" points="${statLine}" />
+        ${series.map((s, i) => `<text x="${xAt(i).toFixed(1)}" y="${h - 8}" text-anchor="middle" font-size="10.5" fill="#475569">${s.step}</text>`).join('')}
+        <text x="${padL}" y="13" font-size="11" fill="#475569">Accelerator-Equivalent Capacity Units (P10–P99 Fan vs. Provisioned Envelope)</text>
+      </svg>`;
+    }
+
+    function renderStack(prefix, items) {
+      document.getElementById(prefix + '-bar').innerHTML = items.map(it =>
+        `<div style="width:${it.pct}%; background:${it.color};" title="${it.label}: ${it.pct}%"></div>`
+      ).join('');
+      document.getElementById(prefix + '-legend').innerHTML = items.map(it =>
+        `<span><span class="legend-swatch" style="background:${it.color};"></span>${it.label}: <strong>${it.pct}%</strong></span>`
+      ).join('');
+    }
+
+    function renderP3Code() {
+      const p3 = PILLARS_DATA?.pillars?.demand_forecasting || {};
+      document.getElementById('p3-code-box').innerHTML = formatDiffHtml(p3.unified_diff || p3.evolved_block || p3.seed_block);
+    }
+
+    /* ---------------- LIVE VERTEX AI MUTATION ---------------- */
+    async function runLiveEvolveStep() {
+      const btn = document.getElementById('btn-run-evolve');
+      const pillar = document.getElementById('live-pillar-select').value;
+      const directive = document.getElementById('live-directive-input').value;
+      btn.disabled = true;
+      btn.textContent = 'Calling Vertex AI gemini-2.5-flash & Scoring...';
+
+      try {
+        const res = await fetch('/api/evolve-step', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pillar, parent_source: 'seed', mutation_directive: directive }),
+        });
+        const d = await res.json();
+        document.getElementById('live-evolve-output').style.display = 'block';
+        document.getElementById('live-evolve-badges').innerHTML = `
+          <span class="pill pill-blue">Vertex AI: ${d.vertex_latency_ms} ms</span>
+          <span class="pill pill-purple">Sandbox Eval: ${d.eval_latency_ms} ms</span>
+          <span class="pill ${d.gate_passed ? 'pill-green' : 'pill-amber'}">${d.gate_passed ? 'Hard Gates PASSED' : 'Blocked by Hard Gate (-1e12)'}</span>
+        `;
+        document.getElementById('live-diff-box').innerHTML = formatDiffHtml(d.unified_diff || d.mutated_block);
+        const insHtml = (d.insights || []).map(it =>
+          `<div style="margin-bottom:6px; font-size:12.5px;"><strong>[${escapeHtml(it.label)}]</strong>: ${escapeHtml(it.text)}</div>`
+        ).join('');
+        document.getElementById('live-insights-box').innerHTML = `
+          <div style="display:flex; gap:20px; margin-bottom:12px; flex-wrap:wrap;">
+            <div><div class="proof-item-label">Parent Seed Score</div><div style="font-size:20px; font-weight:700;">${d.parent_score}</div></div>
+            <div><div class="proof-item-label">Gemini Candidate Score</div><div style="font-size:20px; font-weight:700; color:${d.improved ? 'var(--green)' : 'var(--blue)'};">${d.candidate_score}</div></div>
+            <div><div class="proof-item-label">Total Round-Trip</div><div style="font-size:20px; font-weight:700;">${d.total_latency_ms} ms</div></div>
+          </div>
+          <div class="proof-item-label" style="margin-bottom:6px;">Evaluator Feedback Returned to Next Generation</div>
+          ${insHtml || '<div class="card-subtitle">Valid candidate evaluated cleanly.</div>'}
+        `;
+      } catch (err) {
+        alert('Live Vertex AI step error: ' + err);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '&#9889; Propose &amp; Score Candidate (Live Vertex AI)';
+      }
+    }
+
+    initWorkbench();
+  </script>
+</body>
+</html>

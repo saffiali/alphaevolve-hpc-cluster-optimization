@@ -1,0 +1,7 @@
+project_id             = "<YOUR_GCP_PROJECT_ID>"
+region                 = "us-central1"
+bq_location            = "US"
+bq_dataset_id          = "alphaevolve_hpc_poc"
+artifact_repo_id       = "alphaevolve-hpc-poc"
+workbench_service_name = "alphaevolve-hpc-workbench"
+invoker_iam_disabled   = true

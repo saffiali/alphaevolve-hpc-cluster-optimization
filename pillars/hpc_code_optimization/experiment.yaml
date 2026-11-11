@@ -1,0 +1,31 @@
+# Copyright 2026 Google LLC
+# Licensed under the Apache License, Version 2.0
+
+title: "3D Short-Range Shifted Ewald Molecular Force-Field Solver"
+problem_description: >
+  Accelerate `solve_ewald_forces(positions, charges, box_length, cutoff, alpha, softening=0.08)`
+  inside the EVOLVE-BLOCK in main.py to maximize `particles_per_sec` across 3D periodic molecular
+  conformations while passing strict IEEE-754 float64 physics verification gates.
+  `erfc_vec(x)` (double-precision vectorized complementary error function accurate to < 5e-16) and
+  `numpy as np` are pre-imported in module scope.
+  Stage 2 Physics Hard Gates (violating ANY returns -1e12):
+    1. Relative L2 Force Error < 1.0e-6 vs exact double-precision shifted-Ewald reference.
+    2. Relative Potential Energy Error < 1.0e-6 (including `shift_val = erfc(alpha * s_cut) / s_cut`).
+    3. Newton's 3rd Law net force residual < 1.0e-9.
+    4. 2-step Velocity-Verlet Hamiltonian energy drift < 1.0e-4.
+  Algorithmic hints: exploit Newton's 3rd Law skew-symmetry (compute each pair i < j once and accumulate
+  +F_ij on i and -F_ij on j), 3D spatial cell-list / Verlet neighbor pruning when `box_length >= 3 * cutoff`,
+  sparse masked evaluation only on pairs with `r^2 < cutoff^2`, and `np.bincount` / `np.add.at` force scatter.
+program_language: "python"
+primary_metric: "particles_per_sec"
+initial_score: 1850.0
+
+seed_files:
+  - "main.py"
+
+generation_settings:
+  include_full_program_in_prompt: true
+
+evaluator:
+  script: "evaluator.py"
+  method: "evaluate_program"

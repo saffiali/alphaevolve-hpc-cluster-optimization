@@ -1,0 +1,170 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Cluster Toolkit (gcluster >= v1.108.0) blueprint for the AlphaEvolve HPC
+# Secure Split Architecture:
+#   1. Proposal Plane (Vertex AI Gemini / AlphaEvolve API)
+#   2. Isolated Ephemeral Evaluation Plane (Google Cloud Batch + Cloud NAT VPC)
+#   3. Read-Only Dataset Mounts + Per-Candidate Write Sandbox on Cloud Storage
+#   4. BigQuery Telemetry Sink + Artifact Registry Container Store
+#
+# Usage:
+#   gcluster deploy infra/cluster-toolkit/alphaevolve-hpc-batch.yaml \
+#     --vars project_id=<YOUR_GCP_PROJECT_ID>,region=us-central1
+
+blueprint_name: alphaevolve-hpc-batch
+
+vars:
+  project_id: <YOUR_GCP_PROJECT_ID>
+  deployment_name: alphaevolve-hpc-eval
+  region: us-central1
+  zone: us-central1-a
+  artifact_repo_id: alphaevolve-hpc-poc
+  archive_bucket_name: $(vars.project_id)-alphaevolve-hpc-poc
+  bq_dataset_id: alphaevolve_hpc_poc
+  pubsub_topic_name: $(vars.deployment_name)-batch-events
+  mount_path: /mnt/disks/share
+  eval_machine_type: c4d-standard-16
+  eval_provisioning_model: SPOT
+
+terraform_providers:
+  google:
+    source: hashicorp/google
+    version: ">= 6.0.0"
+    configuration:
+      project: $(vars.project_id)
+      region: $(vars.region)
+      user_project_override: true
+      billing_project: $(vars.project_id)
+  google-beta:
+    source: hashicorp/google-beta
+    version: ">= 6.0.0"
+    configuration:
+      project: $(vars.project_id)
+      region: $(vars.region)
+      user_project_override: true
+      billing_project: $(vars.project_id)
+
+deployment_groups:
+  - group: enable_apis
+    modules:
+      - id: project_services
+        source: community/modules/project/service-enablement
+        settings:
+          project_id: $(vars.project_id)
+          gcp_service_list:
+            - compute.googleapis.com
+            - batch.googleapis.com
+            - pubsub.googleapis.com
+            - storage.googleapis.com
+            - bigquery.googleapis.com
+            - artifactregistry.googleapis.com
+            - cloudbuild.googleapis.com
+            - run.googleapis.com
+            - aiplatform.googleapis.com
+            - discoveryengine.googleapis.com
+
+  - group: isolated_eval_network
+    modules:
+      # Private VPC with Cloud NAT & Private Google Access so untrusted LLM-mutated
+      # candidate programs run with noExternalIpAddress: true inside Cloud Batch.
+      - id: eval_vpc
+        source: modules/network/vpc
+        settings:
+          network_name: $(vars.deployment_name)-vpc
+          enable_cloud_router: true
+          enable_cloud_nat: true
+          subnetworks:
+            - subnet_name: $(vars.deployment_name)-eval-snet
+              subnet_region: $(vars.region)
+              subnet_ip: 10.148.0.0/20
+              subnet_private_access: true
+
+  - group: primary_platform
+    modules:
+      # Provision Cloud Batch service agent identity
+      - id: batch_service_agent
+        source: community/modules/project/service-agent
+        settings:
+          project_id: $(vars.project_id)
+          service: batch.googleapis.com
+
+      # Container registry for pillar evaluator images & Cloud Run workbench
+      - id: artifact_registry
+        source: git::https://github.com/GoogleCloudPlatform/terraform-google-artifact-registry.git
+        settings:
+          project_id: $(vars.project_id)
+          location: $(vars.region)
+          format: DOCKER
+          repository_id: $(vars.artifact_repo_id)
+
+      # Cloud Storage archive & read-only trace/conformation dataset bucket
+      - id: archive_bucket
+        source: modules/file-system/pre-existing-network-storage
+        settings:
+          remote_mount: $(vars.archive_bucket_name)
+          local_mount: $(vars.mount_path)
+          fs_type: gcsfuse
+          mount_options: implicit-dirs,ro
+
+      # Least-privilege Controller Service Account (invokes Gemini & submits Batch jobs)
+      - id: ae_controller_sa
+        source: modules/project/service-account
+        settings:
+          project_id: $(vars.project_id)
+          name: ae-ctrl-sa
+          project_roles:
+            - batch.jobsEditor
+            - artifactregistry.reader
+            - aiplatform.user
+            - bigquery.dataEditor
+            - bigquery.jobUser
+            - logging.logWriter
+
+      # Least-privilege Sandboxed Evaluator Worker SA (NO Vertex AI or controller access)
+      - id: ae_evaluator_sa
+        source: modules/project/service-account
+        settings:
+          project_id: $(vars.project_id)
+          name: ae-eval-sa
+          project_roles:
+            - batch.agentReporter
+            - artifactregistry.reader
+            - logging.logWriter
+
+      # Event-driven completion notifications for asynchronous population scoring
+      - id: batch_notifications
+        source: git::https://github.com/terraform-google-modules/terraform-google-pubsub.git
+        settings:
+          project_id: $(vars.project_id)
+          topic: $(vars.pubsub_topic_name)
+          create_topic: true
+
+      # Stage AlphaEvolve Batch Evaluator Configuration Template
+      - id: stage_batch_config
+        source: community/modules/file-system/gcs-objects
+        settings:
+          bucket_name: $(vars.archive_bucket_name)
+          files:
+            - destination_path: config/alphaevolve-pillars.env
+              content: |
+                GCP_PROJECT_ID="$(vars.project_id)"
+                GCP_REGION="$(vars.region)"
+                AE_ARCHIVE_BUCKET="$(vars.archive_bucket_name)"
+                AE_BQ_DATASET="$(vars.bq_dataset_id)"
+                AE_EVAL_MACHINE_TYPE="$(vars.eval_machine_type)"
+                AE_EVAL_PROVISIONING_MODEL="$(vars.eval_provisioning_model)"
+                AE_EVAL_SUBNET="regions/$(vars.region)/subnetworks/$(vars.deployment_name)-eval-snet"
+                AE_EVAL_SERVICE_ACCOUNT="$(ae_evaluator_sa.service_account_email)"
+                AE_CONTROLLER_SERVICE_ACCOUNT="$(ae_controller_sa.service_account_email)"

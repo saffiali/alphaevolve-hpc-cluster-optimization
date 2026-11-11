@@ -1,0 +1,305 @@
+{
+  "pillar_id": "hpc_code_optimization",
+  "title": "3D Short-Range Shifted Ewald Molecular Force-Field Solver",
+  "execution_mode": "vertex_ai_live",
+  "vertex_ai_model": "gemini-2.5-flash",
+  "vertex_ai_region": "us-central1",
+  "primary_metric": "particles_per_sec",
+  "higher_is_better": true,
+  "num_candidates_evaluated": 13,
+  "valid_candidates_count": 1,
+  "rejected_by_gates_count": 12,
+  "map_elites_niches_populated": 2,
+  "winning_generation": 12,
+  "winning_island": "island_2_cost_tiering",
+  "winning_niche": "dense_vectorized_5x_25x",
+  "train_split": {
+    "baseline_score": 3401.24,
+    "evolved_score": 56775.54
+  },
+  "validation_split": {
+    "baseline_score": 2849.91,
+    "evolved_score": 30884.72
+  },
+  "baseline_score": 2190.67,
+  "evolved_score": 26749.71,
+  "held_out_improvement_pct": 1121.07,
+  "baseline_metrics": {
+    "gate_passed": true,
+    "stage_reached": "stage_3_throughput_benchmark",
+    "particles_per_sec": 2190.67,
+    "median_batch_latency_ms": 701.156,
+    "total_particles_evaluated": 1536,
+    "rel_l2_force_error": 1.89e-16,
+    "rel_energy_error": 1.183e-14,
+    "net_momentum_residual": 4.723e-16,
+    "symplectic_energy_drift": 4.376e-09,
+    "baseline_particles_per_sec": 2211.19,
+    "speedup_vs_baseline": 0.99
+  },
+  "evolved_metrics": {
+    "gate_passed": true,
+    "stage_reached": "stage_3_throughput_benchmark",
+    "particles_per_sec": 26749.71,
+    "median_batch_latency_ms": 57.421,
+    "total_particles_evaluated": 1536,
+    "rel_l2_force_error": 4.991e-16,
+    "rel_energy_error": 6.706e-16,
+    "net_momentum_residual": 8.474e-16,
+    "symplectic_energy_drift": 4.376e-09,
+    "baseline_particles_per_sec": 2211.19,
+    "speedup_vs_baseline": 12.1
+  },
+  "kpi_summary": [
+    {
+      "kpi": "Molecular Force-Field Throughput",
+      "unit": "particles/sec",
+      "baseline": 2190.67,
+      "evolved": 26749.71,
+      "speedup_factor": 12.1
+    },
+    {
+      "kpi": "Median Conformation Batch Latency",
+      "unit": "ms",
+      "baseline": 701.156,
+      "evolved": 57.421,
+      "delta_pct": -91.8
+    },
+    {
+      "kpi": "Relative L2 Force Numerical Error",
+      "unit": "dimensionless",
+      "baseline": 1.89e-16,
+      "evolved": 4.991e-16,
+      "hard_gate_ceiling": 1e-06
+    },
+    {
+      "kpi": "Symplectic Velocity-Verlet Energy Drift",
+      "unit": "dimensionless",
+      "baseline": 4.376e-09,
+      "evolved": 4.376e-09,
+      "hard_gate_ceiling": 0.0001
+    }
+  ],
+  "extra_benchmarks": {
+    "particle_scaling_benchmarks": [
+      {
+        "n_particles": 512,
+        "baseline_latency_ms": 217.78,
+        "evolved_latency_ms": 15.9,
+        "baseline_particles_per_sec": 2351.0,
+        "evolved_particles_per_sec": 32204.5,
+        "speedup_factor": 13.7
+      },
+      {
+        "n_particles": 1024,
+        "baseline_latency_ms": 918.45,
+        "evolved_latency_ms": 56.8,
+        "baseline_particles_per_sec": 1114.9,
+        "evolved_particles_per_sec": 18028.5,
+        "speedup_factor": 16.17
+      },
+      {
+        "n_particles": 2048,
+        "baseline_latency_ms": 3673.81,
+        "evolved_latency_ms": 190.89,
+        "baseline_particles_per_sec": 557.5,
+        "evolved_particles_per_sec": 10728.6,
+        "speedup_factor": 19.25
+      },
+      {
+        "n_particles": 4096,
+        "baseline_latency_ms": 14695.25,
+        "evolved_latency_ms": 1065.13,
+        "baseline_particles_per_sec": 278.7,
+        "evolved_particles_per_sec": 3845.6,
+        "speedup_factor": 13.8
+      },
+      {
+        "n_particles": 8192,
+        "baseline_latency_ms": 58781.01,
+        "evolved_latency_ms": 5614.1,
+        "baseline_particles_per_sec": 139.4,
+        "evolved_particles_per_sec": 1459.2,
+        "speedup_factor": 10.47
+      }
+    ],
+    "cuda_simd_companion": {
+      "filename": "pillars/hpc_code_optimization/kernels/ewald_cuda_simd.cu",
+      "target_architectures": "NVIDIA Hopper/Ada CUDA + x86_64 AVX-512"
+    }
+  },
+  "generation_history": [
+    {
+      "generation": 0,
+      "island": "seed_baseline",
+      "niche": "scalar_or_hybrid_lt5x",
+      "candidate_val_score": 2849.91,
+      "best_val_score_so_far": 2849.91,
+      "valid": true,
+      "stage_reached": "stage_3_throughput_benchmark",
+      "latency_ms": 0.0,
+      "model": "seed_program",
+      "insight_summary": "Stage 1-3 PASSED | throughput=2849.9 particles/s (1.00x speedup vs seed) | latency=269.48ms | rel_L2_force_err=1.13e-16 | energy_drift=4.81e-09"
+    },
+    {
+      "generation": 1,
+      "island": "island_0_efficiency",
+      "niche": "rejected_gate",
+      "candidate_val_score": -1000000000000.0,
+      "best_val_score_so_far": 2849.91,
+      "valid": false,
+      "stage_reached": "stage_2_physics_gate",
+      "latency_ms": 12901.2,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "Stage 2 Physics Gate failed on solvated_biomolecule (N=320): rel_energy_error=5.000e-01 >= 1.0e-6. Include the potential shift `erfc(alpha * s_cut) / s_cut` and 0.5 pair double-count factor."
+    },
+    {
+      "generation": 2,
+      "island": "island_1_sla_accuracy",
+      "niche": "rejected_gate",
+      "candidate_val_score": -1000000000000.0,
+      "best_val_score_so_far": 2849.91,
+      "valid": false,
+      "stage_reached": "stage_2_physics_gate",
+      "latency_ms": 9422.6,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "Stage 2 Physics Gate failed on solvated_biomolecule (N=320): rel_energy_error=5.000e-01 >= 1.0e-6. Include the potential shift `erfc(alpha * s_cut) / s_cut` and 0.5 pair double-count factor."
+    },
+    {
+      "generation": 3,
+      "island": "island_2_cost_tiering",
+      "niche": "rejected_gate",
+      "candidate_val_score": -1000000000000.0,
+      "best_val_score_so_far": 2849.91,
+      "valid": false,
+      "stage_reached": "stage_2_physics_gate",
+      "latency_ms": 13883.6,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "Stage 2 Physics Gate failed on solvated_biomolecule (N=320): rel_energy_error=5.000e-01 >= 1.0e-6. Include the potential shift `erfc(alpha * s_cut) / s_cut` and 0.5 pair double-count factor."
+    },
+    {
+      "generation": 4,
+      "island": "island_0_efficiency",
+      "niche": "rejected_gate",
+      "candidate_val_score": -1000000000000.0,
+      "best_val_score_so_far": 2849.91,
+      "valid": false,
+      "stage_reached": "stage_2_physics_gate",
+      "latency_ms": 10118.4,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "Kernel raised runtime exception: list index out of range"
+    },
+    {
+      "generation": 5,
+      "island": "island_1_sla_accuracy",
+      "niche": "rejected_gate",
+      "candidate_val_score": -1000000000000.0,
+      "best_val_score_so_far": 2849.91,
+      "valid": false,
+      "stage_reached": "stage_2_physics_gate",
+      "latency_ms": 13726.8,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "Stage 2 Physics Gate failed on solvated_biomolecule (N=320): rel_l2_force_error=2.465e-01 >= 1.0e-6. Ensure exact minimum-image convention, softened distance s=sqrt(r^2+softening^2), and float64 `erfc_vec(alpha * s)`."
+    },
+    {
+      "generation": 6,
+      "island": "island_2_cost_tiering",
+      "niche": "rejected_gate",
+      "candidate_val_score": -1000000000000.0,
+      "best_val_score_so_far": 2849.91,
+      "valid": false,
+      "stage_reached": "stage_2_physics_gate",
+      "latency_ms": 11556.4,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "Stage 2 Physics Gate failed on solvated_biomolecule (N=320): rel_energy_error=5.000e-01 >= 1.0e-6. Include the potential shift `erfc(alpha * s_cut) / s_cut` and 0.5 pair double-count factor."
+    },
+    {
+      "generation": 7,
+      "island": "island_0_efficiency",
+      "niche": "rejected_gate",
+      "candidate_val_score": -1000000000000.0,
+      "best_val_score_so_far": 2849.91,
+      "valid": false,
+      "stage_reached": "stage_2_physics_gate",
+      "latency_ms": 9676.8,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "Stage 2 Physics Gate failed on solvated_biomolecule (N=320): rel_energy_error=4.979e-01 >= 1.0e-6. Include the potential shift `erfc(alpha * s_cut) / s_cut` and 0.5 pair double-count factor."
+    },
+    {
+      "generation": 8,
+      "island": "island_1_sla_accuracy",
+      "niche": "rejected_gate",
+      "candidate_val_score": -1000000000000.0,
+      "best_val_score_so_far": 2849.91,
+      "valid": false,
+      "stage_reached": "stage_2_physics_gate",
+      "latency_ms": 19839.9,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "Stage 2 Physics Gate failed on solvated_biomolecule (N=320): rel_energy_error=5.000e-01 >= 1.0e-6. Include the potential shift `erfc(alpha * s_cut) / s_cut` and 0.5 pair double-count factor."
+    },
+    {
+      "generation": 9,
+      "island": "island_2_cost_tiering",
+      "niche": "rejected_gate",
+      "candidate_val_score": -1000000000000.0,
+      "best_val_score_so_far": 2849.91,
+      "valid": false,
+      "stage_reached": "stage_2_physics_gate",
+      "latency_ms": 17255.5,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "Stage 2 Physics Gate failed on solvated_biomolecule (N=320): rel_energy_error=5.000e-01 >= 1.0e-6. Include the potential shift `erfc(alpha * s_cut) / s_cut` and 0.5 pair double-count factor."
+    },
+    {
+      "generation": 10,
+      "island": "island_0_efficiency",
+      "niche": "rejected_gate",
+      "candidate_val_score": -1000000000000.0,
+      "best_val_score_so_far": 2849.91,
+      "valid": false,
+      "stage_reached": "stage_2_physics_gate",
+      "latency_ms": 17971.4,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "Stage 2 Physics Gate failed on solvated_biomolecule (N=320): rel_energy_error=5.000e-01 >= 1.0e-6. Include the potential shift `erfc(alpha * s_cut) / s_cut` and 0.5 pair double-count factor."
+    },
+    {
+      "generation": 11,
+      "island": "island_1_sla_accuracy",
+      "niche": "rejected_gate",
+      "candidate_val_score": -1000000000000.0,
+      "best_val_score_so_far": 2849.91,
+      "valid": false,
+      "stage_reached": "stage_2_physics_gate",
+      "latency_ms": 16004.7,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "Stage 2 Physics Gate failed on solvated_biomolecule (N=320): rel_l2_force_error=2.000e+00 >= 1.0e-6. Ensure exact minimum-image convention, softened distance s=sqrt(r^2+softening^2), and float64 `erfc_vec(alpha * s)`."
+    },
+    {
+      "generation": 12,
+      "island": "island_2_cost_tiering",
+      "niche": "dense_vectorized_5x_25x",
+      "candidate_val_score": 30884.72,
+      "best_val_score_so_far": 30884.72,
+      "valid": true,
+      "stage_reached": "stage_3_throughput_benchmark",
+      "latency_ms": 10914.0,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "Stage 1-3 PASSED | throughput=30884.7 particles/s (10.82x speedup vs seed) | latency=24.87ms | rel_L2_force_err=3.71e-16 | energy_drift=4.81e-09"
+    },
+    {
+      "generation": 13,
+      "island": "island_0_efficiency",
+      "niche": "rejected_gate",
+      "candidate_val_score": -1000000000000.0,
+      "best_val_score_so_far": 30884.72,
+      "valid": false,
+      "stage_reached": "stage_1_ast_safety",
+      "latency_ms": 11219.6,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "Syntax error inside EVOLVE-BLOCK: invalid syntax (<unknown>, line 106)"
+    }
+  ],
+  "seed_code_block": "def solve_ewald_forces(\n    positions: np.ndarray,\n    charges: np.ndarray,\n    box_length: float,\n    cutoff: float,\n    alpha: float,\n    softening: float = 0.08,\n) -> tuple[np.ndarray, float]:\n    \"\"\"Compute 3D periodic shifted-Ewald atomic forces `(N, 3)` and total potential energy.\n\n    Exact physics equations required by Stage 2 accuracy gate (rel L2 error < 1e-6):\n      For all pairs i != j with minimum-image displacement `d = pos[j] - pos[i] - L * round((pos[j] - pos[i]) / L)`\n      satisfying `r^2 = dot(d, d) < cutoff^2`:\n        s = sqrt(r^2 + softening^2)\n        s_cut = sqrt(cutoff^2 + softening^2)\n        shift_val = erfc(alpha * s_cut) / s_cut\n        V_ij = q_i * q_j * (erfc(alpha * s) / s - shift_val)\n        total_energy = 0.5 * sum_{i != j} V_ij\n        F_{i <- j} = -q_i * q_j * (erfc(alpha * s) + (2 * alpha / sqrt(pi)) * s * exp(-(alpha * s)^2)) / s^3 * d\n    \"\"\"\n    n_particles = int(positions.shape[0])\n    forces = np.zeros((n_particles, 3), dtype=np.float64)\n    total_energy = 0.0\n\n    rcut2 = cutoff * cutoff\n    soft2 = softening * softening\n    s_cut = math.sqrt(rcut2 + soft2)\n    shift_val = math.erfc(alpha * s_cut) / s_cut\n    two_alpha_over_sqrt_pi = 2.0 * alpha / math.sqrt(math.pi)\n    inv_box = 1.0 / box_length\n\n    # Naive O(N^2) un-tiled scalar nested loop (baseline seed program)\n    for i in range(n_particles):\n        xi = float(positions[i, 0])\n        yi = float(positions[i, 1])\n        zi = float(positions[i, 2])\n        qi = float(charges[i])\n        fxi = 0.0\n        fyi = 0.0\n        fzi = 0.0\n\n        for j in range(n_particles):\n            if i == j:\n                continue\n            dx = float(positions[j, 0]) - xi\n            dy = float(positions[j, 1]) - yi\n            dz = float(positions[j, 2]) - zi\n\n            dx -= box_length * round(dx * inv_box)\n            dy -= box_length * round(dy * inv_box)\n            dz -= box_length * round(dz * inv_box)\n\n            r2 = dx * dx + dy * dy + dz * dz\n            if r2 < rcut2:\n                s = math.sqrt(r2 + soft2)\n                erfc_s = math.erfc(alpha * s)\n                qij = qi * float(charges[j])\n                total_energy += 0.5 * qij * (erfc_s / s - shift_val)\n\n                pref = -qij * (\n                    erfc_s + two_alpha_over_sqrt_pi * s * math.exp(-(alpha * s) * (alpha * s))\n                ) / (s * s * s)\n                fxi += pref * dx\n                fyi += pref * dy\n                fzi += pref * dz\n\n        forces[i, 0] = fxi\n        forces[i, 1] = fyi\n        forces[i, 2] = fzi\n\n    return forces, total_energy",
+  "winning_evolved_code_block": "def solve_ewald_forces(\n    positions: np.ndarray,\n    charges: np.ndarray,\n    box_length: float,\n    cutoff: float,\n    alpha: float,\n    softening: float = 0.08,\n) -> tuple[np.ndarray, float]:\n    \"\"\"Compute 3D periodic shifted-Ewald atomic forces `(N, 3)` and total potential energy.\n\n    Exact physics equations required by Stage 2 accuracy gate (rel L2 error < 1e-6):\n      For all pairs i != j with minimum-image displacement `d = pos[j] - pos[i] - L * round((pos[j] - pos[i]) / L)`\n      satisfying `r^2 = dot(d, d) < cutoff^2`:\n        s = sqrt(r^2 + softening^2)\n        s_cut = sqrt(cutoff^2 + softening^2)\n        shift_val = erfc(alpha * s_cut) / s_cut\n        V_ij = q_i * q_j * (erfc(alpha * s) / s - shift_val)\n        total_energy = 0.5 * sum_{i != j} V_ij\n        F_{i <- j} = -q_i * q_j * (erfc(alpha * s) + (2 * alpha / sqrt(pi)) * s * exp(-(alpha * s)^2)) / s^3 * d\n    \"\"\"\n    n_particles = int(positions.shape[0])\n    forces = np.zeros((n_particles, 3), dtype=np.float64)\n    total_energy = 0.0\n\n    rcut2 = cutoff * cutoff\n    soft2 = softening * softening\n    s_cut = math.sqrt(rcut2 + soft2)\n    shift_val = math.erfc(alpha * s_cut) / s_cut\n    two_alpha_over_sqrt_pi = 2.0 * alpha / math.sqrt(math.pi)\n    inv_box = 1.0 / box_length\n\n    # Generate all unique pairs (i, j) where i < j\n    idx_i, idx_j = np.triu_indices(n_particles, k=1)\n\n    # Compute displacement vectors for all pairs\n    # (N_pairs, 3) array\n    dr = positions[idx_j] - positions[idx_i]\n\n    # Apply Minimum Image Convention (MIC)\n    # np.rint performs element-wise rounding to the nearest integer\n    dr -= box_length * np.rint(dr * inv_box)\n\n    # Compute squared distances\n    r2 = np.sum(dr * dr, axis=1)\n\n    # Filter pairs within cutoff\n    mask = r2 < rcut2\n    \n    # Select only interacting pairs\n    active_idx_i = idx_i[mask]\n    active_idx_j = idx_j[mask]\n    active_dr = dr[mask]\n    active_r2 = r2[mask]\n\n    # If no pairs are interacting, return early\n    if active_idx_i.size == 0:\n        return forces, total_energy\n\n    # Compute s, erfc(alpha*s), and exponential term for active pairs\n    s = np.sqrt(active_r2 + soft2)\n    erfc_s = erfc_vec(alpha * s)  # Use vectorized erfc\n    alpha_s_sq = (alpha * s)**2\n    exp_term = np.exp(-alpha_s_sq)\n\n    # Compute common terms\n    q_i_active = charges[active_idx_i]\n    q_j_active = charges[active_idx_j]\n    qij = q_i_active * q_j_active\n\n    inv_s = 1.0 / s\n    inv_s3 = inv_s * inv_s * inv_s\n\n    # Potential energy contribution (sum over i < j)\n    # The factor of 0.5 is implicitly handled by summing only unique pairs\n    potential_terms = qij * (erfc_s * inv_s - shift_val)\n    total_energy = np.sum(potential_terms)\n\n    # Force magnitude prefactor\n    # F_ij = -q_i * q_j * (erfc_s + (2 * alpha / sqrt(pi)) * s * exp(-(alpha * s)^2)) / s^3 * d_ij\n    # pref = -q_i * q_j * (erfc_s + two_alpha_over_sqrt_pi * s * exp_term) / s^3\n    pref = -qij * (erfc_s + two_alpha_over_sqrt_pi * s * exp_term) * inv_s3\n\n    # Calculate force vectors F_ij (force on i due to j)\n    # Reshape pref to (N_active_pairs, 1) for element-wise multiplication with (N_active_pairs, 3) dr\n    force_vectors = pref[:, np.newaxis] * active_dr\n\n    # Apply Newton's 3rd Law: F_ji = -F_ij\n    # Add force_vectors to forces[i] and -force_vectors to forces[j]\n    # np.add.at is used for scatter-add operations efficiently\n    np.add.at(forces, active_idx_i, force_vectors)\n    np.add.at(forces, active_idx_j, -force_vectors)\n\n    return forces, total_energy",
+  "winning_full_program": "\"\"\"Seed program for Pillar 2: 3D Short-Range Shifted Ewald Molecular Force-Field Solver.\n\nOptimizes pairwise electrostatic + softened force and potential energy computation\nunder periodic boundary conditions (Minimum Image Convention).\n\nThe vectorized IEEE-754 double-precision helper `erfc_vec(x)` is pre-imported and\navailable in module scope for candidate kernels inside `# EVOLVE-BLOCK`.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport math\nimport numpy as np\n\nfrom pillars.hpc_code_optimization.physics_reference import erfc_vec  # noqa: F401\n\n\n# EVOLVE-BLOCK-START\ndef solve_ewald_forces(\n    positions: np.ndarray,\n    charges: np.ndarray,\n    box_length: float,\n    cutoff: float,\n    alpha: float,\n    softening: float = 0.08,\n) -> tuple[np.ndarray, float]:\n    \"\"\"Compute 3D periodic shifted-Ewald atomic forces `(N, 3)` and total potential energy.\n\n    Exact physics equations required by Stage 2 accuracy gate (rel L2 error < 1e-6):\n      For all pairs i != j with minimum-image displacement `d = pos[j] - pos[i] - L * round((pos[j] - pos[i]) / L)`\n      satisfying `r^2 = dot(d, d) < cutoff^2`:\n        s = sqrt(r^2 + softening^2)\n        s_cut = sqrt(cutoff^2 + softening^2)\n        shift_val = erfc(alpha * s_cut) / s_cut\n        V_ij = q_i * q_j * (erfc(alpha * s) / s - shift_val)\n        total_energy = 0.5 * sum_{i != j} V_ij\n        F_{i <- j} = -q_i * q_j * (erfc(alpha * s) + (2 * alpha / sqrt(pi)) * s * exp(-(alpha * s)^2)) / s^3 * d\n    \"\"\"\n    n_particles = int(positions.shape[0])\n    forces = np.zeros((n_particles, 3), dtype=np.float64)\n    total_energy = 0.0\n\n    rcut2 = cutoff * cutoff\n    soft2 = softening * softening\n    s_cut = math.sqrt(rcut2 + soft2)\n    shift_val = math.erfc(alpha * s_cut) / s_cut\n    two_alpha_over_sqrt_pi = 2.0 * alpha / math.sqrt(math.pi)\n    inv_box = 1.0 / box_length\n\n    # Generate all unique pairs (i, j) where i < j\n    idx_i, idx_j = np.triu_indices(n_particles, k=1)\n\n    # Compute displacement vectors for all pairs\n    # (N_pairs, 3) array\n    dr = positions[idx_j] - positions[idx_i]\n\n    # Apply Minimum Image Convention (MIC)\n    # np.rint performs element-wise rounding to the nearest integer\n    dr -= box_length * np.rint(dr * inv_box)\n\n    # Compute squared distances\n    r2 = np.sum(dr * dr, axis=1)\n\n    # Filter pairs within cutoff\n    mask = r2 < rcut2\n    \n    # Select only interacting pairs\n    active_idx_i = idx_i[mask]\n    active_idx_j = idx_j[mask]\n    active_dr = dr[mask]\n    active_r2 = r2[mask]\n\n    # If no pairs are interacting, return early\n    if active_idx_i.size == 0:\n        return forces, total_energy\n\n    # Compute s, erfc(alpha*s), and exponential term for active pairs\n    s = np.sqrt(active_r2 + soft2)\n    erfc_s = erfc_vec(alpha * s)  # Use vectorized erfc\n    alpha_s_sq = (alpha * s)**2\n    exp_term = np.exp(-alpha_s_sq)\n\n    # Compute common terms\n    q_i_active = charges[active_idx_i]\n    q_j_active = charges[active_idx_j]\n    qij = q_i_active * q_j_active\n\n    inv_s = 1.0 / s\n    inv_s3 = inv_s * inv_s * inv_s\n\n    # Potential energy contribution (sum over i < j)\n    # The factor of 0.5 is implicitly handled by summing only unique pairs\n    potential_terms = qij * (erfc_s * inv_s - shift_val)\n    total_energy = np.sum(potential_terms)\n\n    # Force magnitude prefactor\n    # F_ij = -q_i * q_j * (erfc_s + (2 * alpha / sqrt(pi)) * s * exp(-(alpha * s)^2)) / s^3 * d_ij\n    # pref = -q_i * q_j * (erfc_s + two_alpha_over_sqrt_pi * s * exp_term) / s^3\n    pref = -qij * (erfc_s + two_alpha_over_sqrt_pi * s * exp_term) * inv_s3\n\n    # Calculate force vectors F_ij (force on i due to j)\n    # Reshape pref to (N_active_pairs, 1) for element-wise multiplication with (N_active_pairs, 3) dr\n    force_vectors = pref[:, np.newaxis] * active_dr\n\n    # Apply Newton's 3rd Law: F_ji = -F_ij\n    # Add force_vectors to forces[i] and -force_vectors to forces[j]\n    # np.add.at is used for scatter-add operations efficiently\n    np.add.at(forces, active_idx_i, force_vectors)\n    np.add.at(forces, active_idx_j, -force_vectors)\n\n    return forces, total_energy\n# EVOLVE-BLOCK-END\n",
+  "code_diff": "--- pillars/hpc_code_optimization/main.py (seed)\n+++ pillars/hpc_code_optimization/main.py (evolved)\n@@ -29,43 +29,65 @@\n     two_alpha_over_sqrt_pi = 2.0 * alpha / math.sqrt(math.pi)\n     inv_box = 1.0 / box_length\n \n-    # Naive O(N^2) un-tiled scalar nested loop (baseline seed program)\n-    for i in range(n_particles):\n-        xi = float(positions[i, 0])\n-        yi = float(positions[i, 1])\n-        zi = float(positions[i, 2])\n-        qi = float(charges[i])\n-        fxi = 0.0\n-        fyi = 0.0\n-        fzi = 0.0\n+    # Generate all unique pairs (i, j) where i < j\n+    idx_i, idx_j = np.triu_indices(n_particles, k=1)\n \n-        for j in range(n_particles):\n-            if i == j:\n-                continue\n-            dx = float(positions[j, 0]) - xi\n-            dy = float(positions[j, 1]) - yi\n-            dz = float(positions[j, 2]) - zi\n+    # Compute displacement vectors for all pairs\n+    # (N_pairs, 3) array\n+    dr = positions[idx_j] - positions[idx_i]\n \n-            dx -= box_length * round(dx * inv_box)\n-            dy -= box_length * round(dy * inv_box)\n-            dz -= box_length * round(dz * inv_box)\n+    # Apply Minimum Image Convention (MIC)\n+    # np.rint performs element-wise rounding to the nearest integer\n+    dr -= box_length * np.rint(dr * inv_box)\n \n-            r2 = dx * dx + dy * dy + dz * dz\n-            if r2 < rcut2:\n-                s = math.sqrt(r2 + soft2)\n-                erfc_s = math.erfc(alpha * s)\n-                qij = qi * float(charges[j])\n-                total_energy += 0.5 * qij * (erfc_s / s - shift_val)\n+    # Compute squared distances\n+    r2 = np.sum(dr * dr, axis=1)\n \n-                pref = -qij * (\n-                    erfc_s + two_alpha_over_sqrt_pi * s * math.exp(-(alpha * s) * (alpha * s))\n-                ) / (s * s * s)\n-                fxi += pref * dx\n-                fyi += pref * dy\n-                fzi += pref * dz\n+    # Filter pairs within cutoff\n+    mask = r2 < rcut2\n+    \n+    # Select only interacting pairs\n+    active_idx_i = idx_i[mask]\n+    active_idx_j = idx_j[mask]\n+    active_dr = dr[mask]\n+    active_r2 = r2[mask]\n \n-        forces[i, 0] = fxi\n-        forces[i, 1] = fyi\n-        forces[i, 2] = fzi\n+    # If no pairs are interacting, return early\n+    if active_idx_i.size == 0:\n+        return forces, total_energy\n+\n+    # Compute s, erfc(alpha*s), and exponential term for active pairs\n+    s = np.sqrt(active_r2 + soft2)\n+    erfc_s = erfc_vec(alpha * s)  # Use vectorized erfc\n+    alpha_s_sq = (alpha * s)**2\n+    exp_term = np.exp(-alpha_s_sq)\n+\n+    # Compute common terms\n+    q_i_active = charges[active_idx_i]\n+    q_j_active = charges[active_idx_j]\n+    qij = q_i_active * q_j_active\n+\n+    inv_s = 1.0 / s\n+    inv_s3 = inv_s * inv_s * inv_s\n+\n+    # Potential energy contribution (sum over i < j)\n+    # The factor of 0.5 is implicitly handled by summing only unique pairs\n+    potential_terms = qij * (erfc_s * inv_s - shift_val)\n+    total_energy = np.sum(potential_terms)\n+\n+    # Force magnitude prefactor\n+    # F_ij = -q_i * q_j * (erfc_s + (2 * alpha / sqrt(pi)) * s * exp(-(alpha * s)^2)) / s^3 * d_ij\n+    # pref = -q_i * q_j * (erfc_s + two_alpha_over_sqrt_pi * s * exp_term) / s^3\n+    pref = -qij * (erfc_s + two_alpha_over_sqrt_pi * s * exp_term) * inv_s3\n+\n+    # Calculate force vectors F_ij (force on i due to j)\n+    # Reshape pref to (N_active_pairs, 1) for element-wise multiplication with (N_active_pairs, 3) dr\n+    force_vectors = pref[:, np.newaxis] * active_dr\n+\n+    # Apply Newton's 3rd Law: F_ji = -F_ij\n+    # Add force_vectors to forces[i] and -force_vectors to forces[j]\n+    # np.add.at is used for scatter-add operations efficiently\n+    np.add.at(forces, active_idx_i, force_vectors)\n+    np.add.at(forces, active_idx_j, -force_vectors)\n \n     return forces, total_energy"
+}

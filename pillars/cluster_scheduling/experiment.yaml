@@ -1,0 +1,36 @@
+# Copyright 2026 Google LLC
+# Licensed under the Apache License, Version 2.0
+
+title: "Enterprise HPC & AI Cluster Scheduling Policy"
+problem_description: >
+  Evolve `plan_job_dispatch(job, pool_utilization, queue_backlog)` inside the EVOLVE-BLOCK in main.py
+  to maximize `overall_score` across a heterogeneous enterprise HPC & AI workload trace spanning Slurm
+  partitions, GKE Custom Compute Classes (CCC), and Cloud Batch.
+  Node pool capacities:
+    - `cpu_general`: 32 vCPU, 128 GB RAM, 0 GPUs
+    - `ultramem_pool`: 64 vCPU, 1024 GB RAM, 0 GPUs
+    - `gpu_pool`: 64 vCPU, 512 GB RAM, 8 GPUs
+    - `batch_elastic`: 16 vCPU, 64 GB RAM, 0 GPUs
+  Provisioning tiers: `committed_reservation` (0.42x cost, warm), `dws_flex_start` (0.68x cost, 42s startup,
+  0 preemption, supported on `gpu_pool`, `ultramem_pool`, `batch_elastic`), `gen4_on_demand` (1.0x cost, 28s startup),
+  and `spot` (0.32x cost, preemptible — ONLY safe when `job["checkpointable"]` is True!).
+  Storage tiers: `shared_nfs_home` (suffers metadata contention when heavy I/O jobs use it),
+  `nvme_parallel_scratch` (0.86x runtime speedup on `high_iops_scratch` and `metadata_heavy`),
+  and `object_storage_tier` (0.92x runtime speedup and lowest cost on `streaming_throughput`).
+  Hard constraint floors (violating ANY returns -1e12):
+    1. Zero dropped, unschedulable, or >24h starved jobs (ensure `alloc_mem_gb` never exceeds target pool RAM!).
+    2. `interactive_ide` P95 startup wait strictly < 120.0 seconds.
+    3. Total OOM + timeout + Spot failure rate <= 22% (use `hist_p95_mem_ratio` and `hist_p95_runtime_sec` to right-size!).
+program_language: "python"
+primary_metric: "overall_score"
+initial_score: -395.0
+
+seed_files:
+  - "main.py"
+
+generation_settings:
+  include_full_program_in_prompt: true
+
+evaluator:
+  script: "evaluator.py"
+  method: "evaluate_program"

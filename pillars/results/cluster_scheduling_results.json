@@ -1,0 +1,351 @@
+{
+  "pillar_id": "cluster_scheduling",
+  "title": "Enterprise HPC & AI Cluster Scheduling Policy",
+  "execution_mode": "vertex_ai_live",
+  "vertex_ai_model": "gemini-2.5-flash",
+  "vertex_ai_region": "us-central1",
+  "primary_metric": "overall_score",
+  "higher_is_better": true,
+  "num_candidates_evaluated": 13,
+  "valid_candidates_count": 13,
+  "rejected_by_gates_count": 0,
+  "map_elites_niches_populated": 2,
+  "winning_generation": 10,
+  "winning_island": "island_0_efficiency",
+  "winning_niche": "fast_gpu_low_cost",
+  "train_split": {
+    "baseline_score": -420.6547,
+    "evolved_score": -65.2784
+  },
+  "validation_split": {
+    "baseline_score": -413.6904,
+    "evolved_score": -64.1147
+  },
+  "baseline_score": -344.8725,
+  "evolved_score": -63.6133,
+  "held_out_improvement_pct": 81.55,
+  "baseline_metrics": {
+    "raw_overall_score": -344.8725,
+    "total_jobs": 2000,
+    "dispatched_jobs": 2000,
+    "starved_or_dropped_jobs": 0,
+    "interactive_p95_wait_sec": 8.0,
+    "gpu_p95_wait_min": 572.76,
+    "high_mem_p95_wait_min": 1.54,
+    "batch_p95_wait_min": 1.69,
+    "overall_p95_wait_min": 110.62,
+    "weighted_p95_wait_min": 258.48,
+    "avg_cost_per_job_usd": 4.077,
+    "total_cost_usd": 8153.95,
+    "fragmentation_waste_pct": 17.28,
+    "bin_packing_efficiency_pct": 82.72,
+    "oom_failures": 319,
+    "oom_rate": 0.1595,
+    "oom_rate_pct": 15.95,
+    "timeout_failures": 592,
+    "spot_failures": 0,
+    "spot_kill_rate": 0.0,
+    "spot_kill_rate_pct": 0.0,
+    "failure_rate": 0.4555,
+    "failure_rate_pct": 45.55,
+    "squatter_placements": 37,
+    "tier_job_counts": {
+      "committed_reservation": 1820,
+      "dws_flex_start": 0,
+      "gen4_on_demand": 180,
+      "spot": 0
+    },
+    "storage_job_counts": {
+      "shared_nfs_home": 2000,
+      "nvme_parallel_scratch": 0,
+      "object_storage_tier": 0
+    }
+  },
+  "evolved_metrics": {
+    "raw_overall_score": -63.6133,
+    "total_jobs": 2000,
+    "dispatched_jobs": 2000,
+    "starved_or_dropped_jobs": 0,
+    "interactive_p95_wait_sec": 8.0,
+    "gpu_p95_wait_min": 1.25,
+    "high_mem_p95_wait_min": 1.53,
+    "batch_p95_wait_min": 1.28,
+    "overall_p95_wait_min": 1.18,
+    "weighted_p95_wait_min": 1.22,
+    "avg_cost_per_job_usd": 2.3927,
+    "total_cost_usd": 4785.46,
+    "fragmentation_waste_pct": 17.8,
+    "bin_packing_efficiency_pct": 82.2,
+    "oom_failures": 1,
+    "oom_rate": 0.0005,
+    "oom_rate_pct": 0.05,
+    "timeout_failures": 0,
+    "spot_failures": 0,
+    "spot_kill_rate": 0.0,
+    "spot_kill_rate_pct": 0.0,
+    "failure_rate": 0.0005,
+    "failure_rate_pct": 0.05,
+    "squatter_placements": 0,
+    "tier_job_counts": {
+      "committed_reservation": 1847,
+      "dws_flex_start": 114,
+      "gen4_on_demand": 7,
+      "spot": 32
+    },
+    "storage_job_counts": {
+      "shared_nfs_home": 347,
+      "nvme_parallel_scratch": 971,
+      "object_storage_tier": 682
+    }
+  },
+  "kpi_summary": [
+    {
+      "kpi": "GPU Training P95 Queue Wait",
+      "unit": "minutes",
+      "baseline": 572.76,
+      "evolved": 1.25,
+      "delta_pct": -99.8
+    },
+    {
+      "kpi": "Interactive IDE P95 Startup",
+      "unit": "seconds",
+      "baseline": 8.0,
+      "evolved": 8.0,
+      "sla_ceiling": 120.0
+    },
+    {
+      "kpi": "Average Compute + Storage Cost / Job",
+      "unit": "USD",
+      "baseline": 4.077,
+      "evolved": 2.3927,
+      "delta_pct": -41.3
+    },
+    {
+      "kpi": "OOM + Timeout + Preemption Failure Rate",
+      "unit": "%",
+      "baseline": 45.55,
+      "evolved": 0.05,
+      "delta_pct": -99.9
+    },
+    {
+      "kpi": "Bin-Packing Efficiency",
+      "unit": "%",
+      "baseline": 82.72,
+      "evolved": 82.2,
+      "delta_pts": -0.52
+    }
+  ],
+  "extra_benchmarks": {
+    "tuned_fairshare_test_metrics": {
+      "raw_overall_score": -208.3785,
+      "total_jobs": 2000,
+      "dispatched_jobs": 2000,
+      "starved_or_dropped_jobs": 0,
+      "interactive_p95_wait_sec": 8.0,
+      "gpu_p95_wait_min": 236.67,
+      "high_mem_p95_wait_min": 1.64,
+      "batch_p95_wait_min": 1.6,
+      "overall_p95_wait_min": 5.75,
+      "weighted_p95_wait_min": 107.24,
+      "avg_cost_per_job_usd": 3.1947,
+      "total_cost_usd": 6389.42,
+      "fragmentation_waste_pct": 18.83,
+      "bin_packing_efficiency_pct": 81.17,
+      "oom_failures": 246,
+      "oom_rate": 0.123,
+      "oom_rate_pct": 12.3,
+      "timeout_failures": 310,
+      "spot_failures": 0,
+      "spot_kill_rate": 0.0,
+      "spot_kill_rate_pct": 0.0,
+      "failure_rate": 0.278,
+      "failure_rate_pct": 27.8,
+      "squatter_placements": 0,
+      "tier_job_counts": {
+        "committed_reservation": 1849,
+        "dws_flex_start": 0,
+        "gen4_on_demand": 151,
+        "spot": 0
+      },
+      "storage_job_counts": {
+        "shared_nfs_home": 1822,
+        "nvme_parallel_scratch": 178,
+        "object_storage_tier": 0
+      }
+    }
+  },
+  "generation_history": [
+    {
+      "generation": 0,
+      "island": "seed_baseline",
+      "niche": "slow_gpu_high_cost",
+      "candidate_val_score": -413.6904,
+      "best_val_score_so_far": -413.6904,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 0.0,
+      "model": "seed_program",
+      "insight_summary": "overall_score=-413.690 | GPU P95 wait=846.9m | Interactive P95=8.0s | Cost/job=$4.24 | Fragmentation=17.3% | Failure rate=46.45%"
+    },
+    {
+      "generation": 1,
+      "island": "island_0_efficiency",
+      "niche": "fast_gpu_low_cost",
+      "candidate_val_score": -95.0753,
+      "best_val_score_so_far": -95.0753,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 16553.0,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "overall_score=-95.075 | GPU P95 wait=1.4m | Interactive P95=8.0s | Cost/job=$2.51 | Fragmentation=17.3% | Failure rate=11.10%"
+    },
+    {
+      "generation": 2,
+      "island": "island_1_sla_accuracy",
+      "niche": "fast_gpu_low_cost",
+      "candidate_val_score": -95.0753,
+      "best_val_score_so_far": -95.0753,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 13417.4,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "overall_score=-95.075 | GPU P95 wait=1.4m | Interactive P95=8.0s | Cost/job=$2.51 | Fragmentation=17.3% | Failure rate=11.10%"
+    },
+    {
+      "generation": 3,
+      "island": "island_2_cost_tiering",
+      "niche": "fast_gpu_low_cost",
+      "candidate_val_score": -66.9976,
+      "best_val_score_so_far": -66.9976,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 22112.9,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "overall_score=-66.998 | GPU P95 wait=1.4m | Interactive P95=8.0s | Cost/job=$2.73 | Fragmentation=16.9% | Failure rate=0.35%"
+    },
+    {
+      "generation": 4,
+      "island": "island_0_efficiency",
+      "niche": "fast_gpu_low_cost",
+      "candidate_val_score": -66.8302,
+      "best_val_score_so_far": -66.8302,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 17552.4,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "overall_score=-66.830 | GPU P95 wait=1.4m | Interactive P95=8.0s | Cost/job=$2.72 | Fragmentation=16.9% | Failure rate=0.35%"
+    },
+    {
+      "generation": 5,
+      "island": "island_1_sla_accuracy",
+      "niche": "fast_gpu_low_cost",
+      "candidate_val_score": -64.615,
+      "best_val_score_so_far": -64.615,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 19698.3,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "overall_score=-64.615 | GPU P95 wait=1.4m | Interactive P95=8.0s | Cost/job=$2.50 | Fragmentation=17.1% | Failure rate=0.35%"
+    },
+    {
+      "generation": 6,
+      "island": "island_2_cost_tiering",
+      "niche": "fast_gpu_low_cost",
+      "candidate_val_score": -65.081,
+      "best_val_score_so_far": -64.615,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 19361.6,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "overall_score=-65.081 | GPU P95 wait=1.4m | Interactive P95=8.0s | Cost/job=$2.51 | Fragmentation=17.3% | Failure rate=0.35%"
+    },
+    {
+      "generation": 7,
+      "island": "island_0_efficiency",
+      "niche": "fast_gpu_low_cost",
+      "candidate_val_score": -64.2433,
+      "best_val_score_so_far": -64.2433,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 16222.4,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "overall_score=-64.243 | GPU P95 wait=1.4m | Interactive P95=8.0s | Cost/job=$2.50 | Fragmentation=17.0% | Failure rate=0.35%"
+    },
+    {
+      "generation": 8,
+      "island": "island_1_sla_accuracy",
+      "niche": "fast_gpu_low_cost",
+      "candidate_val_score": -94.8096,
+      "best_val_score_so_far": -64.2433,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 17895.4,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "overall_score=-94.810 | GPU P95 wait=1.4m | Interactive P95=8.0s | Cost/job=$2.50 | Fragmentation=17.2% | Failure rate=11.10%"
+    },
+    {
+      "generation": 9,
+      "island": "island_2_cost_tiering",
+      "niche": "fast_gpu_low_cost",
+      "candidate_val_score": -64.877,
+      "best_val_score_so_far": -64.2433,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 28450.8,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "overall_score=-64.877 | GPU P95 wait=1.4m | Interactive P95=8.0s | Cost/job=$2.50 | Fragmentation=17.3% | Failure rate=0.35%"
+    },
+    {
+      "generation": 10,
+      "island": "island_0_efficiency",
+      "niche": "fast_gpu_low_cost",
+      "candidate_val_score": -64.1147,
+      "best_val_score_so_far": -64.1147,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 15938.3,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "overall_score=-64.115 | GPU P95 wait=1.4m | Interactive P95=8.0s | Cost/job=$2.50 | Fragmentation=16.9% | Failure rate=0.35%"
+    },
+    {
+      "generation": 11,
+      "island": "island_1_sla_accuracy",
+      "niche": "fast_gpu_low_cost",
+      "candidate_val_score": -64.5546,
+      "best_val_score_so_far": -64.1147,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 16651.0,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "overall_score=-64.555 | GPU P95 wait=1.4m | Interactive P95=8.0s | Cost/job=$2.50 | Fragmentation=17.1% | Failure rate=0.35%"
+    },
+    {
+      "generation": 12,
+      "island": "island_2_cost_tiering",
+      "niche": "fast_gpu_low_cost",
+      "candidate_val_score": -64.19,
+      "best_val_score_so_far": -64.1147,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 15236.2,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "overall_score=-64.190 | GPU P95 wait=1.4m | Interactive P95=8.0s | Cost/job=$2.49 | Fragmentation=17.0% | Failure rate=0.35%"
+    },
+    {
+      "generation": 13,
+      "island": "island_0_efficiency",
+      "niche": "fast_gpu_low_cost",
+      "candidate_val_score": -66.8464,
+      "best_val_score_so_far": -64.1147,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 14978.8,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "overall_score=-66.846 | GPU P95 wait=1.4m | Interactive P95=8.0s | Cost/job=$2.32 | Fragmentation=19.6% | Failure rate=0.35%"
+    }
+  ],
+  "seed_code_block": "def plan_job_dispatch(\n    job: dict[str, Any],\n    pool_utilization: dict[str, float],\n    queue_backlog: dict[str, int],\n) -> dict[str, Any]:\n    \"\"\"Return scheduling dispatch plan for an arriving or queued HPC workload.\n\n    Args:\n        job: Observable job attributes (`job_id`, `arrival_sec`, `workload_class`,\n             `orchestrator_target`, `req_cpus`, `req_mem_gb`, `req_gpus`,\n             `req_walltime_sec`, `hist_p95_mem_ratio`, `hist_p95_runtime_sec`,\n             `io_profile`, `checkpointable`, `priority_tier`, `wait_so_far_sec`).\n        pool_utilization: Current active vCPU/GPU utilization ratio [0.0..1.0] per pool.\n        queue_backlog: Count of queued jobs currently waiting per workload_class.\n\n    Returns:\n        Dictionary containing:\n          - `priority_score`: float (higher dispatches earlier in scheduling epoch)\n          - `preferred_pools`: ordered list of target node pools from `VALID_POOLS`\n          - `tier_preference`: ordered list of capacity tiers from `VALID_TIERS`\n          - `storage_tier`: target storage mount from `VALID_STORAGE`\n          - `alloc_mem_gb`: memory reservation in GB assigned to the job\n          - `alloc_walltime_sec`: walltime limit in seconds assigned to the job\n    \"\"\"\n    # Naive Seed Policy:\n    # 1. Pure FIFO arrival ordering (except mild interactive tie-break) with no SJF or aging.\n    # 2. First-fit pool list without shape guardrails: small CPU/interactive jobs freely\n    #    spill onto 64-core Ultramem and GPU nodes when general CPU pools fill up,\n    #    fragmenting whole-node GPU capacity and causing >7h P95 GPU queue starvation.\n    # 3. Static On-Demand fallback (ignores DWS Flex Start for GPUs and Spot for checkpointable batch).\n    # 4. Raw user memory/walltime requests without P95 historical right-sizing, causing OOM/timeouts.\n    # 5. Default shared NFS `/home` mount for all jobs, creating metadata IOPS contention.\n    priority_score = -float(job[\"arrival_sec\"]) * 1e-4\n    if job[\"workload_class\"] == \"interactive_ide\":\n        priority_score += 5.0\n\n    if job[\"req_gpus\"] > 0:\n        preferred_pools = [\"gpu_pool\"]\n    else:\n        preferred_pools = [\"cpu_general\", \"gpu_pool\", \"ultramem_pool\", \"batch_elastic\"]\n\n    tier_preference = [\"committed_reservation\", \"gen4_on_demand\"]\n    storage_tier = \"shared_nfs_home\"\n\n    return {\n        \"priority_score\": priority_score,\n        \"preferred_pools\": preferred_pools,\n        \"tier_preference\": tier_preference,\n        \"storage_tier\": storage_tier,\n        \"alloc_mem_gb\": float(job[\"req_mem_gb\"]),\n        \"alloc_walltime_sec\": float(job[\"req_walltime_sec\"]),\n    }",
+  "winning_evolved_code_block": "def plan_job_dispatch(\n    job: dict[str, Any],\n    pool_utilization: dict[str, float],\n    queue_backlog: dict[str, int],\n) -> dict[str, Any]:\n    \"\"\"Return scheduling dispatch plan for an arriving or queued HPC workload.\n\n    Args:\n        job: Observable job attributes (`job_id`, `arrival_sec`, `workload_class`,\n             `orchestrator_target`, `req_cpus`, `req_mem_gb`, `req_gpus`,\n             `req_walltime_sec`, `hist_p95_mem_ratio`, `hist_p95_runtime_sec`,\n             `io_profile`, `checkpointable`, `priority_tier`, `wait_so_far_sec`).\n        pool_utilization: Current active vCPU/GPU utilization ratio [0.0..1.0] per pool.\n        queue_backlog: Count of queued jobs currently waiting per workload_class.\n\n    Returns:\n        Dictionary containing:\n          - `priority_score`: float (higher dispatches earlier in scheduling epoch)\n          - `preferred_pools`: ordered list of target node pools from `VALID_POOLS`\n          - `tier_preference`: ordered list of capacity tiers from `VALID_TIERS`\n          - `storage_tier`: target storage mount from `VALID_STORAGE`\n          - `alloc_mem_gb`: memory reservation in GB assigned to the job\n          - `alloc_walltime_sec`: walltime limit in seconds assigned to the job\n    \"\"\"\n    # Define pool capacities for shape guardrails and memory clamping\n    POOL_SPECS = {\n        \"cpu_general\": {\"cpus\": 32, \"mem_gb\": 128, \"gpus\": 0},\n        \"ultramem_pool\": {\"cpus\": 64, \"mem_gb\": 1024, \"gpus\": 0},\n        \"gpu_pool\": {\"cpus\": 64, \"mem_gb\": 512, \"gpus\": 8},\n        \"batch_elastic\": {\"cpus\": 16, \"mem_gb\": 64, \"gpus\": 0},\n    }\n\n    # 1. Priority Score\n    priority_score = -float(job[\"arrival_sec\"]) * 1e-4  # Base FIFO\n\n    # Boost interactive jobs for SLA\n    if job[\"workload_class\"] == \"interactive_ide\":\n        priority_score += 10.0\n\n    # Aging boost for starved jobs\n    priority_score += job[\"wait_so_far_sec\"] * 0.01\n\n    # Shortest-expected-GPU-work heuristic\n    if job[\"req_gpus\"] > 0:\n        effective_runtime = max(1.0, job[\"hist_p95_runtime_sec\"])\n        # Scale to make it impactful; higher value for shorter work/fewer GPUs\n        priority_score += (1.0 / (job[\"req_gpus\"] * effective_runtime)) * 5e2\n\n    # 2. Preferred Pools (Shape Guardrails)\n    preferred_pools = []\n    req_cpus = job[\"req_cpus\"]\n    req_gpus = job[\"req_gpus\"]\n    req_mem_gb = job[\"req_mem_gb\"] # Use requested memory for initial pool fit checks\n\n    # Helper to check if job fits in a pool\n    def fits(pool_name, cpus, mem_gb, gpus):\n        spec = POOL_SPECS[pool_name]\n        return cpus <= spec[\"cpus\"] and mem_gb <= spec[\"mem_gb\"] and gpus <= spec[\"gpus\"]\n\n    if req_gpus > 0:\n        # GPU jobs strictly go to gpu_pool\n        if fits(\"gpu_pool\", req_cpus, req_mem_gb, req_gpus):\n            preferred_pools = [\"gpu_pool\"]\n    else:\n        # CPU-only jobs\n        potential_pools = []\n\n        # Prioritize cpu_general for most CPU jobs\n        if fits(\"cpu_general\", req_cpus, req_mem_gb, 0):\n            potential_pools.append(\"cpu_general\")\n\n        # Prioritize batch_elastic for Cloud Batch workloads or if it's a good fit\n        if job[\"orchestrator_target\"] == \"cloud_batch\" and fits(\"batch_elastic\", req_cpus, req_mem_gb, 0):\n            potential_pools.append(\"batch_elastic\")\n        elif fits(\"batch_elastic\", req_cpus, req_mem_gb, 0): # Add as general option\n             potential_pools.append(\"batch_elastic\")\n\n        # Ultramem for memory-intensive or larger CPU jobs, but lower priority to avoid fragmentation\n        if fits(\"ultramem_pool\", req_cpus, req_mem_gb, 0):\n            potential_pools.append(\"ultramem_pool\")\n\n        # Filter out smaller pools if a larger one is available and fits, to avoid fragmentation\n        # e.g., if a job fits cpu_general and ultramem_pool, prefer cpu_general unless it's a large job.\n        # For now, just order them.\n        \n        # Order based on general preference and avoiding fragmentation of large nodes\n        # cpu_general -> batch_elastic (if fits) -> ultramem_pool (if large enough)\n        final_cpu_pools = []\n        if \"cpu_general\" in potential_pools:\n            final_cpu_pools.append(\"cpu_general\")\n        if \"batch_elastic\" in potential_pools and \"batch_elastic\" not in final_cpu_pools:\n            final_cpu_pools.append(\"batch_elastic\")\n        # Ultramem is a last resort for CPU-only jobs unless it's specifically memory-intensive\n        if \"ultramem_pool\" in potential_pools and \"ultramem_pool\" not in final_cpu_pools:\n            # Only add ultramem if it's truly needed (high memory or large CPU)\n            # Or if it's the only option left\n            if req_mem_gb > POOL_SPECS[\"cpu_general\"][\"mem_gb\"] or \\\n               req_cpus > POOL_SPECS[\"cpu_general\"][\"cpus\"] or \\\n               not final_cpu_pools:\n                final_cpu_pools.append(\"ultramem_pool\")\n        \n        preferred_pools = final_cpu_pools\n\n    # Fallback: If no pool fits the initial request, provide a general fallback.\n    # This ensures the job is not immediately unschedulable due to strict guardrails.\n    if not preferred_pools:\n        if req_gpus > 0:\n            preferred_pools = [\"gpu_pool\"] # Force GPU job to GPU pool\n        else:\n            # For CPU jobs, try to find any pool that *could* fit\n            # Order: cpu_general, batch_elastic, ultramem_pool (largest CPU/MEM)\n            for pool_name in [\"cpu_general\", \"batch_elastic\", \"ultramem_pool\"]:\n                if fits(pool_name, req_cpus, req_mem_gb, 0):\n                    preferred_pools.append(pool_name)\n            if not preferred_pools: # If still nothing, just give a default order\n                preferred_pools = [\"cpu_general\", \"batch_elastic\", \"ultramem_pool\"]\n\n\n    # 3. Tier Preference\n    tier_preference = []\n    # Always try committed reservation first for cost savings\n    tier_preference.append(\"committed_reservation\")\n\n    # DWS Flex Start is supported on `gpu_pool`, `ultramem_pool`, `batch_elastic`\n    dws_flex_supported_pools = [\"gpu_pool\", \"ultramem_pool\", \"batch_elastic\"]\n    dws_flex_possible = any(p in preferred_pools for p in dws_flex_supported_pools)\n\n    # Spot for checkpointable jobs, highest cost savings\n    if job[\"checkpointable\"]:\n        tier_preference.append(\"spot\")\n    \n    # DWS Flex Start for non-interactive jobs where supported\n    if job[\"workload_class\"] != \"interactive_ide\" and dws_flex_possible:\n        tier_preference.append(\"dws_flex_start\")\n\n    # Gen4 On-Demand as the general fallback\n    tier_preference.append(\"gen4_on_demand\")\n\n    # Ensure interactive jobs get fast startup, so DWS Flex Start is avoided if present\n    if job[\"workload_class\"] == \"interactive_ide\" and \"dws_flex_start\" in tier_preference:\n        tier_preference.remove(\"dws_flex_start\")\n\n    # Remove duplicates while preserving order\n    final_tier_preference = []\n    seen = set()\n    for tier in tier_preference:\n        if tier not in seen:\n            final_tier_preference.append(tier)\n            seen.add(tier)\n    tier_preference = final_tier_preference\n\n    # 4. Storage Tier\n    storage_tier = \"shared_nfs_home\"\n    if job[\"io_profile\"] in [\"high_iops_scratch\", \"metadata_heavy\"]:\n        storage_tier = \"nvme_parallel_scratch\"\n    elif job[\"io_profile\"] == \"streaming_throughput\":\n        storage_tier = \"object_storage_tier\"\n\n    # 5. Right-sizing alloc_mem_gb and alloc_walltime_sec\n    # Memory: Use P95 historical ratio with a buffer, clamped by target pool max\n    target_mem_gb_p95 = float(job[\"req_mem_gb\"]) * max(1.0, job[\"hist_p95_mem_ratio\"] * 1.06)\n\n    # Determine the maximum memory available in the *most suitable* preferred pool.\n    # We need to ensure alloc_mem_gb never exceeds target pool RAM.\n    # Iterate through preferred_pools and find the first one that can accommodate the job's\n    # CPU and GPU requirements (based on original request, not P95 memory yet).\n    # Then clamp alloc_mem_gb to that pool's memory.\n    effective_pool_mem_limit = float('inf')\n    for pool_name in preferred_pools:\n        spec = POOL_SPECS[pool_name]\n        if req_cpus <= spec[\"cpus\"] and req_gpus <= spec[\"gpus\"]:\n            effective_pool_mem_limit = spec[\"mem_gb\"]\n            break # Found the first suitable pool, use its memory limit\n\n    alloc_mem_gb = min(target_mem_gb_p95, effective_pool_mem_limit)\n    alloc_mem_gb = max(1.0, alloc_mem_gb) # Ensure minimum 1GB\n\n    # Walltime: Use P95 historical runtime with a buffer, or user request if higher\n    alloc_walltime_sec = max(float(job[\"req_walltime_sec\"]), job[\"hist_p95_runtime_sec\"] * 1.22)\n    alloc_walltime_sec = min(alloc_walltime_sec, 24 * 3600) # Cap at 24 hours to prevent starvation\n\n    return {\n        \"priority_score\": priority_score,\n        \"preferred_pools\": preferred_pools,\n        \"tier_preference\": tier_preference,\n        \"storage_tier\": storage_tier,\n        \"alloc_mem_gb\": alloc_mem_gb,\n        \"alloc_walltime_sec\": alloc_walltime_sec,\n    }",
+  "winning_full_program": "\"\"\"Seed program for Pillar 1: Enterprise HPC & AI Cluster Scheduling Policy.\n\nOptimizes job priority ordering, shape-guardrailed node pool placement,\nmulti-tier capacity spillover (Committed Reservations -> DWS Flex Start ->\nGen-4 On-Demand -> Spot), historical memory/walltime right-sizing, and\nI/O-aware storage tier routing across Slurm, GKE Custom Compute Classes,\nand Cloud Batch.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport math\nfrom typing import Any\n\nVALID_POOLS = (\"cpu_general\", \"ultramem_pool\", \"gpu_pool\", \"batch_elastic\")\nVALID_TIERS = (\"committed_reservation\", \"dws_flex_start\", \"gen4_on_demand\", \"spot\")\nVALID_STORAGE = (\"shared_nfs_home\", \"nvme_parallel_scratch\", \"object_storage_tier\")\n\n\n# EVOLVE-BLOCK-START\ndef plan_job_dispatch(\n    job: dict[str, Any],\n    pool_utilization: dict[str, float],\n    queue_backlog: dict[str, int],\n) -> dict[str, Any]:\n    \"\"\"Return scheduling dispatch plan for an arriving or queued HPC workload.\n\n    Args:\n        job: Observable job attributes (`job_id`, `arrival_sec`, `workload_class`,\n             `orchestrator_target`, `req_cpus`, `req_mem_gb`, `req_gpus`,\n             `req_walltime_sec`, `hist_p95_mem_ratio`, `hist_p95_runtime_sec`,\n             `io_profile`, `checkpointable`, `priority_tier`, `wait_so_far_sec`).\n        pool_utilization: Current active vCPU/GPU utilization ratio [0.0..1.0] per pool.\n        queue_backlog: Count of queued jobs currently waiting per workload_class.\n\n    Returns:\n        Dictionary containing:\n          - `priority_score`: float (higher dispatches earlier in scheduling epoch)\n          - `preferred_pools`: ordered list of target node pools from `VALID_POOLS`\n          - `tier_preference`: ordered list of capacity tiers from `VALID_TIERS`\n          - `storage_tier`: target storage mount from `VALID_STORAGE`\n          - `alloc_mem_gb`: memory reservation in GB assigned to the job\n          - `alloc_walltime_sec`: walltime limit in seconds assigned to the job\n    \"\"\"\n    # Define pool capacities for shape guardrails and memory clamping\n    POOL_SPECS = {\n        \"cpu_general\": {\"cpus\": 32, \"mem_gb\": 128, \"gpus\": 0},\n        \"ultramem_pool\": {\"cpus\": 64, \"mem_gb\": 1024, \"gpus\": 0},\n        \"gpu_pool\": {\"cpus\": 64, \"mem_gb\": 512, \"gpus\": 8},\n        \"batch_elastic\": {\"cpus\": 16, \"mem_gb\": 64, \"gpus\": 0},\n    }\n\n    # 1. Priority Score\n    priority_score = -float(job[\"arrival_sec\"]) * 1e-4  # Base FIFO\n\n    # Boost interactive jobs for SLA\n    if job[\"workload_class\"] == \"interactive_ide\":\n        priority_score += 10.0\n\n    # Aging boost for starved jobs\n    priority_score += job[\"wait_so_far_sec\"] * 0.01\n\n    # Shortest-expected-GPU-work heuristic\n    if job[\"req_gpus\"] > 0:\n        effective_runtime = max(1.0, job[\"hist_p95_runtime_sec\"])\n        # Scale to make it impactful; higher value for shorter work/fewer GPUs\n        priority_score += (1.0 / (job[\"req_gpus\"] * effective_runtime)) * 5e2\n\n    # 2. Preferred Pools (Shape Guardrails)\n    preferred_pools = []\n    req_cpus = job[\"req_cpus\"]\n    req_gpus = job[\"req_gpus\"]\n    req_mem_gb = job[\"req_mem_gb\"] # Use requested memory for initial pool fit checks\n\n    # Helper to check if job fits in a pool\n    def fits(pool_name, cpus, mem_gb, gpus):\n        spec = POOL_SPECS[pool_name]\n        return cpus <= spec[\"cpus\"] and mem_gb <= spec[\"mem_gb\"] and gpus <= spec[\"gpus\"]\n\n    if req_gpus > 0:\n        # GPU jobs strictly go to gpu_pool\n        if fits(\"gpu_pool\", req_cpus, req_mem_gb, req_gpus):\n            preferred_pools = [\"gpu_pool\"]\n    else:\n        # CPU-only jobs\n        potential_pools = []\n\n        # Prioritize cpu_general for most CPU jobs\n        if fits(\"cpu_general\", req_cpus, req_mem_gb, 0):\n            potential_pools.append(\"cpu_general\")\n\n        # Prioritize batch_elastic for Cloud Batch workloads or if it's a good fit\n        if job[\"orchestrator_target\"] == \"cloud_batch\" and fits(\"batch_elastic\", req_cpus, req_mem_gb, 0):\n            potential_pools.append(\"batch_elastic\")\n        elif fits(\"batch_elastic\", req_cpus, req_mem_gb, 0): # Add as general option\n             potential_pools.append(\"batch_elastic\")\n\n        # Ultramem for memory-intensive or larger CPU jobs, but lower priority to avoid fragmentation\n        if fits(\"ultramem_pool\", req_cpus, req_mem_gb, 0):\n            potential_pools.append(\"ultramem_pool\")\n\n        # Filter out smaller pools if a larger one is available and fits, to avoid fragmentation\n        # e.g., if a job fits cpu_general and ultramem_pool, prefer cpu_general unless it's a large job.\n        # For now, just order them.\n        \n        # Order based on general preference and avoiding fragmentation of large nodes\n        # cpu_general -> batch_elastic (if fits) -> ultramem_pool (if large enough)\n        final_cpu_pools = []\n        if \"cpu_general\" in potential_pools:\n            final_cpu_pools.append(\"cpu_general\")\n        if \"batch_elastic\" in potential_pools and \"batch_elastic\" not in final_cpu_pools:\n            final_cpu_pools.append(\"batch_elastic\")\n        # Ultramem is a last resort for CPU-only jobs unless it's specifically memory-intensive\n        if \"ultramem_pool\" in potential_pools and \"ultramem_pool\" not in final_cpu_pools:\n            # Only add ultramem if it's truly needed (high memory or large CPU)\n            # Or if it's the only option left\n            if req_mem_gb > POOL_SPECS[\"cpu_general\"][\"mem_gb\"] or \\\n               req_cpus > POOL_SPECS[\"cpu_general\"][\"cpus\"] or \\\n               not final_cpu_pools:\n                final_cpu_pools.append(\"ultramem_pool\")\n        \n        preferred_pools = final_cpu_pools\n\n    # Fallback: If no pool fits the initial request, provide a general fallback.\n    # This ensures the job is not immediately unschedulable due to strict guardrails.\n    if not preferred_pools:\n        if req_gpus > 0:\n            preferred_pools = [\"gpu_pool\"] # Force GPU job to GPU pool\n        else:\n            # For CPU jobs, try to find any pool that *could* fit\n            # Order: cpu_general, batch_elastic, ultramem_pool (largest CPU/MEM)\n            for pool_name in [\"cpu_general\", \"batch_elastic\", \"ultramem_pool\"]:\n                if fits(pool_name, req_cpus, req_mem_gb, 0):\n                    preferred_pools.append(pool_name)\n            if not preferred_pools: # If still nothing, just give a default order\n                preferred_pools = [\"cpu_general\", \"batch_elastic\", \"ultramem_pool\"]\n\n\n    # 3. Tier Preference\n    tier_preference = []\n    # Always try committed reservation first for cost savings\n    tier_preference.append(\"committed_reservation\")\n\n    # DWS Flex Start is supported on `gpu_pool`, `ultramem_pool`, `batch_elastic`\n    dws_flex_supported_pools = [\"gpu_pool\", \"ultramem_pool\", \"batch_elastic\"]\n    dws_flex_possible = any(p in preferred_pools for p in dws_flex_supported_pools)\n\n    # Spot for checkpointable jobs, highest cost savings\n    if job[\"checkpointable\"]:\n        tier_preference.append(\"spot\")\n    \n    # DWS Flex Start for non-interactive jobs where supported\n    if job[\"workload_class\"] != \"interactive_ide\" and dws_flex_possible:\n        tier_preference.append(\"dws_flex_start\")\n\n    # Gen4 On-Demand as the general fallback\n    tier_preference.append(\"gen4_on_demand\")\n\n    # Ensure interactive jobs get fast startup, so DWS Flex Start is avoided if present\n    if job[\"workload_class\"] == \"interactive_ide\" and \"dws_flex_start\" in tier_preference:\n        tier_preference.remove(\"dws_flex_start\")\n\n    # Remove duplicates while preserving order\n    final_tier_preference = []\n    seen = set()\n    for tier in tier_preference:\n        if tier not in seen:\n            final_tier_preference.append(tier)\n            seen.add(tier)\n    tier_preference = final_tier_preference\n\n    # 4. Storage Tier\n    storage_tier = \"shared_nfs_home\"\n    if job[\"io_profile\"] in [\"high_iops_scratch\", \"metadata_heavy\"]:\n        storage_tier = \"nvme_parallel_scratch\"\n    elif job[\"io_profile\"] == \"streaming_throughput\":\n        storage_tier = \"object_storage_tier\"\n\n    # 5. Right-sizing alloc_mem_gb and alloc_walltime_sec\n    # Memory: Use P95 historical ratio with a buffer, clamped by target pool max\n    target_mem_gb_p95 = float(job[\"req_mem_gb\"]) * max(1.0, job[\"hist_p95_mem_ratio\"] * 1.06)\n\n    # Determine the maximum memory available in the *most suitable* preferred pool.\n    # We need to ensure alloc_mem_gb never exceeds target pool RAM.\n    # Iterate through preferred_pools and find the first one that can accommodate the job's\n    # CPU and GPU requirements (based on original request, not P95 memory yet).\n    # Then clamp alloc_mem_gb to that pool's memory.\n    effective_pool_mem_limit = float('inf')\n    for pool_name in preferred_pools:\n        spec = POOL_SPECS[pool_name]\n        if req_cpus <= spec[\"cpus\"] and req_gpus <= spec[\"gpus\"]:\n            effective_pool_mem_limit = spec[\"mem_gb\"]\n            break # Found the first suitable pool, use its memory limit\n\n    alloc_mem_gb = min(target_mem_gb_p95, effective_pool_mem_limit)\n    alloc_mem_gb = max(1.0, alloc_mem_gb) # Ensure minimum 1GB\n\n    # Walltime: Use P95 historical runtime with a buffer, or user request if higher\n    alloc_walltime_sec = max(float(job[\"req_walltime_sec\"]), job[\"hist_p95_runtime_sec\"] * 1.22)\n    alloc_walltime_sec = min(alloc_walltime_sec, 24 * 3600) # Cap at 24 hours to prevent starvation\n\n    return {\n        \"priority_score\": priority_score,\n        \"preferred_pools\": preferred_pools,\n        \"tier_preference\": tier_preference,\n        \"storage_tier\": storage_tier,\n        \"alloc_mem_gb\": alloc_mem_gb,\n        \"alloc_walltime_sec\": alloc_walltime_sec,\n    }\n# EVOLVE-BLOCK-END\n",
+  "code_diff": "--- pillars/cluster_scheduling/main.py (seed)\n+++ pillars/cluster_scheduling/main.py (evolved)\n@@ -22,31 +22,168 @@\n           - `alloc_mem_gb`: memory reservation in GB assigned to the job\n           - `alloc_walltime_sec`: walltime limit in seconds assigned to the job\n     \"\"\"\n-    # Naive Seed Policy:\n-    # 1. Pure FIFO arrival ordering (except mild interactive tie-break) with no SJF or aging.\n-    # 2. First-fit pool list without shape guardrails: small CPU/interactive jobs freely\n-    #    spill onto 64-core Ultramem and GPU nodes when general CPU pools fill up,\n-    #    fragmenting whole-node GPU capacity and causing >7h P95 GPU queue starvation.\n-    # 3. Static On-Demand fallback (ignores DWS Flex Start for GPUs and Spot for checkpointable batch).\n-    # 4. Raw user memory/walltime requests without P95 historical right-sizing, causing OOM/timeouts.\n-    # 5. Default shared NFS `/home` mount for all jobs, creating metadata IOPS contention.\n-    priority_score = -float(job[\"arrival_sec\"]) * 1e-4\n+    # Define pool capacities for shape guardrails and memory clamping\n+    POOL_SPECS = {\n+        \"cpu_general\": {\"cpus\": 32, \"mem_gb\": 128, \"gpus\": 0},\n+        \"ultramem_pool\": {\"cpus\": 64, \"mem_gb\": 1024, \"gpus\": 0},\n+        \"gpu_pool\": {\"cpus\": 64, \"mem_gb\": 512, \"gpus\": 8},\n+        \"batch_elastic\": {\"cpus\": 16, \"mem_gb\": 64, \"gpus\": 0},\n+    }\n+\n+    # 1. Priority Score\n+    priority_score = -float(job[\"arrival_sec\"]) * 1e-4  # Base FIFO\n+\n+    # Boost interactive jobs for SLA\n     if job[\"workload_class\"] == \"interactive_ide\":\n-        priority_score += 5.0\n+        priority_score += 10.0\n \n+    # Aging boost for starved jobs\n+    priority_score += job[\"wait_so_far_sec\"] * 0.01\n+\n+    # Shortest-expected-GPU-work heuristic\n     if job[\"req_gpus\"] > 0:\n-        preferred_pools = [\"gpu_pool\"]\n+        effective_runtime = max(1.0, job[\"hist_p95_runtime_sec\"])\n+        # Scale to make it impactful; higher value for shorter work/fewer GPUs\n+        priority_score += (1.0 / (job[\"req_gpus\"] * effective_runtime)) * 5e2\n+\n+    # 2. Preferred Pools (Shape Guardrails)\n+    preferred_pools = []\n+    req_cpus = job[\"req_cpus\"]\n+    req_gpus = job[\"req_gpus\"]\n+    req_mem_gb = job[\"req_mem_gb\"] # Use requested memory for initial pool fit checks\n+\n+    # Helper to check if job fits in a pool\n+    def fits(pool_name, cpus, mem_gb, gpus):\n+        spec = POOL_SPECS[pool_name]\n+        return cpus <= spec[\"cpus\"] and mem_gb <= spec[\"mem_gb\"] and gpus <= spec[\"gpus\"]\n+\n+    if req_gpus > 0:\n+        # GPU jobs strictly go to gpu_pool\n+        if fits(\"gpu_pool\", req_cpus, req_mem_gb, req_gpus):\n+            preferred_pools = [\"gpu_pool\"]\n     else:\n-        preferred_pools = [\"cpu_general\", \"gpu_pool\", \"ultramem_pool\", \"batch_elastic\"]\n+        # CPU-only jobs\n+        potential_pools = []\n \n-    tier_preference = [\"committed_reservation\", \"gen4_on_demand\"]\n+        # Prioritize cpu_general for most CPU jobs\n+        if fits(\"cpu_general\", req_cpus, req_mem_gb, 0):\n+            potential_pools.append(\"cpu_general\")\n+\n+        # Prioritize batch_elastic for Cloud Batch workloads or if it's a good fit\n+        if job[\"orchestrator_target\"] == \"cloud_batch\" and fits(\"batch_elastic\", req_cpus, req_mem_gb, 0):\n+            potential_pools.append(\"batch_elastic\")\n+        elif fits(\"batch_elastic\", req_cpus, req_mem_gb, 0): # Add as general option\n+             potential_pools.append(\"batch_elastic\")\n+\n+        # Ultramem for memory-intensive or larger CPU jobs, but lower priority to avoid fragmentation\n+        if fits(\"ultramem_pool\", req_cpus, req_mem_gb, 0):\n+            potential_pools.append(\"ultramem_pool\")\n+\n+        # Filter out smaller pools if a larger one is available and fits, to avoid fragmentation\n+        # e.g., if a job fits cpu_general and ultramem_pool, prefer cpu_general unless it's a large job.\n+        # For now, just order them.\n+        \n+        # Order based on general preference and avoiding fragmentation of large nodes\n+        # cpu_general -> batch_elastic (if fits) -> ultramem_pool (if large enough)\n+        final_cpu_pools = []\n+        if \"cpu_general\" in potential_pools:\n+            final_cpu_pools.append(\"cpu_general\")\n+        if \"batch_elastic\" in potential_pools and \"batch_elastic\" not in final_cpu_pools:\n+            final_cpu_pools.append(\"batch_elastic\")\n+        # Ultramem is a last resort for CPU-only jobs unless it's specifically memory-intensive\n+        if \"ultramem_pool\" in potential_pools and \"ultramem_pool\" not in final_cpu_pools:\n+            # Only add ultramem if it's truly needed (high memory or large CPU)\n+            # Or if it's the only option left\n+            if req_mem_gb > POOL_SPECS[\"cpu_general\"][\"mem_gb\"] or \\\n+               req_cpus > POOL_SPECS[\"cpu_general\"][\"cpus\"] or \\\n+               not final_cpu_pools:\n+                final_cpu_pools.append(\"ultramem_pool\")\n+        \n+        preferred_pools = final_cpu_pools\n+\n+    # Fallback: If no pool fits the initial request, provide a general fallback.\n+    # This ensures the job is not immediately unschedulable due to strict guardrails.\n+    if not preferred_pools:\n+        if req_gpus > 0:\n+            preferred_pools = [\"gpu_pool\"] # Force GPU job to GPU pool\n+        else:\n+            # For CPU jobs, try to find any pool that *could* fit\n+            # Order: cpu_general, batch_elastic, ultramem_pool (largest CPU/MEM)\n+            for pool_name in [\"cpu_general\", \"batch_elastic\", \"ultramem_pool\"]:\n+                if fits(pool_name, req_cpus, req_mem_gb, 0):\n+                    preferred_pools.append(pool_name)\n+            if not preferred_pools: # If still nothing, just give a default order\n+                preferred_pools = [\"cpu_general\", \"batch_elastic\", \"ultramem_pool\"]\n+\n+\n+    # 3. Tier Preference\n+    tier_preference = []\n+    # Always try committed reservation first for cost savings\n+    tier_preference.append(\"committed_reservation\")\n+\n+    # DWS Flex Start is supported on `gpu_pool`, `ultramem_pool`, `batch_elastic`\n+    dws_flex_supported_pools = [\"gpu_pool\", \"ultramem_pool\", \"batch_elastic\"]\n+    dws_flex_possible = any(p in preferred_pools for p in dws_flex_supported_pools)\n+\n+    # Spot for checkpointable jobs, highest cost savings\n+    if job[\"checkpointable\"]:\n+        tier_preference.append(\"spot\")\n+    \n+    # DWS Flex Start for non-interactive jobs where supported\n+    if job[\"workload_class\"] != \"interactive_ide\" and dws_flex_possible:\n+        tier_preference.append(\"dws_flex_start\")\n+\n+    # Gen4 On-Demand as the general fallback\n+    tier_preference.append(\"gen4_on_demand\")\n+\n+    # Ensure interactive jobs get fast startup, so DWS Flex Start is avoided if present\n+    if job[\"workload_class\"] == \"interactive_ide\" and \"dws_flex_start\" in tier_preference:\n+        tier_preference.remove(\"dws_flex_start\")\n+\n+    # Remove duplicates while preserving order\n+    final_tier_preference = []\n+    seen = set()\n+    for tier in tier_preference:\n+        if tier not in seen:\n+            final_tier_preference.append(tier)\n+            seen.add(tier)\n+    tier_preference = final_tier_preference\n+\n+    # 4. Storage Tier\n     storage_tier = \"shared_nfs_home\"\n+    if job[\"io_profile\"] in [\"high_iops_scratch\", \"metadata_heavy\"]:\n+        storage_tier = \"nvme_parallel_scratch\"\n+    elif job[\"io_profile\"] == \"streaming_throughput\":\n+        storage_tier = \"object_storage_tier\"\n+\n+    # 5. Right-sizing alloc_mem_gb and alloc_walltime_sec\n+    # Memory: Use P95 historical ratio with a buffer, clamped by target pool max\n+    target_mem_gb_p95 = float(job[\"req_mem_gb\"]) * max(1.0, job[\"hist_p95_mem_ratio\"] * 1.06)\n+\n+    # Determine the maximum memory available in the *most suitable* preferred pool.\n+    # We need to ensure alloc_mem_gb never exceeds target pool RAM.\n+    # Iterate through preferred_pools and find the first one that can accommodate the job's\n+    # CPU and GPU requirements (based on original request, not P95 memory yet).\n+    # Then clamp alloc_mem_gb to that pool's memory.\n+    effective_pool_mem_limit = float('inf')\n+    for pool_name in preferred_pools:\n+        spec = POOL_SPECS[pool_name]\n+        if req_cpus <= spec[\"cpus\"] and req_gpus <= spec[\"gpus\"]:\n+            effective_pool_mem_limit = spec[\"mem_gb\"]\n+            break # Found the first suitable pool, use its memory limit\n+\n+    alloc_mem_gb = min(target_mem_gb_p95, effective_pool_mem_limit)\n+    alloc_mem_gb = max(1.0, alloc_mem_gb) # Ensure minimum 1GB\n+\n+    # Walltime: Use P95 historical runtime with a buffer, or user request if higher\n+    alloc_walltime_sec = max(float(job[\"req_walltime_sec\"]), job[\"hist_p95_runtime_sec\"] * 1.22)\n+    alloc_walltime_sec = min(alloc_walltime_sec, 24 * 3600) # Cap at 24 hours to prevent starvation\n \n     return {\n         \"priority_score\": priority_score,\n         \"preferred_pools\": preferred_pools,\n         \"tier_preference\": tier_preference,\n         \"storage_tier\": storage_tier,\n-        \"alloc_mem_gb\": float(job[\"req_mem_gb\"]),\n-        \"alloc_walltime_sec\": float(job[\"req_walltime_sec\"]),\n+        \"alloc_mem_gb\": alloc_mem_gb,\n+        \"alloc_walltime_sec\": alloc_walltime_sec,\n     }"
+}

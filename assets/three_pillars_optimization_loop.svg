@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 840" width="1600" height="840">
+  <defs>
+    <style>
+      .title { font: 700 23px 'Google Sans', 'Inter', Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 500 13.5px 'Google Sans', 'Inter', Arial, sans-serif; fill: #475569; }
+      .node-title { font: 700 15.5px 'Google Sans', 'Inter', Arial, sans-serif; fill: #0f172a; }
+      .node-sub { font: 500 12.5px 'Google Sans', 'Inter', Arial, sans-serif; fill: #475569; }
+      .badge { font: 700 11.5px 'Google Sans', 'Roboto Mono', monospace; fill: #ffffff; letter-spacing: 0.3px; }
+      .col-tag { font: 700 11px 'Google Sans', 'Roboto Mono', monospace; fill: #334155; letter-spacing: 0.5px; }
+    </style>
+    <filter id="shadow" x="-2%" y="-4%" width="104%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.07"/>
+    </filter>
+    <marker id="arrow-blue" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#1a73e8"/>
+    </marker>
+    <marker id="arrow-purple" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#6d28d9"/>
+    </marker>
+    <marker id="arrow-green" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="840" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+
+  <!-- Header -->
+  <rect x="24" y="18" width="1552" height="68" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="24" y="18" width="10" height="68" rx="4" fill="#6d28d9"/>
+  <text x="50" y="47" class="title">Three Optimization Pillars — Closed-Loop AlphaEvolve Workflow</text>
+  <text x="50" y="70" class="subtitle">What AlphaEvolve Mutates (#EVOLVE-BLOCK)  -&gt;  How Sandboxed evaluate.py Verifies  -&gt;  Verified Production Outcome</text>
+
+  <!-- Subtle Stage Header Guides -->
+  <rect x="56" y="100" width="468" height="26" rx="6" fill="#e2e8f0"/>
+  <text x="155" y="117" class="col-tag">1. EVOLVED #EVOLVE-BLOCK ARTIFACT</text>
+  <rect x="566" y="100" width="468" height="26" rx="6" fill="#e2e8f0"/>
+  <text x="665" y="117" class="col-tag">2. SANDBOXED EVALUATOR HARNESS</text>
+  <rect x="1076" y="100" width="468" height="26" rx="6" fill="#e2e8f0"/>
+  <text x="1186" y="117" class="col-tag">3. SCORED PRODUCTION OBJECTIVE</text>
+
+  <!-- PILLAR 1: CLUSTER SCHEDULING -->
+  <rect x="24" y="140" width="1552" height="206" rx="12" fill="#eff6ff" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="24" y="140" width="1552" height="34" rx="10" fill="#1a73e8"/>
+  <text x="48" y="162" class="badge">PILLAR 1 — CLUSTER SCHEDULING: Slurm Partitions, GKE Custom Compute Classes &amp; Cloud Batch Spillover</text>
+
+  <rect x="56" y="194" width="468" height="130" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5" filter="url(#shadow)"/>
+  <svg x="78" y="235" width="48" height="48" viewBox="0 0 24 24"><defs><style>.ico_cloud_code_p1_cls-1{fill:#aecbfa;}.ico_cloud_code_p1_cls-2{fill:#669df6;}.ico_cloud_code_p1_cls-3{fill:#4285f4;}</style></defs><title>Icon_24px_CloudCode_Color</title><g data-name="Product Icons"><g ><g data-name="Layer 1-2"><polygon class="ico_cloud_code_p1_cls-1" points="5.45 8.53 8.55 5.42 11.65 8.53 8.55 11.65 5.45 8.53"/><polygon class="ico_cloud_code_p1_cls-2" points="2 12 5.1 8.88 8.2 12 5.1 15.12 2 12"/><polygon class="ico_cloud_code_p1_cls-3" points="5.45 15.47 8.55 12.35 11.65 15.47 8.55 18.59 5.45 15.47"/><polygon class="ico_cloud_code_p1_cls-1" points="12.35 8.53 15.45 5.42 18.55 8.53 15.45 11.65 12.35 8.53"/><polygon class="ico_cloud_code_p1_cls-2" points="15.8 12 18.9 8.88 22 12 18.9 15.12 15.8 12"/><polygon class="ico_cloud_code_p1_cls-3" points="12.35 15.47 15.45 12.35 18.55 15.47 15.45 18.59 12.35 15.47"/></g></g></g></svg>
+  <text x="144" y="250" class="node-title">Scheduling &amp; Spillover Heuristics</text>
+  <text x="144" y="274" class="node-sub">Shape-aware bin-packing, memory right-sizing &amp; DWS routing</text>
+
+  <rect x="566" y="194" width="468" height="130" rx="10" fill="#ffffff" stroke="#1a73e8" stroke-width="2" filter="url(#shadow)"/>
+  <svg x="588" y="235" width="48" height="48" viewBox="0 0 24 24">
+  <path fill="#4285F4" d="M15.62271,5 L21.638741,11.5594321 L15.62271,18.1188642 L13.612,15.926 L11.5874595,18.1343249 L9.794,16.179 L8.01603096,18.1188642 L2,11.5594321 L8.01603096,5 L9.808,6.954 L9.179,7.64 L8.01603096,6.37241434 L3.25871981,11.5594321 L8.01603096,16.7464499 L9.165,15.493 L5.57142857,11.5748928 L11.5874595,5.01546073 L13.598,7.207 L15.62271,5 Z M11.5874595,6.38787507 L6.83014838,11.5748928 L11.5874595,16.7619106 L12.982,15.24 L9.60667904,11.5594321 L12.968,7.893 L11.5874595,6.38787507 Z"/>
+</svg>
+  <text x="654" y="250" class="node-title">Discrete-Event Trace Simulator</text>
+  <text x="654" y="274" class="node-sub">Replays 10,000+ multi-queue HPC &amp; AI jobs deterministically</text>
+
+  <rect x="1076" y="194" width="468" height="130" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5" filter="url(#shadow)"/>
+  <svg x="1098" y="235" width="48" height="48" viewBox="0 0 24 24">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M19.8571428,15 C19.9154586,15 19.9732303,15.0024459 20.03037,15.0072454 L19.8571428,15 C19.9364643,15 20.0147791,15.0045254 20.0918659,15.0133436 C20.1296023,15.017656 20.1672758,15.0230368 20.204625,15.0294315 C20.2228357,15.0325534 20.2405402,15.0358309 20.2581684,15.039335 C20.3004586,15.0477292 20.3428604,15.0575748 20.3847702,15.0687171 C20.3945717,15.0713258 20.4037876,15.0738482 20.4129791,15.0764331 C21.326852,15.3333106 22,16.2091137 22,17.25 C22,18.4926407 21.0406102,19.5 19.8571428,19.5 C18.6736755,19.5 17.7142857,18.4926407 17.7142857,17.25 C17.7142857,16.3780735 18.1866355,15.6219864 18.877311,15.2484638 L18.877311,15.2484638 L18.9100635,15.2311231 C18.9443305,15.2133666 18.9791149,15.1965436 19.0143864,15.1806857 L18.877311,15.2484638 C18.9359787,15.2167359 18.9962217,15.1877682 19.0578843,15.1617243 C19.092742,15.147007 19.127803,15.1333139 19.1632837,15.120571 C19.1799825,15.1145715 19.196991,15.108711 19.2140918,15.1030695 C19.2440321,15.0931962 19.2740208,15.08406 19.3042728,15.0756014 C19.3275691,15.0690883 19.3509656,15.0629905 19.3745104,15.0573 C19.4090225,15.0489486 19.4444165,15.041367 19.4801161,15.0347136 C19.4951724,15.0319081 19.5102036,15.0292807 19.5252868,15.0268184 C19.5673329,15.0199602 19.6095163,15.0144124 19.6520621,15.0101708 C19.6644546,15.0089354 19.676855,15.0078128 19.689285,15.0068015 C19.7445217,15.0023014 19.8005763,15 19.8571428,15 Z M4.14285715,15 C4.20453512,15 4.26560446,15.0027361 4.32596111,15.008099 L4.14285715,15 C4.22099312,15 4.29815234,15.0043911 4.37412318,15.0129511 C4.41377796,15.0174134 4.45340005,15.0230618 4.49266284,15.0298307 C4.51622521,15.0338982 4.53921496,15.0382768 4.56207385,15.0430372 C4.59932988,15.0507942 4.63631823,15.0595866 4.67293012,15.0693689 C4.69227667,15.0745419 4.71115609,15.0798831 4.72993048,15.0854864 C4.78499018,15.101898 4.83981004,15.120824 4.89360476,15.1419552 C4.89843332,15.1438513 4.90348444,15.1458578 4.9085264,15.1478837 C4.95626927,15.1670739 5.00297667,15.1879002 5.04880142,15.2103791 C5.0557635,15.2137946 5.06263155,15.2172111 5.06947941,15.2206647 C5.78919794,15.5838596 6.28571429,16.3560468 6.28571429,17.25 C6.28571429,18.4926407 5.32632447,19.5 4.14285715,19.5 C2.95938982,19.5 2,18.4926407 2,17.25 C2,16.1315866 2.77715683,15.2037637 3.79537497,15.0294315 C3.80956815,15.0269998 3.8240384,15.02468 3.83855549,15.0225131 C3.84496075,15.0215574 3.85124772,15.0206492 3.85754332,15.0197697 C3.95078898,15.0067371 4.04607376,15 4.14285715,15 Z M15.4598214,11.25 C15.7926716,11.25 16.0625,11.5270238 16.0625,11.86875 C16.0625,11.9639726 16.0415487,12.0541712 16.0041206,12.1347521 L16.0054932,12.1376953 L12.8637678,17.2979702 C12.8066,17.4200681 12.7304896,17.5310493 12.6393482,17.6268979 C12.4204614,17.8570898 12.1148793,18 11.7767857,18 C11.1110853,18 10.5714286,17.4459524 10.5714286,16.7625 C10.5714286,16.4545164 10.6810149,16.1728107 10.8623386,15.9562408 L10.9104286,15.904 L10.905761,15.8998089 L15.0686907,11.3939392 C15.1765001,11.3046817 15.3119408,11.25 15.4598214,11.25 Z M15.1084656,6.74999999 C18.0133804,7.96416588 20.1205244,10.8309306 20.3846768,14.2448779 C20.2133113,14.2116027 20.0371354,14.1944444 19.8571428,14.1944444 C19.5047649,14.1944444 19.1670153,14.2602074 18.8544189,14.3806824 C18.6458212,11.6496536 16.9939266,9.34567127 14.7001301,8.30940586 C14.9225155,7.91941454 15.0636704,7.47141054 15.0994619,6.99212551 L15.1084656,6.74999999 L15.1093811,6.74302677 Z M9.29346787,6.56744263 C9.29007843,6.62784011 9.28835979,6.68870931 9.28835979,6.74999999 C9.28835979,7.25746639 9.40617758,7.73603909 9.61465868,8.15720585 C7.13740589,9.10125276 5.32069548,11.4942975 5.09293665,14.3614713 C4.7957723,14.2531696 4.47584615,14.1944444 4.14285715,14.1944444 C3.94392076,14.1944444 3.74964674,14.2154045 3.56192887,14.2553362 C3.82170799,10.8395737 5.92768658,7.96933021 8.83193007,6.74545938 L9.07893274,6.64609366 L9.29346787,6.56744263 Z M12.1984127,4.5 C13.2880884,4.5 14.1877963,5.35401683 14.3235586,6.45937411 C14.3225899,6.45891609 14.3229209,6.45901659 14.3232518,6.45911712 L14.3342978,6.5671734 C14.338916,6.6274758 14.3412698,6.68844927 14.3412698,6.74999999 C14.3412698,6.81120876 14.3389421,6.87184669 14.3343745,6.93182148 L14.3412698,6.74999999 C14.3412698,6.83199531 14.3370927,6.91296621 14.3289496,6.99269089 C14.3249152,7.03215486 14.3199409,7.07110573 14.3140304,7.10972796 C14.3105222,7.13264589 14.3067023,7.15535074 14.3025607,7.17793539 C14.2960853,7.21325462 14.2888028,7.24836831 14.2807498,7.28316552 C14.2755037,7.3058206 14.2700089,7.32804534 14.2642014,7.35013384 C14.2178427,7.52645849 14.1515529,7.69410805 14.0680383,7.85023519 C14.0619422,7.8616315 14.0557534,7.87296822 14.0494739,7.88424243 C14.0268949,7.92477797 14.0031721,7.96445944 13.9783277,8.00328343 C13.9729077,8.01175038 13.9676223,8.01989111 13.9622876,8.02799329 C13.5756237,8.61524983 12.9298102,9 12.1984127,9 C11.3127281,9 10.5525435,8.43580391 10.2260645,7.63102749 C10.2176184,7.60950003 10.209201,7.58788153 10.2010993,7.56609628 C10.1914361,7.54067045 10.1825194,7.51526539 10.1740313,7.48964964 C10.1652496,7.46271515 10.1567381,7.43541169 10.1487178,7.40788185 C10.1235691,7.32180028 10.10327,7.23326672 10.0881101,7.14287301 C10.0854232,7.12676177 10.0828451,7.11035025 10.0804375,7.09387954 C10.0640354,6.98157333 10.0555556,6.86682646 10.0555556,6.74999999 C10.0555556,6.61878948 10.066252,6.49020219 10.0867794,6.36514704 C10.0885999,6.35405881 10.0904832,6.34307908 10.0924421,6.33212733 C10.2789951,5.28915512 11.1509339,4.5 12.1984127,4.5 Z" fill="#4285F4" fill-rule="nonzero"></path>
+    </g>
+</svg>
+  <text x="1164" y="250" class="node-title">Lower P95 Queue Wait &amp; Waste</text>
+  <text x="1164" y="274" class="node-sub">Cuts GPU starvation, node fragmentation &amp; OOM retries</text>
+
+  <path d="M 524 259 L 564 259" stroke="#1a73e8" stroke-width="2.5" marker-end="url(#arrow-blue)"/>
+  <path d="M 1034 259 L 1074 259" stroke="#1a73e8" stroke-width="2.5" marker-end="url(#arrow-blue)"/>
+
+  <!-- PILLAR 2: HPC CODE & KERNEL OPTIMIZATION -->
+  <rect x="24" y="372" width="1552" height="206" rx="12" fill="#f5f3ff" stroke="#8b5cf6" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="24" y="372" width="1552" height="34" rx="10" fill="#6d28d9"/>
+  <text x="48" y="394" class="badge">PILLAR 2 — HPC CODE OPTIMIZATION: 3D Ewald | N-Body Solvers &amp; CUDA | AVX-512 Compute Kernels</text>
+
+  <rect x="56" y="426" width="468" height="130" rx="10" fill="#ffffff" stroke="#ddd6fe" stroke-width="1.5" filter="url(#shadow)"/>
+  <svg x="78" y="467" width="48" height="48" viewBox="0 0 24 24"><defs><style>.ico_cloud_gpu_p4_cls-1{fill:#4285f4;}</style></defs><title>Icon_24px_GPU_Color</title><g data-name="Product Icons"><path class="ico_cloud_gpu_p4_cls-1" d="M15.33,2V4.38H13.17V2H10.83V4.38H8.67V2H6.29V4.38A2,2,0,0,0,4.38,6.29H2V8.67H4.38v2.14H2v2.38H4.38v2.14H2v2.38H4.38a2,2,0,0,0,1.91,1.91V22H8.67V19.62h2.16V22h2.34V19.62h2.16V22h2.38V19.62a2,2,0,0,0,1.91-1.91H22V15.33H19.62V13.19H22V10.81H19.62V8.67H22V6.29H19.62a2,2,0,0,0-1.91-1.91V2Zm1.53,15.24H7.14a.38.38,0,0,1-.38-.38V7.14a.38.38,0,0,1,.38-.38h9.72a.38.38,0,0,1,.38.38v9.72A.38.38,0,0,1,16.86,17.24Z"/><polygon class="ico_cloud_gpu_p4_cls-1" points="12.83 7.54 12.83 11.12 14.79 11.12 11.29 15.98 11.29 12.35 9.22 12.35 12.83 7.54"/></g></svg>
+  <text x="144" y="482" class="node-title">Vectorized &amp; Tiled Solver Kernel</text>
+  <text x="144" y="506" class="node-sub">Spatial cell lists, SIMD broadcasts &amp; warp-shuffle tiling</text>
+
+  <rect x="566" y="426" width="468" height="130" rx="10" fill="#ffffff" stroke="#6d28d9" stroke-width="2" filter="url(#shadow)"/>
+  <svg x="588" y="467" width="48" height="48" viewBox="0 0 24 24">
+<g >
+	<g transform="translate(4.000000, 1.000000)">
+		<path fill="#85A4E6" d="M8,0l-9,4v6c0,5.6,3.8,10.7,9,12c5.2-1.3,9-6.4,9-12V4L8,0z M8,11h7c-0.5,4.1-3.3,7.8-7,8.9V11l-7,0V5.3
+			l7-3.1V11z"/>
+		<path fill="#5C85DE" d="M8,0v22c5.2-1.3,9-6.4,9-12V4L8,0z M15,11c-0.5,4.1-3.3,7.8-7,8.9V11L15,11z"/>
+		<path fill-rule="evenodd" fill="#3367D6" d="M17,11h-2c0,0,0,0.3-0.1,0.6L17,11z"/>
+		<polygon fill-rule="evenodd" fill="#3367D6" points="-1,11 1,11 1,10.4 		"/>
+	</g>
+</g>
+</svg>
+  <text x="654" y="482" class="node-title">Physics Tolerance &amp; Speed Harness</text>
+  <text x="654" y="506" class="node-sub">Gates L2 force error &lt; 1e-6 before timing unseen lattices</text>
+
+  <rect x="1076" y="426" width="468" height="130" rx="10" fill="#ffffff" stroke="#ddd6fe" stroke-width="1.5" filter="url(#shadow)"/>
+  <svg x="1098" y="467" width="48" height="48" viewBox="0 0 24 24">
+<style type="text/css">
+	.ico_cloud_optimization_ai_p6_st0{fill:#669DF6;}
+	.ico_cloud_optimization_ai_p6_st1{fill:#AECBFA;}
+	.ico_cloud_optimization_ai_p6_st2{fill:#4285F4;}
+</style>
+<path class="ico_cloud_optimization_ai_p6_st0" d="M10.48,6.35c0-0.203,0.04-0.404,0.12-0.591C7.743,6.4,5.6,8.953,5.6,12c0,0.414,0.336,0.75,0.75,0.75
+	S7.1,12.414,7.1,12c0-2.283,1.571-4.2,3.688-4.742C10.589,6.997,10.481,6.678,10.48,6.35z M17.65,11.25
+	c-0.414,0-0.75,0.336-0.75,0.75c0,2.283-1.571,4.2-3.688,4.742c0.328,0.43,0.4,1.003,0.188,1.5C16.257,17.6,18.4,15.047,18.4,12
+	C18.4,11.586,18.064,11.25,17.65,11.25z"/>
+<path class="ico_cloud_optimization_ai_p6_st1" d="M20.605,10.48c0.221,0.001,0.438,0.05,0.638,0.145C20.573,6.118,16.69,2.645,12,2.645
+	c-0.414,0-0.75,0.336-0.75,0.75s0.336,0.75,0.75,0.75c3.904,0,7.143,2.866,7.745,6.603C19.998,10.573,20.298,10.48,20.605,10.48z
+	 M12,19.855c-3.904,0-7.143-2.866-7.745-6.603c-0.441,0.307-1.012,0.354-1.497,0.123c0.669,4.507,4.555,7.98,9.242,7.98
+	c0.414,0,0.75-0.336,0.75-0.75C12.75,20.191,12.414,19.855,12,19.855z"/>
+<path class="ico_cloud_optimization_ai_p6_st2" d="M12,15.543c-1.957,0-3.543-1.586-3.543-3.543S10.043,8.457,12,8.457s3.543,1.586,3.543,3.543c0,0,0,0,0,0
+	C15.54,13.956,13.956,15.54,12,15.543z M12,9.957c-1.128,0-2.043,0.915-2.043,2.043s0.915,2.043,2.043,2.043
+	s2.043-0.915,2.043-2.043C14.041,10.872,13.128,9.959,12,9.957L12,9.957z M20.605,11.23c-0.425,0-0.77,0.345-0.77,0.77
+	c0,0.425,0.345,0.77,0.77,0.77c0.425,0,0.77-0.345,0.77-0.77C21.374,11.575,21.03,11.23,20.605,11.23L20.605,11.23z M12,5.578
+	c-0.425,0-0.77,0.345-0.77,0.77s0.345,0.77,0.77,0.77c0.425,0,0.77-0.345,0.77-0.77v0C12.77,5.923,12.425,5.579,12,5.578z
+	 M3.395,11.23c-0.425,0-0.77,0.345-0.77,0.77s0.345,0.77,0.77,0.77s0.77-0.345,0.77-0.77l0,0C4.165,11.575,3.82,11.23,3.395,11.23z
+	 M12,16.88c-0.425,0-0.77,0.345-0.77,0.77c0,0.425,0.345,0.77,0.77,0.77c0.425,0,0.77-0.345,0.77-0.77c0,0,0,0,0,0
+	C12.77,17.225,12.425,16.88,12,16.88z"/>
+</svg>
+  <text x="1164" y="482" class="node-title">Verified Multi-X Kernel Speedup</text>
+  <text x="1164" y="506" class="node-sub">Higher particles-per-sec at exact numerical precision</text>
+
+  <path d="M 524 491 L 564 491" stroke="#6d28d9" stroke-width="2.5" marker-end="url(#arrow-purple)"/>
+  <path d="M 1034 491 L 1074 491" stroke="#6d28d9" stroke-width="2.5" marker-end="url(#arrow-purple)"/>
+
+  <!-- PILLAR 3: DEMAND FORECASTING & RESOURCE ALLOCATION -->
+  <rect x="24" y="604" width="1552" height="206" rx="12" fill="#ecfdf5" stroke="#10b981" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="24" y="604" width="1552" height="34" rx="10" fill="#059669"/>
+  <text x="48" y="626" class="badge">PILLAR 3 — DEMAND FORECASTING &amp; RESOURCE ALLOCATION: Multi-Horizon P50+P99 &amp; CUD | DWS | Storage Mix</text>
+
+  <rect x="56" y="658" width="468" height="130" rx="10" fill="#ffffff" stroke="#a7f3d0" stroke-width="1.5" filter="url(#shadow)"/>
+  <svg x="78" y="699" width="48" height="48" viewBox="0 0 24 24"><path d="M20,13.89A.77.77,0,0,0,19,13.73l-7,5.14v.22a.72.72,0,1,1,0,1.43v0a.74.74,0,0,0,.45-.15l7.41-5.47A.76.76,0,0,0,20,13.89Z" style="fill:#669df6"/><path d="M12,20.52a.72.72,0,0,1,0-1.43h0v-.22L5,13.73a.76.76,0,0,0-1,.16.74.74,0,0,0,.16,1l7.41,5.47a.73.73,0,0,0,.44.15v0Z" style="fill:#aecbfa"/><path d="M12,18.34a1.47,1.47,0,1,0,1.47,1.47A1.47,1.47,0,0,0,12,18.34Zm0,2.18a.72.72,0,1,1,.72-.71A.71.71,0,0,1,12,20.52Z" style="fill:#4285f4"/><path d="M6,6.11a.76.76,0,0,1-.75-.75V3.48a.76.76,0,1,1,1.51,0V5.36A.76.76,0,0,1,6,6.11Z" style="fill:#aecbfa"/><circle cx="5.98" cy="12" r="0.76" style="fill:#aecbfa"/><circle cx="5.98" cy="9.79" r="0.76" style="fill:#aecbfa"/><circle cx="5.98" cy="7.57" r="0.76" style="fill:#aecbfa"/><path d="M18,8.31a.76.76,0,0,1-.75-.76V5.67a.75.75,0,1,1,1.5,0V7.55A.75.75,0,0,1,18,8.31Z" style="fill:#4285f4"/><circle cx="18.02" cy="12.01" r="0.76" style="fill:#4285f4"/><circle cx="18.02" cy="9.76" r="0.76" style="fill:#4285f4"/><circle cx="18.02" cy="3.48" r="0.76" style="fill:#4285f4"/><path d="M12,15a.76.76,0,0,1-.75-.75V12.34a.76.76,0,0,1,1.51,0v1.89A.76.76,0,0,1,12,15Z" style="fill:#669df6"/><circle cx="12" cy="16.45" r="0.76" style="fill:#669df6"/><circle cx="12" cy="10.14" r="0.76" style="fill:#669df6"/><circle cx="12" cy="7.92" r="0.76" style="fill:#669df6"/><path d="M15,10.54a.76.76,0,0,1-.75-.75V7.91a.76.76,0,1,1,1.51,0V9.79A.76.76,0,0,1,15,10.54Z" style="fill:#4285f4"/><circle cx="15.01" cy="5.69" r="0.76" style="fill:#4285f4"/><circle cx="15.01" cy="14.19" r="0.76" style="fill:#4285f4"/><circle cx="15.01" cy="11.97" r="0.76" style="fill:#4285f4"/><circle cx="8.99" cy="14.19" r="0.76" style="fill:#aecbfa"/><circle cx="8.99" cy="7.92" r="0.76" style="fill:#aecbfa"/><circle cx="8.99" cy="5.69" r="0.76" style="fill:#aecbfa"/><path d="M9,12.73A.76.76,0,0,1,8.24,12V10.1a.75.75,0,1,1,1.5,0V12A.75.75,0,0,1,9,12.73Z" style="fill:#aecbfa"/></svg>
+  <text x="144" y="714" class="node-title">Quantile Forecaster &amp; Allocator</text>
+  <text x="144" y="738" class="node-sub">7d + 90d P50/P99 demand &amp; CUD, Reservation, DWS, NVMe mix</text>
+
+  <rect x="566" y="658" width="468" height="130" rx="10" fill="#ffffff" stroke="#059669" stroke-width="2" filter="url(#shadow)"/>
+  <svg x="588" y="699" width="48" height="48" viewBox="0 0 24 24"><defs><style>.ico_bigquery_p8_cls-1{fill:#aecbfa;}.ico_bigquery_p8_cls-1,.ico_bigquery_p8_cls-2,.ico_bigquery_p8_cls-3{fill-rule:evenodd;}.ico_bigquery_p8_cls-2{fill:#669df6;}.ico_bigquery_p8_cls-3{fill:#4285f4;}</style></defs><title>Icon_24px_BigQuery_Color</title><g data-name="Product Icons"><g ><path class="ico_bigquery_p8_cls-1" d="M6.73,10.83v2.63A4.91,4.91,0,0,0,8.44,15.2V10.83Z"/><path class="ico_bigquery_p8_cls-2" d="M9.89,8.41v7.53A7.62,7.62,0,0,0,11,16,8,8,0,0,0,12,16V8.41Z"/><path class="ico_bigquery_p8_cls-1" d="M13.64,11.86v3.29a5,5,0,0,0,1.7-1.82V11.86Z"/><path class="ico_bigquery_p8_cls-3" d="M17.74,16.32l-1.42,1.42a.42.42,0,0,0,0,.6l3.54,3.54a.42.42,0,0,0,.59,0l1.43-1.43a.42.42,0,0,0,0-.59l-3.54-3.54a.42.42,0,0,0-.6,0"/><path class="ico_bigquery_p8_cls-2" d="M11,2a9,9,0,1,0,9,9,9,9,0,0,0-9-9m0,15.69A6.68,6.68,0,1,1,17.69,11,6.68,6.68,0,0,1,11,17.69"/></g></g></svg>
+  <text x="654" y="714" class="node-title">52-Week Rolling-Origin Backtester</text>
+  <text x="654" y="738" class="node-sub">Strict Train, Validation &amp; Holdout out-of-sample evaluation</text>
+
+  <rect x="1076" y="658" width="468" height="130" rx="10" fill="#ffffff" stroke="#a7f3d0" stroke-width="1.5" filter="url(#shadow)"/>
+  <svg x="1098" y="699" width="48" height="48" viewBox="0 0 24 24">
+<g >
+	<rect y="0" fill="none" width="24" height="24"/>
+	<g transform="translate(0.000000, 5.000000)">
+		<path fill-rule="evenodd" fill="#85A4E6" d="M22.5,15.2h-21c-0.8,0-1.5-0.7-1.5-1.5V0.2c0-0.8,0.7-1.5,1.5-1.5h21
+			c0.8,0,1.5,0.7,1.5,1.5v13.5C24,14.6,23.3,15.2,22.5,15.2L22.5,15.2z"/>
+		<path fill-rule="evenodd" fill="#5C85DE" d="M22.5,15.2H12V-1.2h10.5c0.8,0,1.5,0.7,1.5,1.5v13.5C24,14.6,23.3,15.2,22.5,15.2
+			L22.5,15.2z"/>
+		<rect y="1" fill-rule="evenodd" fill="#5C85DE" width="24" height="3"/>
+			<rect id="ico_billing_p9_Rectangle-path_00000135674211772856346760000002730362558129152162_" x="12" y="1" fill-rule="evenodd" fill="#3367D6" width="12" height="3"/>
+			<rect id="ico_billing_p9_Rectangle-path_00000127732411686421387230000005866310280904328323_" x="2.2" y="5.5" fill-rule="evenodd" fill="#FFFFFF" width="19.5" height="2.2"/>
+			<rect id="ico_billing_p9_Rectangle-path_00000144336547962367256270000004601864478366739619_" x="2.2" y="10" fill-rule="evenodd" fill="#5C85DE" width="4.5" height="3"/>
+			<rect id="ico_billing_p9_Rectangle-path_00000167372342969776731770000010922900929549315211_" x="13.5" y="10.8" fill-rule="evenodd" fill="#FFFFFF" width="1.5" height="1.5"/>
+			<rect id="ico_billing_p9_Rectangle-path_00000026865061745408398040000018034195747439422142_" x="16.5" y="10.8" fill-rule="evenodd" fill="#FFFFFF" width="1.5" height="1.5"/>
+			<rect id="ico_billing_p9_Rectangle-path_00000169543108220145060960000001220724486439157930_" x="19.5" y="10.8" fill-rule="evenodd" fill="#FFFFFF" width="1.5" height="1.5"/>
+	</g>
+</g>
+</svg>
+  <text x="1164" y="714" class="node-title">Lower Effective TCO &amp; Zero Stockouts</text>
+  <text x="1164" y="738" class="node-sub">Balances CUD discounts against 5x capacity shortage risk</text>
+
+  <path d="M 524 723 L 564 723" stroke="#059669" stroke-width="2.5" marker-end="url(#arrow-green)"/>
+  <path d="M 1034 723 L 1074 723" stroke="#059669" stroke-width="2.5" marker-end="url(#arrow-green)"/>
+</svg>

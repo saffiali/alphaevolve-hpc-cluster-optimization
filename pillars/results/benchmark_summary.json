@@ -1,0 +1,148 @@
+{
+  "suite_title": "Enterprise Scientific & AI HPC AlphaEvolve Optimization Suite",
+  "execution_mode": "vertex_ai_live",
+  "vertex_ai_model": "gemini-2.5-flash",
+  "vertex_ai_region": "us-central1",
+  "total_candidates_evaluated": 39,
+  "pillars": {
+    "cluster_scheduling": {
+      "title": "Enterprise HPC & AI Cluster Scheduling Policy",
+      "primary_metric": "overall_score",
+      "execution_mode": "vertex_ai_live",
+      "vertex_ai_model": "gemini-2.5-flash",
+      "num_candidates_evaluated": 13,
+      "valid_candidates_count": 13,
+      "rejected_by_gates_count": 0,
+      "winning_generation": 10,
+      "baseline_score": -344.8725,
+      "evolved_score": -63.6133,
+      "held_out_improvement_pct": 81.55,
+      "kpi_summary": [
+        {
+          "kpi": "GPU Training P95 Queue Wait",
+          "unit": "minutes",
+          "baseline": 572.76,
+          "evolved": 1.25,
+          "delta_pct": -99.8
+        },
+        {
+          "kpi": "Interactive IDE P95 Startup",
+          "unit": "seconds",
+          "baseline": 8.0,
+          "evolved": 8.0,
+          "sla_ceiling": 120.0
+        },
+        {
+          "kpi": "Average Compute + Storage Cost / Job",
+          "unit": "USD",
+          "baseline": 4.077,
+          "evolved": 2.3927,
+          "delta_pct": -41.3
+        },
+        {
+          "kpi": "OOM + Timeout + Preemption Failure Rate",
+          "unit": "%",
+          "baseline": 45.55,
+          "evolved": 0.05,
+          "delta_pct": -99.9
+        },
+        {
+          "kpi": "Bin-Packing Efficiency",
+          "unit": "%",
+          "baseline": 82.72,
+          "evolved": 82.2,
+          "delta_pts": -0.52
+        }
+      ],
+      "artifact_file": "pillars/results/cluster_scheduling_results.json"
+    },
+    "hpc_code_optimization": {
+      "title": "3D Short-Range Shifted Ewald Molecular Force-Field Solver",
+      "primary_metric": "particles_per_sec",
+      "execution_mode": "vertex_ai_live",
+      "vertex_ai_model": "gemini-2.5-flash",
+      "num_candidates_evaluated": 13,
+      "valid_candidates_count": 1,
+      "rejected_by_gates_count": 12,
+      "winning_generation": 12,
+      "baseline_score": 2190.67,
+      "evolved_score": 26749.71,
+      "held_out_improvement_pct": 1121.07,
+      "kpi_summary": [
+        {
+          "kpi": "Molecular Force-Field Throughput",
+          "unit": "particles/sec",
+          "baseline": 2190.67,
+          "evolved": 26749.71,
+          "speedup_factor": 12.1
+        },
+        {
+          "kpi": "Median Conformation Batch Latency",
+          "unit": "ms",
+          "baseline": 701.156,
+          "evolved": 57.421,
+          "delta_pct": -91.8
+        },
+        {
+          "kpi": "Relative L2 Force Numerical Error",
+          "unit": "dimensionless",
+          "baseline": 1.89e-16,
+          "evolved": 4.991e-16,
+          "hard_gate_ceiling": 1e-06
+        },
+        {
+          "kpi": "Symplectic Velocity-Verlet Energy Drift",
+          "unit": "dimensionless",
+          "baseline": 4.376e-09,
+          "evolved": 4.376e-09,
+          "hard_gate_ceiling": 0.0001
+        }
+      ],
+      "artifact_file": "pillars/results/hpc_code_optimization_results.json"
+    },
+    "demand_forecasting": {
+      "title": "Multi-Horizon HPC Capacity Demand Forecasting & Commercial Allocation",
+      "primary_metric": "overall_score",
+      "execution_mode": "vertex_ai_live",
+      "vertex_ai_model": "gemini-2.5-flash",
+      "num_candidates_evaluated": 13,
+      "valid_candidates_count": 8,
+      "rejected_by_gates_count": 5,
+      "winning_generation": 12,
+      "baseline_score": -4812.6681,
+      "evolved_score": -3329.2506,
+      "held_out_improvement_pct": 30.82,
+      "kpi_summary": [
+        {
+          "kpi": "Total Risk-Adjusted 12-Week TCO",
+          "unit": "USD ($K)",
+          "baseline": 4697.701,
+          "evolved": 3261.185,
+          "delta_pct": -30.6
+        },
+        {
+          "kpi": "Asymmetric 5x Capacity Stockout Penalty",
+          "unit": "USD ($K)",
+          "baseline": 1043.999,
+          "evolved": 21.73,
+          "delta_pct": -97.9
+        },
+        {
+          "kpi": "Blended Multi-Horizon WMAPE (7d + 90d)",
+          "unit": "%",
+          "baseline": 13.53,
+          "evolved": 8.01,
+          "delta_pct": -40.8
+        },
+        {
+          "kpi": "Daily P99 Stockout Breach Rate",
+          "unit": "%",
+          "baseline": 54.76,
+          "evolved": 5.36,
+          "delta_pts": -49.4
+        }
+      ],
+      "artifact_file": "pillars/results/demand_forecasting_results.json"
+    }
+  }
+}

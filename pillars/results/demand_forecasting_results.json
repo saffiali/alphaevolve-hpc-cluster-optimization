@@ -1,0 +1,402 @@
+{
+  "pillar_id": "demand_forecasting",
+  "title": "Multi-Horizon HPC Capacity Demand Forecasting & Commercial Allocation",
+  "execution_mode": "vertex_ai_live",
+  "vertex_ai_model": "gemini-2.5-flash",
+  "vertex_ai_region": "us-central1",
+  "primary_metric": "overall_score",
+  "higher_is_better": true,
+  "num_candidates_evaluated": 13,
+  "valid_candidates_count": 8,
+  "rejected_by_gates_count": 5,
+  "map_elites_niches_populated": 3,
+  "winning_generation": 12,
+  "winning_island": "island_2_cost_tiering",
+  "winning_niche": "med_acc_high_sla",
+  "train_split": {
+    "baseline_score": -5134.0238,
+    "evolved_score": -3709.7107
+  },
+  "validation_split": {
+    "baseline_score": -4378.6332,
+    "evolved_score": -3131.0845
+  },
+  "baseline_score": -4812.6681,
+  "evolved_score": -3329.2506,
+  "held_out_improvement_pct": 30.82,
+  "baseline_metrics": {
+    "gate_passed": true,
+    "raw_overall_score": -4812.6681,
+    "total_risk_adjusted_tco_k_usd": 4697.701,
+    "effective_infra_tco_k_usd": 3653.701,
+    "compute_spend_k_usd": 3120.808,
+    "storage_spend_k_usd": 490.067,
+    "idle_headroom_cost_k_usd": 42.826,
+    "asymmetric_stockout_penalty_k_usd": 1043.999,
+    "tactical_7d_wmape_pct": 7.41,
+    "tactical_7d_p99_wmape_pct": 22.53,
+    "quarterly_90d_wmape_pct": 13.73,
+    "blended_wmape_pct": 13.53,
+    "stockout_breach_rate": 0.5476,
+    "stockout_breach_rate_pct": 54.76,
+    "hot_storage_coverage_ratio": 1.5,
+    "asymmetric_penalty_ratio": 5.0,
+    "origins_evaluated": 12,
+    "tier_spend_breakdown_k_usd": {
+      "cud_1y_3y_usd": 1280.036,
+      "dws_flex_usd": 0.0,
+      "on_demand_usd": 1840.772,
+      "spot_usd": 0.0,
+      "nvme_parallel_fs_usd": 464.152,
+      "object_storage_usd": 25.915
+    },
+    "sample_gpu_fan_chart": [
+      {
+        "day_offset": 1,
+        "actual_p50": 329.085,
+        "actual_p99": 468.017,
+        "forecast_p50": 304.59,
+        "forecast_p99": 365.51,
+        "provisioned_total": 365.51
+      },
+      {
+        "day_offset": 2,
+        "actual_p50": 316.706,
+        "actual_p99": 474.096,
+        "forecast_p50": 304.59,
+        "forecast_p99": 365.51,
+        "provisioned_total": 365.51
+      },
+      {
+        "day_offset": 3,
+        "actual_p50": 285.45,
+        "actual_p99": 406.384,
+        "forecast_p50": 304.59,
+        "forecast_p99": 365.51,
+        "provisioned_total": 365.51
+      },
+      {
+        "day_offset": 4,
+        "actual_p50": 313.528,
+        "actual_p99": 442.93,
+        "forecast_p50": 304.59,
+        "forecast_p99": 365.51,
+        "provisioned_total": 365.51
+      },
+      {
+        "day_offset": 5,
+        "actual_p50": 199.375,
+        "actual_p99": 275.575,
+        "forecast_p50": 304.59,
+        "forecast_p99": 365.51,
+        "provisioned_total": 365.51
+      },
+      {
+        "day_offset": 6,
+        "actual_p50": 199.682,
+        "actual_p99": 281.102,
+        "forecast_p50": 304.59,
+        "forecast_p99": 365.51,
+        "provisioned_total": 365.51
+      },
+      {
+        "day_offset": 7,
+        "actual_p50": 249.802,
+        "actual_p99": 352.924,
+        "forecast_p50": 304.59,
+        "forecast_p99": 365.51,
+        "provisioned_total": 365.51
+      }
+    ]
+  },
+  "evolved_metrics": {
+    "gate_passed": true,
+    "raw_overall_score": -3329.2506,
+    "total_risk_adjusted_tco_k_usd": 3261.185,
+    "effective_infra_tco_k_usd": 3239.455,
+    "compute_spend_k_usd": 2734.639,
+    "storage_spend_k_usd": 244.793,
+    "idle_headroom_cost_k_usd": 260.023,
+    "asymmetric_stockout_penalty_k_usd": 21.73,
+    "tactical_7d_wmape_pct": 3.79,
+    "tactical_7d_p99_wmape_pct": 10.93,
+    "quarterly_90d_wmape_pct": 12.1,
+    "blended_wmape_pct": 8.01,
+    "stockout_breach_rate": 0.0536,
+    "stockout_breach_rate_pct": 5.36,
+    "hot_storage_coverage_ratio": 1.069,
+    "asymmetric_penalty_ratio": 5.0,
+    "origins_evaluated": 12,
+    "tier_spend_breakdown_k_usd": {
+      "cud_1y_3y_usd": 1794.69,
+      "dws_flex_usd": 458.081,
+      "on_demand_usd": 12.197,
+      "spot_usd": 469.671,
+      "nvme_parallel_fs_usd": 201.181,
+      "object_storage_usd": 43.612
+    },
+    "sample_gpu_fan_chart": [
+      {
+        "day_offset": 1,
+        "actual_p50": 329.085,
+        "actual_p99": 468.017,
+        "forecast_p50": 334.4,
+        "forecast_p99": 537.05,
+        "provisioned_total": 628.43
+      },
+      {
+        "day_offset": 2,
+        "actual_p50": 316.706,
+        "actual_p99": 474.096,
+        "forecast_p50": 355.25,
+        "forecast_p99": 559.99,
+        "provisioned_total": 628.43
+      },
+      {
+        "day_offset": 3,
+        "actual_p50": 285.45,
+        "actual_p99": 406.384,
+        "forecast_p50": 340.0,
+        "forecast_p99": 535.01,
+        "provisioned_total": 628.43
+      },
+      {
+        "day_offset": 4,
+        "actual_p50": 313.528,
+        "actual_p99": 442.93,
+        "forecast_p50": 340.89,
+        "forecast_p99": 534.0,
+        "provisioned_total": 628.43
+      },
+      {
+        "day_offset": 5,
+        "actual_p50": 199.375,
+        "actual_p99": 275.575,
+        "forecast_p50": 247.33,
+        "forecast_p99": 388.17,
+        "provisioned_total": 628.43
+      },
+      {
+        "day_offset": 6,
+        "actual_p50": 199.682,
+        "actual_p99": 281.102,
+        "forecast_p50": 242.51,
+        "forecast_p99": 380.9,
+        "provisioned_total": 628.43
+      },
+      {
+        "day_offset": 7,
+        "actual_p50": 249.802,
+        "actual_p99": 352.924,
+        "forecast_p50": 354.35,
+        "forecast_p99": 534.78,
+        "provisioned_total": 628.43
+      }
+    ]
+  },
+  "kpi_summary": [
+    {
+      "kpi": "Total Risk-Adjusted 12-Week TCO",
+      "unit": "USD ($K)",
+      "baseline": 4697.701,
+      "evolved": 3261.185,
+      "delta_pct": -30.6
+    },
+    {
+      "kpi": "Asymmetric 5x Capacity Stockout Penalty",
+      "unit": "USD ($K)",
+      "baseline": 1043.999,
+      "evolved": 21.73,
+      "delta_pct": -97.9
+    },
+    {
+      "kpi": "Blended Multi-Horizon WMAPE (7d + 90d)",
+      "unit": "%",
+      "baseline": 13.53,
+      "evolved": 8.01,
+      "delta_pct": -40.8
+    },
+    {
+      "kpi": "Daily P99 Stockout Breach Rate",
+      "unit": "%",
+      "baseline": 54.76,
+      "evolved": 5.36,
+      "delta_pts": -49.4
+    }
+  ],
+  "extra_benchmarks": {},
+  "generation_history": [
+    {
+      "generation": 0,
+      "island": "seed_baseline",
+      "niche": "coarse_acc_low_sla",
+      "candidate_val_score": -4378.6332,
+      "best_val_score_so_far": -4378.6332,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 0.0,
+      "model": "seed_program",
+      "insight_summary": "overall_score=-4378.63 | Risk-Adj TCO=$4265.0K (Infra=$3356.0K + StockoutPen=$909.0K) | Blended WMAPE=13.37% (7d=7.46%, 90d=13.67%) | Stockout rate=53.27%"
+    },
+    {
+      "generation": 1,
+      "island": "island_0_efficiency",
+      "niche": "med_acc_med_sla",
+      "candidate_val_score": -3438.5335,
+      "best_val_score_so_far": -3438.5335,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 33267.3,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "overall_score=-3438.53 | Risk-Adj TCO=$3363.7K (Infra=$3245.4K + StockoutPen=$118.2K) | Blended WMAPE=8.81% (7d=3.93%, 90d=17.59%) | Stockout rate=27.38%"
+    },
+    {
+      "generation": 2,
+      "island": "island_1_sla_accuracy",
+      "niche": "med_acc_med_sla",
+      "candidate_val_score": -3472.7983,
+      "best_val_score_so_far": -3438.5335,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 25149.0,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "overall_score=-3472.80 | Risk-Adj TCO=$3397.4K (Infra=$3302.8K + StockoutPen=$94.6K) | Blended WMAPE=8.87% (7d=3.93%, 90d=17.83%) | Stockout rate=24.70%"
+    },
+    {
+      "generation": 3,
+      "island": "island_2_cost_tiering",
+      "niche": "rejected_gate",
+      "candidate_val_score": -1000000000000.0,
+      "best_val_score_so_far": -3438.5335,
+      "valid": false,
+      "stage_reached": "stage_1_ast_safety",
+      "latency_ms": 28092.6,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "Syntax error inside EVOLVE-BLOCK: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "generation": 4,
+      "island": "island_0_efficiency",
+      "niche": "med_acc_med_sla",
+      "candidate_val_score": -3419.588,
+      "best_val_score_so_far": -3419.588,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 34856.5,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "overall_score=-3419.59 | Risk-Adj TCO=$3341.5K (Infra=$3261.9K + StockoutPen=$79.7K) | Blended WMAPE=9.18% (7d=4.21%, 90d=14.00%) | Stockout rate=22.32%"
+    },
+    {
+      "generation": 5,
+      "island": "island_1_sla_accuracy",
+      "niche": "med_acc_med_sla",
+      "candidate_val_score": -3331.6776,
+      "best_val_score_so_far": -3331.6776,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 27596.3,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "overall_score=-3331.68 | Risk-Adj TCO=$3248.4K (Infra=$3182.0K + StockoutPen=$66.4K) | Blended WMAPE=9.80% (7d=4.42%, 90d=14.66%) | Stockout rate=20.83%"
+    },
+    {
+      "generation": 6,
+      "island": "island_2_cost_tiering",
+      "niche": "med_acc_med_sla",
+      "candidate_val_score": -3215.6511,
+      "best_val_score_so_far": -3215.6511,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 39130.1,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "overall_score=-3215.65 | Risk-Adj TCO=$3141.8K (Infra=$3102.5K + StockoutPen=$39.4K) | Blended WMAPE=8.68% (7d=4.64%, 90d=11.67%) | Stockout rate=13.99%"
+    },
+    {
+      "generation": 7,
+      "island": "island_0_efficiency",
+      "niche": "med_acc_med_sla",
+      "candidate_val_score": -3146.9607,
+      "best_val_score_so_far": -3146.9607,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 28357.7,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "overall_score=-3146.96 | Risk-Adj TCO=$3073.1K (Infra=$3024.4K + StockoutPen=$48.7K) | Blended WMAPE=8.68% (7d=4.64%, 90d=11.67%) | Stockout rate=15.48%"
+    },
+    {
+      "generation": 8,
+      "island": "island_1_sla_accuracy",
+      "niche": "med_acc_high_sla",
+      "candidate_val_score": -3131.262,
+      "best_val_score_so_far": -3131.262,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 34484.1,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "overall_score=-3131.26 | Risk-Adj TCO=$3057.3K (Infra=$3033.4K + StockoutPen=$23.9K) | Blended WMAPE=8.70% (7d=4.68%, 90d=11.67%) | Stockout rate=6.55%"
+    },
+    {
+      "generation": 9,
+      "island": "island_2_cost_tiering",
+      "niche": "rejected_gate",
+      "candidate_val_score": -1000000000000.0,
+      "best_val_score_so_far": -3131.262,
+      "valid": false,
+      "stage_reached": "stage_1_ast_safety",
+      "latency_ms": 32938.6,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "Syntax error inside EVOLVE-BLOCK: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "generation": 10,
+      "island": "island_0_efficiency",
+      "niche": "rejected_gate",
+      "candidate_val_score": -1000000000000.0,
+      "best_val_score_so_far": -3131.262,
+      "valid": false,
+      "stage_reached": "stage_1_ast_safety",
+      "latency_ms": 32767.9,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "Syntax error inside EVOLVE-BLOCK: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "generation": 11,
+      "island": "island_1_sla_accuracy",
+      "niche": "rejected_gate",
+      "candidate_val_score": -1000000000000.0,
+      "best_val_score_so_far": -3131.262,
+      "valid": false,
+      "stage_reached": "stage_1_ast_safety",
+      "latency_ms": 40621.7,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "Syntax error inside EVOLVE-BLOCK: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "generation": 12,
+      "island": "island_2_cost_tiering",
+      "niche": "med_acc_high_sla",
+      "candidate_val_score": -3131.0845,
+      "best_val_score_so_far": -3131.0845,
+      "valid": true,
+      "stage_reached": "stage_3_benchmark",
+      "latency_ms": 27857.2,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "overall_score=-3131.08 | Risk-Adj TCO=$3057.7K (Infra=$3024.6K + StockoutPen=$33.2K) | Blended WMAPE=8.63% (7d=4.43%, 90d=11.82%) | Stockout rate=7.44%"
+    },
+    {
+      "generation": 13,
+      "island": "island_0_efficiency",
+      "niche": "rejected_gate",
+      "candidate_val_score": -1000000000000.0,
+      "best_val_score_so_far": -3131.0845,
+      "valid": false,
+      "stage_reached": "stage_1_ast_safety",
+      "latency_ms": 42156.0,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "Syntax error inside EVOLVE-BLOCK: invalid syntax (<unknown>, line 1)"
+    }
+  ],
+  "seed_code_block": "def forecast_and_allocate(\n    history_window: list[dict[str, Any]],\n    pool_specs: dict[str, dict[str, Any]],\n    asymmetric_penalty_ratio: float = 5.0,\n) -> dict[str, dict[str, Any]]:\n    \"\"\"Forecast 7-day tactical & 90-day quarterly demand and allocate commercial tiers.\n\n    Args:\n        history_window: Strictly causal daily telemetry `records[0 .. origin_day]`.\n            Each entry has `day_index`, `day_of_week` (0=Mon..6=Sun), `quarter_day` (0..90),\n            and per-pool dicts:\n              - compute pools (`cpu_general`, `ultramem_analytics`, `gpu_accelerators`):\n                `{\"p50\": float, \"p99\": float}`\n              - `tiered_storage_tb`:\n                `{\"p50\": float, \"p99\": float, \"hot_working_set_tb\": float}`\n        pool_specs: Unit commercial pricing, discount multipliers, `max_safe_spot_share`,\n            and `dws_capacity_cap_ratio` per pool.\n        asymmetric_penalty_ratio: Ratio of stockout penalty vs On-Demand unit price (default 5.0).\n\n    Returns:\n        Dictionary keyed by pool name:\n          - For compute pools (`cpu_general`, `ultramem_analytics`, `gpu_accelerators`):\n            {\n              \"tactical_7d_p50\": list[float] (len 7),\n              \"tactical_7d_p99\": list[float] (len 7),\n              \"quarterly_90d_p50\": float,\n              \"quarterly_90d_p99\": float,\n              \"allocation\": {\n                \"cud_1y_3y_units\": float,    # 24/7 committed baseline over next window\n                \"dws_flex_units\": float,     # DWS Flex Start burst slice\n                \"on_demand_units\": float,    # Elastic On-Demand ceiling slice\n                \"spot_units\": float,         # Fault-tolerant Spot slice\n              }\n            }\n          - For `tiered_storage_tb`:\n            {\n              \"tactical_7d_p50\": list[float] (len 7),\n              \"tactical_7d_p99\": list[float] (len 7),\n              \"quarterly_90d_p50\": float,\n              \"quarterly_90d_p99\": float,\n              \"allocation\": {\n                \"nvme_parallel_fs_tb\": float,\n                \"object_storage_tb\": float,\n              }\n            }\n    \"\"\"\n    # Naive Seed Heuristic:\n    # 1. Simple 14-day flat moving average (ignores weekday/weekend cycle, secular AI/GPU\n    #    growth trend, and 91-day quarterly submission surges).\n    # 2. Static +20% P99 buffer and fixed 50% CUD / 50% On-Demand split (ignores DWS Flex Start,\n    #    safe Spot share, and asymmetric 5x stockout cost).\n    # 3. Fixed 60% NVMe Parallel FS / 40% Object Storage static storage split.\n    recent = history_window[-14:] if len(history_window) >= 14 else history_window\n    out: dict[str, dict[str, Any]] = {}\n\n    for pool in COMPUTE_POOLS:\n        p50_ma = float(np.mean([d[pool][\"p50\"] for d in recent]))\n        p99_est = p50_ma * 1.20\n\n        cud_units = 0.50 * p99_est\n        od_units = 0.50 * p99_est\n        out[pool] = {\n            \"tactical_7d_p50\": [p50_ma] * 7,\n            \"tactical_7d_p99\": [p99_est] * 7,\n            \"quarterly_90d_p50\": p50_ma,\n            \"quarterly_90d_p99\": p99_est,\n            \"allocation\": {\n                \"cud_1y_3y_units\": cud_units,\n                \"dws_flex_units\": 0.0,\n                \"on_demand_units\": od_units,\n                \"spot_units\": 0.0,\n            },\n        }\n\n    st_p50 = float(np.mean([d[\"tiered_storage_tb\"][\"p50\"] for d in recent]))\n    st_p99 = st_p50 * 1.15\n    out[\"tiered_storage_tb\"] = {\n        \"tactical_7d_p50\": [st_p50] * 7,\n        \"tactical_7d_p99\": [st_p99] * 7,\n        \"quarterly_90d_p50\": st_p50,\n        \"quarterly_90d_p99\": st_p99,\n        \"allocation\": {\n            \"nvme_parallel_fs_tb\": 0.60 * st_p99,\n            \"object_storage_tb\": 0.40 * st_p99,\n        },\n    }\n    return out",
+  "winning_evolved_code_block": "def forecast_and_allocate(\n    history_window: list[dict[str, Any]],\n    pool_specs: dict[str, dict[str, Any]],\n    asymmetric_penalty_ratio: float = 5.0,\n) -> dict[str, dict[str, Any]]:\n    \"\"\"Forecast 7-day tactical & 90-day quarterly demand and allocate commercial tiers.\n\n    Args:\n        history_window: Strictly causal daily telemetry `records[0 .. origin_day]`.\n            Each entry has `day_index`, `day_of_week` (0=Mon..6=Sun), `quarter_day` (0..90),\n            and per-pool dicts:\n              - compute pools (`cpu_general`, `ultramem_analytics`, `gpu_accelerators`):\n                `{\"p50\": float, \"p99\": float}`\n              - `tiered_storage_tb`:\n                `{\"p50\": float, \"p99\": float, \"hot_working_set_tb\": float}`\n        pool_specs: Unit commercial pricing, discount multipliers, `max_safe_spot_share`,\n            and `dws_capacity_cap_ratio` per pool.\n        asymmetric_penalty_ratio: Ratio of stockout penalty vs On-Demand unit price (default 5.0).\n\n    Returns:\n        Dictionary keyed by pool name:\n          - For compute pools (`cpu_general`, `ultramem_analytics`, `gpu_accelerators`):\n            {\n              \"tactical_7d_p50\": list[float] (len 7),\n              \"tactical_7d_p99\": list[float] (len 7),\n              \"quarterly_90d_p50\": float,\n              \"quarterly_90d_p99\": float,\n              \"allocation\": {\n                \"cud_1y_3y_units\": float,    # 24/7 committed baseline over next window\n                \"dws_flex_units\": float,     # DWS Flex Start burst slice\n                \"on_demand_units\": float,    # Elastic On-Demand ceiling slice\n                \"spot_units\": float,         # Fault-tolerant Spot slice\n              }\n            }\n          - For `tiered_storage_tb`:\n            {\n              \"tactical_7d_p50\": list[float] (len 7),\n              \"tactical_7d_p99\": list[float] (len 7),\n              \"quarterly_90d_p50\": float,\n              \"quarterly_90d_p99\": float,\n              \"allocation\": {\n                \"nvme_parallel_fs_tb\": float,\n                \"object_storage_tb\": float,\n              }\n            }\n    \"\"\"\n    out: dict[str, dict[str, Any]] = {}\n\n    total_history_len = len(history_window)\n    if total_history_len == 0:\n        # Handle empty history to prevent errors, return zero allocations\n        for pool in COMPUTE_POOLS:\n            out[pool] = {\n                \"tactical_7d_p50\": [0.0] * 7,\n                \"tactical_7d_p99\": [0.0] * 7,\n                \"quarterly_90d_p50\": 0.0,\n                \"quarterly_90d_p99\": 0.0,\n                \"allocation\": {\n                    \"cud_1y_3y_units\": 0.0,\n                    \"dws_flex_units\": 0.0,\n                    \"on_demand_units\": 0.0,\n                    \"spot_units\": 0.0,\n                },\n            }\n        out[\"tiered_storage_tb\"] = {\n            \"tactical_7d_p50\": [0.0] * 7,\n            \"tactical_7d_p99\": [0.0] * 7,\n            \"quarterly_90d_p50\": 0.0,\n            \"quarterly_90d_p99\": 0.0,\n            \"allocation\": {\n                \"nvme_parallel_fs_tb\": 0.0,\n                \"object_storage_tb\": 0.0,\n            },\n        }\n        return out\n\n    # Define history windows for different calculations\n    # Use longer history for more robust statistical analysis\n    long_history_days = min(total_history_len, 90)\n    medium_history_days = min(total_history_len, 42) # Increased from 28 for better DoW/trend\n    short_history_days = min(total_history_len, 14)\n\n    long_history = history_window[-long_history_days:]\n    medium_history = history_window[-medium_history_days:]\n    short_history = history_window[-short_history_days:]\n\n    # Determine current day_of_week and quarter_day for forecasting\n    current_day_of_week = history_window[-1][\"day_of_week\"]\n    current_quarter_day = history_window[-1][\"quarter_day\"]\n\n    # Newsvendor-inspired safety factor for P99 target\n    # Goal: target ~1.03x tactical peak P99 for default penalty ratio (5.0)\n    # Scale from 1.02x to 1.25x for penalty_ratio from 1 to 10 (as per elite)\n    safety_buffer_factor = 1.02 + (asymmetric_penalty_ratio - 1) * (0.23 / 9.0)\n    safety_buffer_factor = min(1.25, max(1.02, safety_buffer_factor)) # Clamp to reasonable bounds\n\n    # Quarterly surge kernel\n    def surge_kernel(qd: int, peak_qd: float = 78.0, width: float = 6.0, max_boost: float = 0.20) -> float:\n        # Gaussian-like kernel: 1 + max_boost * exp(-0.5 * ((qd - peak_qd) / width)**2)\n        # Max boost of 20% (1.20x) at peak_qd, tapering off.\n        # width determines how wide the surge is.\n        # Handle wrap-around for quarter_day (0-90)\n        distance = min(abs(qd - peak_qd), abs(qd - (peak_qd + 91)), abs(qd - (peak_qd - 91)))\n        return 1.0 + max_boost * math.exp(-0.5 * (distance / width)**2)\n\n    for pool in COMPUTE_POOLS:\n        # Collect historical data for the pool\n        pool_p50_history = np.array([d[pool][\"p50\"] for d in long_history])\n        pool_p99_history = np.array([d[pool][\"p99\"] for d in long_history])\n\n        # Handle insufficient history\n        if len(pool_p50_history) < 7:\n            p50_base = np.mean(pool_p50_history) if pool_p50_history.size > 0 else 0.0\n            p99_base = np.mean(pool_p99_history) if pool_p99_history.size > 0 else p50_base\n            p99_base = max(p50_base, p99_base * 1.15) # Ensure P99 >= P50 and add a buffer\n\n            out[pool] = {\n                \"tactical_7d_p50\": [p50_base] * 7,\n                \"tactical_7d_p99\": [p99_base] * 7,\n                \"quarterly_90d_p50\": p50_base,\n                \"quarterly_90d_p99\": p99_base,\n                \"allocation\": {\n                    \"cud_1y_3y_units\": p50_base * 0.8,\n                    \"dws_flex_units\": 0.0,\n                    \"on_demand_units\": p99_base * 0.2,\n                    \"spot_units\": 0.0,\n                },\n            }\n            continue\n\n        # --- Forecasting Model ---\n        # 1. Day of Week (DoW) Seasonality\n        dow_p50_sums = np.zeros(7)\n        dow_p99_sums = np.zeros(7)\n        dow_p99_to_p50_ratios_sums = np.zeros(7)\n        dow_counts = np.zeros(7)\n\n        for d in medium_history:\n            dow = d[\"day_of_week\"]\n            p50_val = d[pool][\"p50\"]\n            p99_val = d[pool][\"p99\"]\n            dow_p50_sums[dow] += p50_val\n            dow_p99_sums[dow] += p99_val\n            if p50_val > 0:\n                dow_p99_to_p50_ratios_sums[dow] += (p99_val / p50_val)\n            dow_counts[dow] += 1\n\n        dow_p50_multipliers = np.ones(7)\n        dow_p99_to_p50_multipliers = np.ones(7)\n\n        overall_p50_mean_medium = np.mean([d[pool][\"p50\"] for d in medium_history]) if medium_history_days > 0 else 1.0\n        \n        for i in range(7):\n            if dow_counts[i] > 0:\n                dow_p50_avg = dow_p50_sums[i] / dow_counts[i]\n                dow_p99_to_p50_avg_ratio = dow_p99_to_p50_ratios_sums[i] / dow_counts[i]\n                \n                if overall_p50_mean_medium > 0:\n                    dow_p50_multipliers[i] = dow_p50_avg / overall_p50_mean_medium\n                dow_p99_to_p50_multipliers[i] = max(1.0, dow_p99_to_p50_avg_ratio) # Ratio must be >= 1\n            else: # If no data for a specific DoW in medium_history, use overall average\n                dow_p50_multipliers[i] = 1.0\n                dow_p99_to_p50_multipliers[i] = np.mean([d[pool][\"p99\"]/d[pool][\"p50\"] for d in medium_history if d[pool][\"p50\"] > 0]) if medium_history_days > 0 else 1.15\n                dow_p99_to_p50_multipliers[i] = max(1.0, dow_p99_to_p50_multipliers[i])\n\n        # 2. Secular Growth Trend (linear regression over medium_history)\n        p50_trend_data = np.array([d[pool][\"p50\"] for d in medium_history])\n        p99_trend_data = np.array([d[pool][\"p99\"] for d in medium_history])\n        \n        p50_growth_rate = 0.0\n        p99_growth_rate = 0.0\n\n        if medium_history_days >= 2: # Need at least 2 points for a slope\n            x = np.arange(medium_history_days)\n            A = np.vstack([x, np.ones(medium_history_days)]).T\n            try:\n                m_p50, _ = np.linalg.lstsq(A, p50_trend_data, rcond=None)[0]\n                p50_growth_rate = m_p50\n                m_p99, _ = np.linalg.lstsq(A, p99_trend_data, rcond=None)[0]\n                p99_growth_rate = m_p99\n            except np.linalg.LinAlgError:\n                pass # Fallback to 0 growth if regression fails\n\n        # Base forecast from a recent average (e.g., last 21 days for stability)\n        base_avg_window = min(len(pool_p50_history), 21)\n        base_p50 = np.mean(pool_p50_history[-base_avg_window:]) if base_avg_window > 0 else 0.0\n        \n        # Tactical 7-day forecast\n        tactical_7d_p50 = []\n        tactical_7d_p99 = []\n        for i in range(7):\n            forecast_day_of_week = (current_day_of_week + 1 + i) % 7\n            forecast_quarter_day = (current_quarter_day + 1 + i) % 91\n\n            # Apply base, then DoW, then trend, then surge\n            p50_forecast = base_p50 * dow_p50_multipliers[forecast_day_of_week]\n            p50_forecast += p50_growth_rate * (i + 1)\n            p50_forecast *= surge_kernel(forecast_quarter_day)\n            \n            p99_forecast = p50_forecast * dow_p99_to_p50_multipliers[forecast_day_of_week]\n            p99_forecast += p99_growth_rate * (i + 1) # P99 trend might be different\n            p99_forecast *= surge_kernel(forecast_quarter_day)\n\n            tactical_7d_p50.append(max(0.0, p50_forecast))\n            tactical_7d_p99.append(max(p50_forecast, p99_forecast)) # Ensure P99 >= P50\n\n        # Quarterly 90-day forecast (more stable, less volatile)\n        # Use longer history for overall average and apply a dampened long-term trend\n        quarterly_90d_p50 = np.mean(pool_p50_history) if long_history_days > 0 else 0.0\n        quarterly_90d_p99 = np.mean(pool_p99_history) if long_history_days > 0 else 0.0\n\n        # Apply trend for mid-point of the 90-day window (45 days)\n        quarterly_90d_p50 += p50_growth_rate * 45\n        quarterly_90d_p99 += p99_growth_rate * 45\n\n        # Average surge factor over the next 90 days for the quarterly forecast\n        avg_surge_factor = 1.0\n        if long_history_days > 0:\n            surge_factors = [surge_kernel((current_quarter_day + 1 + i) % 91) for i in range(90)]\n            avg_surge_factor = np.mean(surge_factors)\n        \n        quarterly_90d_p50 *= avg_surge_factor\n        quarterly_90d_p99 *= avg_surge_factor\n\n        quarterly_90d_p50 = max(0.0, quarterly_90d_p50)\n        quarterly_90d_p99 = max(quarterly_90d_p50, quarterly_90d_p99)\n\n        # --- Commercial Tier Allocation ---\n        pool_spec = pool_specs[pool]\n        max_safe_spot_share = pool_spec.get(\"max_safe_spot_share\", 0.15)\n        dws_capacity_cap_ratio = pool_spec.get(\"dws_capacity_cap_ratio\", 0.25)\n\n        # Target P99 for allocation (use the max of tactical P99s, adjusted by safety factor)\n        target_p99_for_allocation = max(tactical_7d_p99) * safety_buffer_factor\n        \n        # CUDs: Anchor near 0.85 * sustained P50 baseline, avoid >1.05x 90d P50 lock-in excess.\n        # Use the 90-day P50 forecast for CUD base, with a buffer.\n        cud_units = quarterly_90d_p50 * 0.85\n        cud_units = min(cud_units, quarterly_90d_p50 * 1.05) # Cap to avoid excess lock-in\n        cud_units = max(0.0, cud_units)\n\n        remaining_allocation_target = target_p99_for_allocation - cud_units\n\n        # Spot: Up to 0.95 * max_safe_spot_share * peak_p99 (from goal)\n        spot_cap = target_p99_for_allocation * max_safe_spot_share * 0.95\n        spot_units = min(remaining_allocation_target, spot_cap)\n        remaining_allocation_target -= spot_units\n\n        # DWS Flex: Up to 0.95 * dws_capacity_cap_ratio * peak_p99 (from goal)\n        dws_cap = target_p99_for_allocation * dws_capacity_cap_ratio * 0.95\n        dws_flex_units = min(remaining_allocation_target, dws_cap)\n        remaining_allocation_target -= dws_flex_units\n\n        # On-Demand: Covers the rest of the P99 peak tail (which is ~1.03x tactical peak P99)\n        on_demand_units = remaining_allocation_target\n        \n        # Ensure non-negative values\n        cud_units = max(0.0, cud_units)\n        spot_units = max(0.0, spot_units)\n        dws_flex_units = max(0.0, dws_flex_units)\n        on_demand_units = max(0.0, on_demand_units)\n\n        out[pool] = {\n            \"tactical_7d_p50\": tactical_7d_p50,\n            \"tactical_7d_p99\": tactical_7d_p99,\n            \"quarterly_90d_p50\": quarterly_90d_p50,\n            \"quarterly_90d_p99\": quarterly_90d_p99,\n            \"allocation\": {\n                \"cud_1y_3y_units\": cud_units,\n                \"dws_flex_units\": dws_flex_units,\n                \"on_demand_units\": on_demand_units,\n                \"spot_units\": spot_units,\n            },\n        }\n\n    # --- Tiered Storage TB ---\n    st_p50_history = np.array([d[\"tiered_storage_tb\"][\"p50\"] for d in long_history])\n    st_p99_history = np.array([d[\"tiered_storage_tb\"][\"p99\"] for d in long_history])\n    hot_ws_history = np.array([d[\"tiered_storage_tb\"][\"hot_working_set_tb\"] for d in long_history])\n\n    if len(st_p50_history) < 7:\n        st_p50_base = np.mean(st_p50_history) if st_p50_history.size > 0 else 0.0\n        st_p99_base = np.mean(st_p99_history) if st_p99_history.size > 0 else st_p50_base\n        st_p99_base = max(st_p50_base, st_p99_base * 1.10) # Ensure P99 >= P50 and add a buffer\n        hot_ws_base = np.mean(hot_ws_history) if hot_ws_history.size > 0 else 0.0\n\n        out[\"tiered_storage_tb\"] = {\n            \"tactical_7d_p50\": [st_p50_base] * 7,\n            \"tactical_7d_p99\": [st_p99_base] * 7,\n            \"quarterly_90d_p50\": st_p50_base,\n            \"quarterly_90d_p99\": st_p99_base,\n            \"allocation\": {\n                \"nvme_parallel_fs_tb\": hot_ws_base * 1.06, # Default buffer\n                \"object_storage_tb\": st_p99_base * 0.95,  # Remaining, assuming most is cold\n            },\n        }\n        return out\n\n    # Storage forecasting (simpler, less seasonality expected, but trend is important)\n    # Use medium history for trend for storage\n    st_p50_trend_data = np.array([d[\"tiered_storage_tb\"][\"p50\"] for d in medium_history])\n    st_p99_trend_data = np.array([d[\"tiered_storage_tb\"][\"p99\"] for d in medium_history])\n    hot_ws_trend_data = np.array([d[\"tiered_storage_tb\"][\"hot_working_set_tb\"] for d in medium_history])\n\n    st_p50_growth_rate = 0.0\n    st_p99_growth_rate = 0.0\n    hot_ws_growth_rate = 0.0\n\n    if medium_history_days >= 2:\n        x_st = np.arange(medium_history_days)\n        A_st = np.vstack([x_st, np.ones(medium_history_days)]).T\n        try:\n            m_st_p50, _ = np.linalg.lstsq(A_st, st_p50_trend_data, rcond=None)[0]\n            st_p50_growth_rate = m_st_p50\n            m_st_p99, _ = np.linalg.lstsq(A_st, st_p99_trend_data, rcond=None)[0]\n            st_p99_growth_rate = m_st_p99\n            m_hot_ws, _ = np.linalg.lstsq(A_st, hot_ws_trend_data, rcond=None)[0]\n            hot_ws_growth_rate = m_hot_ws\n        except np.linalg.LinAlgError:\n            pass\n\n    # Base values for storage (use a 21-day average)\n    base_st_avg_window = min(len(st_p50_history), 21)\n    st_base_p50 = np.mean(st_p50_history[-base_st_avg_window:]) if base_st_avg_window > 0 else 0.0\n    st_base_p99 = np.mean(st_p99_history[-base_st_avg_window:]) if base_st_avg_window > 0 else 0.0\n    hot_ws_base = np.mean(hot_ws_history[-base_st_avg_window:]) if base_st_avg_window > 0 else 0.0\n\n    tactical_7d_st_p50 = []\n    tactical_7d_st_p99 = []\n    tactical_7d_hot_ws = []\n    for i in range(7):\n        # Storage forecasts are primarily trend-based, with dampened seasonality/surge\n        p50_forecast = st_base_p50 + st_p50_growth_rate * (i + 1)\n        p99_forecast = st_base_p99 + st_p99_growth_rate * (i + 1)\n        hot_ws_forecast = hot_ws_base + hot_ws_growth_rate * (i + 1)\n        \n        # Apply surge for storage as well, though perhaps with a smaller max_boost\n        forecast_quarter_day = (current_quarter_day + 1 + i) % 91\n        p50_forecast *= surge_kernel(forecast_quarter_day, max_boost=0.08) # Reduced max_boost\n        p99_forecast *= surge_kernel(forecast_quarter_day, max_boost=0.08) # Reduced max_boost\n        hot_ws_forecast *= surge_kernel(forecast_quarter_day, max_boost=0.08) # Reduced max_boost\n\n        tactical_7d_st_p50.append(max(0.0, p50_forecast))\n        tactical_7d_st_p99.append(max(p50_forecast, p99_forecast)) # Ensure P99 >= P50\n        tactical_7d_hot_ws.append(max(0.0, hot_ws_forecast))\n\n    quarterly_90d_st_p50 = np.mean(st_p50_history) + st_p50_growth_rate * 45 if long_history_days > 0 else 0.0\n    quarterly_90d_st_p99 = np.mean(st_p99_history) + st_p99_growth_rate * 45 if long_history_days > 0 else 0.0\n    quarterly_90d_hot_ws = np.mean(hot_ws_history) + hot_ws_growth_rate * 45 if long_history_days > 0 else 0.0\n    \n    # Apply average surge for quarterly storage forecast\n    avg_surge_factor_st = 1.0\n    if long_history_days > 0:\n        surge_factors_st = [surge_kernel((current_quarter_day + 1 + i) % 91, max_boost=0.08) for i in range(90)]\n        avg_surge_factor_st = np.mean(surge_factors_st)\n    quarterly_90d_st_p50 *= avg_surge_factor_st\n    quarterly_90d_st_p99 *= avg_surge_factor_st\n    quarterly_90d_hot_ws *= avg_surge_factor_st\n\n    quarterly_90d_st_p50 = max(0.0, quarterly_90d_st_p50)\n    quarterly_90d_st_p99 = max(quarterly_90d_st_p50, quarterly_90d_st_p99)\n    quarterly_90d_hot_ws = max(0.0, quarterly_90d_hot_ws)\n\n    # Storage Allocation\n    # NVMe: allocate >=1.05x active hot_working_set_tb (diagnostic feedback suggested ~1.06x)\n    # Use the peak hot_working_set_tb from the 7-day forecast\n    predicted_peak_hot_ws = max(tactical_7d_hot_ws) if tactical_7d_hot_ws else quarterly_90d_hot_ws\n    nvme_parallel_fs_tb = predicted_peak_hot_ws * 1.06 # Adjusted to 1.06x as per diagnostic\n    nvme_parallel_fs_tb = max(0.0, nvme_parallel_fs_tb) # Ensure non-negative\n\n    # Object Storage: Tier all cold lakehouse capacity onto object_storage_tb\n    # Total storage needed is driven by P99. Deduct NVMe.\n    predicted_peak_st_p99 = max(tactical_7d_st_p99) if tactical_7d_st_p99 else quarterly_90d_st_p99\n    \n    # Allocate remaining total TB (1.02 * predicted_peak_st_p99 - nvme_tb) to object storage (from Elite)\n    # Use 1.02x predicted_peak_st_p99 as a target for total storage, similar to compute safety buffer\n    total_target_storage_p99 = predicted_peak_st_p99 * 1.02\n    object_storage_tb = max(0.0, total_target_storage_p99 - nvme_parallel_fs_tb)\n    \n    # Ensure a minimal amount of object storage if total P99 is significant (from Elite)\n    if predicted_peak_st_p99 > 0 and object_storage_tb < 0.01 * predicted_peak_st_p99:\n        object_storage_tb = max(object_storage_tb, predicted_peak_st_p99 * 0.01)\n\n    out[\"tiered_storage_tb\"] = {\n        \"tactical_7d_p50\": tactical_7d_st_p50,\n        \"tactical_7d_p99\": tactical_7d_st_p99,\n        \"quarterly_90d_p50\": quarterly_90d_st_p50,\n        \"quarterly_90d_p99\": quarterly_90d_st_p99,\n        \"allocation\": {\n            \"nvme_parallel_fs_tb\": nvme_parallel_fs_tb,\n            \"object_storage_tb\": object_storage_tb,\n        },\n    }\n    return out",
+  "winning_full_program": "\"\"\"Seed program for Pillar 3: Multi-Horizon HPC Capacity Demand Forecasting & Allocation.\n\nGenerates causal 7-day tactical (daily) and 90-day quarterly P50/P99 capacity\nforecasts plus commercial resource allocations (1Y/3Y CUDs & Reservations vs.\nDWS Flex Start, On-Demand, Spot, and High-IOPS NVMe Parallel FS vs. Object Storage)\nunder asymmetric capacity stockout penalties (stockouts cost 5x idle headroom).\n\"\"\"\n\nfrom __future__ import annotations\n\nimport math\nfrom typing import Any\nimport numpy as np\n\nCOMPUTE_POOLS = (\"cpu_general\", \"ultramem_analytics\", \"gpu_accelerators\")\n\n\n# EVOLVE-BLOCK-START\ndef forecast_and_allocate(\n    history_window: list[dict[str, Any]],\n    pool_specs: dict[str, dict[str, Any]],\n    asymmetric_penalty_ratio: float = 5.0,\n) -> dict[str, dict[str, Any]]:\n    \"\"\"Forecast 7-day tactical & 90-day quarterly demand and allocate commercial tiers.\n\n    Args:\n        history_window: Strictly causal daily telemetry `records[0 .. origin_day]`.\n            Each entry has `day_index`, `day_of_week` (0=Mon..6=Sun), `quarter_day` (0..90),\n            and per-pool dicts:\n              - compute pools (`cpu_general`, `ultramem_analytics`, `gpu_accelerators`):\n                `{\"p50\": float, \"p99\": float}`\n              - `tiered_storage_tb`:\n                `{\"p50\": float, \"p99\": float, \"hot_working_set_tb\": float}`\n        pool_specs: Unit commercial pricing, discount multipliers, `max_safe_spot_share`,\n            and `dws_capacity_cap_ratio` per pool.\n        asymmetric_penalty_ratio: Ratio of stockout penalty vs On-Demand unit price (default 5.0).\n\n    Returns:\n        Dictionary keyed by pool name:\n          - For compute pools (`cpu_general`, `ultramem_analytics`, `gpu_accelerators`):\n            {\n              \"tactical_7d_p50\": list[float] (len 7),\n              \"tactical_7d_p99\": list[float] (len 7),\n              \"quarterly_90d_p50\": float,\n              \"quarterly_90d_p99\": float,\n              \"allocation\": {\n                \"cud_1y_3y_units\": float,    # 24/7 committed baseline over next window\n                \"dws_flex_units\": float,     # DWS Flex Start burst slice\n                \"on_demand_units\": float,    # Elastic On-Demand ceiling slice\n                \"spot_units\": float,         # Fault-tolerant Spot slice\n              }\n            }\n          - For `tiered_storage_tb`:\n            {\n              \"tactical_7d_p50\": list[float] (len 7),\n              \"tactical_7d_p99\": list[float] (len 7),\n              \"quarterly_90d_p50\": float,\n              \"quarterly_90d_p99\": float,\n              \"allocation\": {\n                \"nvme_parallel_fs_tb\": float,\n                \"object_storage_tb\": float,\n              }\n            }\n    \"\"\"\n    out: dict[str, dict[str, Any]] = {}\n\n    total_history_len = len(history_window)\n    if total_history_len == 0:\n        # Handle empty history to prevent errors, return zero allocations\n        for pool in COMPUTE_POOLS:\n            out[pool] = {\n                \"tactical_7d_p50\": [0.0] * 7,\n                \"tactical_7d_p99\": [0.0] * 7,\n                \"quarterly_90d_p50\": 0.0,\n                \"quarterly_90d_p99\": 0.0,\n                \"allocation\": {\n                    \"cud_1y_3y_units\": 0.0,\n                    \"dws_flex_units\": 0.0,\n                    \"on_demand_units\": 0.0,\n                    \"spot_units\": 0.0,\n                },\n            }\n        out[\"tiered_storage_tb\"] = {\n            \"tactical_7d_p50\": [0.0] * 7,\n            \"tactical_7d_p99\": [0.0] * 7,\n            \"quarterly_90d_p50\": 0.0,\n            \"quarterly_90d_p99\": 0.0,\n            \"allocation\": {\n                \"nvme_parallel_fs_tb\": 0.0,\n                \"object_storage_tb\": 0.0,\n            },\n        }\n        return out\n\n    # Define history windows for different calculations\n    # Use longer history for more robust statistical analysis\n    long_history_days = min(total_history_len, 90)\n    medium_history_days = min(total_history_len, 42) # Increased from 28 for better DoW/trend\n    short_history_days = min(total_history_len, 14)\n\n    long_history = history_window[-long_history_days:]\n    medium_history = history_window[-medium_history_days:]\n    short_history = history_window[-short_history_days:]\n\n    # Determine current day_of_week and quarter_day for forecasting\n    current_day_of_week = history_window[-1][\"day_of_week\"]\n    current_quarter_day = history_window[-1][\"quarter_day\"]\n\n    # Newsvendor-inspired safety factor for P99 target\n    # Goal: target ~1.03x tactical peak P99 for default penalty ratio (5.0)\n    # Scale from 1.02x to 1.25x for penalty_ratio from 1 to 10 (as per elite)\n    safety_buffer_factor = 1.02 + (asymmetric_penalty_ratio - 1) * (0.23 / 9.0)\n    safety_buffer_factor = min(1.25, max(1.02, safety_buffer_factor)) # Clamp to reasonable bounds\n\n    # Quarterly surge kernel\n    def surge_kernel(qd: int, peak_qd: float = 78.0, width: float = 6.0, max_boost: float = 0.20) -> float:\n        # Gaussian-like kernel: 1 + max_boost * exp(-0.5 * ((qd - peak_qd) / width)**2)\n        # Max boost of 20% (1.20x) at peak_qd, tapering off.\n        # width determines how wide the surge is.\n        # Handle wrap-around for quarter_day (0-90)\n        distance = min(abs(qd - peak_qd), abs(qd - (peak_qd + 91)), abs(qd - (peak_qd - 91)))\n        return 1.0 + max_boost * math.exp(-0.5 * (distance / width)**2)\n\n    for pool in COMPUTE_POOLS:\n        # Collect historical data for the pool\n        pool_p50_history = np.array([d[pool][\"p50\"] for d in long_history])\n        pool_p99_history = np.array([d[pool][\"p99\"] for d in long_history])\n\n        # Handle insufficient history\n        if len(pool_p50_history) < 7:\n            p50_base = np.mean(pool_p50_history) if pool_p50_history.size > 0 else 0.0\n            p99_base = np.mean(pool_p99_history) if pool_p99_history.size > 0 else p50_base\n            p99_base = max(p50_base, p99_base * 1.15) # Ensure P99 >= P50 and add a buffer\n\n            out[pool] = {\n                \"tactical_7d_p50\": [p50_base] * 7,\n                \"tactical_7d_p99\": [p99_base] * 7,\n                \"quarterly_90d_p50\": p50_base,\n                \"quarterly_90d_p99\": p99_base,\n                \"allocation\": {\n                    \"cud_1y_3y_units\": p50_base * 0.8,\n                    \"dws_flex_units\": 0.0,\n                    \"on_demand_units\": p99_base * 0.2,\n                    \"spot_units\": 0.0,\n                },\n            }\n            continue\n\n        # --- Forecasting Model ---\n        # 1. Day of Week (DoW) Seasonality\n        dow_p50_sums = np.zeros(7)\n        dow_p99_sums = np.zeros(7)\n        dow_p99_to_p50_ratios_sums = np.zeros(7)\n        dow_counts = np.zeros(7)\n\n        for d in medium_history:\n            dow = d[\"day_of_week\"]\n            p50_val = d[pool][\"p50\"]\n            p99_val = d[pool][\"p99\"]\n            dow_p50_sums[dow] += p50_val\n            dow_p99_sums[dow] += p99_val\n            if p50_val > 0:\n                dow_p99_to_p50_ratios_sums[dow] += (p99_val / p50_val)\n            dow_counts[dow] += 1\n\n        dow_p50_multipliers = np.ones(7)\n        dow_p99_to_p50_multipliers = np.ones(7)\n\n        overall_p50_mean_medium = np.mean([d[pool][\"p50\"] for d in medium_history]) if medium_history_days > 0 else 1.0\n        \n        for i in range(7):\n            if dow_counts[i] > 0:\n                dow_p50_avg = dow_p50_sums[i] / dow_counts[i]\n                dow_p99_to_p50_avg_ratio = dow_p99_to_p50_ratios_sums[i] / dow_counts[i]\n                \n                if overall_p50_mean_medium > 0:\n                    dow_p50_multipliers[i] = dow_p50_avg / overall_p50_mean_medium\n                dow_p99_to_p50_multipliers[i] = max(1.0, dow_p99_to_p50_avg_ratio) # Ratio must be >= 1\n            else: # If no data for a specific DoW in medium_history, use overall average\n                dow_p50_multipliers[i] = 1.0\n                dow_p99_to_p50_multipliers[i] = np.mean([d[pool][\"p99\"]/d[pool][\"p50\"] for d in medium_history if d[pool][\"p50\"] > 0]) if medium_history_days > 0 else 1.15\n                dow_p99_to_p50_multipliers[i] = max(1.0, dow_p99_to_p50_multipliers[i])\n\n        # 2. Secular Growth Trend (linear regression over medium_history)\n        p50_trend_data = np.array([d[pool][\"p50\"] for d in medium_history])\n        p99_trend_data = np.array([d[pool][\"p99\"] for d in medium_history])\n        \n        p50_growth_rate = 0.0\n        p99_growth_rate = 0.0\n\n        if medium_history_days >= 2: # Need at least 2 points for a slope\n            x = np.arange(medium_history_days)\n            A = np.vstack([x, np.ones(medium_history_days)]).T\n            try:\n                m_p50, _ = np.linalg.lstsq(A, p50_trend_data, rcond=None)[0]\n                p50_growth_rate = m_p50\n                m_p99, _ = np.linalg.lstsq(A, p99_trend_data, rcond=None)[0]\n                p99_growth_rate = m_p99\n            except np.linalg.LinAlgError:\n                pass # Fallback to 0 growth if regression fails\n\n        # Base forecast from a recent average (e.g., last 21 days for stability)\n        base_avg_window = min(len(pool_p50_history), 21)\n        base_p50 = np.mean(pool_p50_history[-base_avg_window:]) if base_avg_window > 0 else 0.0\n        \n        # Tactical 7-day forecast\n        tactical_7d_p50 = []\n        tactical_7d_p99 = []\n        for i in range(7):\n            forecast_day_of_week = (current_day_of_week + 1 + i) % 7\n            forecast_quarter_day = (current_quarter_day + 1 + i) % 91\n\n            # Apply base, then DoW, then trend, then surge\n            p50_forecast = base_p50 * dow_p50_multipliers[forecast_day_of_week]\n            p50_forecast += p50_growth_rate * (i + 1)\n            p50_forecast *= surge_kernel(forecast_quarter_day)\n            \n            p99_forecast = p50_forecast * dow_p99_to_p50_multipliers[forecast_day_of_week]\n            p99_forecast += p99_growth_rate * (i + 1) # P99 trend might be different\n            p99_forecast *= surge_kernel(forecast_quarter_day)\n\n            tactical_7d_p50.append(max(0.0, p50_forecast))\n            tactical_7d_p99.append(max(p50_forecast, p99_forecast)) # Ensure P99 >= P50\n\n        # Quarterly 90-day forecast (more stable, less volatile)\n        # Use longer history for overall average and apply a dampened long-term trend\n        quarterly_90d_p50 = np.mean(pool_p50_history) if long_history_days > 0 else 0.0\n        quarterly_90d_p99 = np.mean(pool_p99_history) if long_history_days > 0 else 0.0\n\n        # Apply trend for mid-point of the 90-day window (45 days)\n        quarterly_90d_p50 += p50_growth_rate * 45\n        quarterly_90d_p99 += p99_growth_rate * 45\n\n        # Average surge factor over the next 90 days for the quarterly forecast\n        avg_surge_factor = 1.0\n        if long_history_days > 0:\n            surge_factors = [surge_kernel((current_quarter_day + 1 + i) % 91) for i in range(90)]\n            avg_surge_factor = np.mean(surge_factors)\n        \n        quarterly_90d_p50 *= avg_surge_factor\n        quarterly_90d_p99 *= avg_surge_factor\n\n        quarterly_90d_p50 = max(0.0, quarterly_90d_p50)\n        quarterly_90d_p99 = max(quarterly_90d_p50, quarterly_90d_p99)\n\n        # --- Commercial Tier Allocation ---\n        pool_spec = pool_specs[pool]\n        max_safe_spot_share = pool_spec.get(\"max_safe_spot_share\", 0.15)\n        dws_capacity_cap_ratio = pool_spec.get(\"dws_capacity_cap_ratio\", 0.25)\n\n        # Target P99 for allocation (use the max of tactical P99s, adjusted by safety factor)\n        target_p99_for_allocation = max(tactical_7d_p99) * safety_buffer_factor\n        \n        # CUDs: Anchor near 0.85 * sustained P50 baseline, avoid >1.05x 90d P50 lock-in excess.\n        # Use the 90-day P50 forecast for CUD base, with a buffer.\n        cud_units = quarterly_90d_p50 * 0.85\n        cud_units = min(cud_units, quarterly_90d_p50 * 1.05) # Cap to avoid excess lock-in\n        cud_units = max(0.0, cud_units)\n\n        remaining_allocation_target = target_p99_for_allocation - cud_units\n\n        # Spot: Up to 0.95 * max_safe_spot_share * peak_p99 (from goal)\n        spot_cap = target_p99_for_allocation * max_safe_spot_share * 0.95\n        spot_units = min(remaining_allocation_target, spot_cap)\n        remaining_allocation_target -= spot_units\n\n        # DWS Flex: Up to 0.95 * dws_capacity_cap_ratio * peak_p99 (from goal)\n        dws_cap = target_p99_for_allocation * dws_capacity_cap_ratio * 0.95\n        dws_flex_units = min(remaining_allocation_target, dws_cap)\n        remaining_allocation_target -= dws_flex_units\n\n        # On-Demand: Covers the rest of the P99 peak tail (which is ~1.03x tactical peak P99)\n        on_demand_units = remaining_allocation_target\n        \n        # Ensure non-negative values\n        cud_units = max(0.0, cud_units)\n        spot_units = max(0.0, spot_units)\n        dws_flex_units = max(0.0, dws_flex_units)\n        on_demand_units = max(0.0, on_demand_units)\n\n        out[pool] = {\n            \"tactical_7d_p50\": tactical_7d_p50,\n            \"tactical_7d_p99\": tactical_7d_p99,\n            \"quarterly_90d_p50\": quarterly_90d_p50,\n            \"quarterly_90d_p99\": quarterly_90d_p99,\n            \"allocation\": {\n                \"cud_1y_3y_units\": cud_units,\n                \"dws_flex_units\": dws_flex_units,\n                \"on_demand_units\": on_demand_units,\n                \"spot_units\": spot_units,\n            },\n        }\n\n    # --- Tiered Storage TB ---\n    st_p50_history = np.array([d[\"tiered_storage_tb\"][\"p50\"] for d in long_history])\n    st_p99_history = np.array([d[\"tiered_storage_tb\"][\"p99\"] for d in long_history])\n    hot_ws_history = np.array([d[\"tiered_storage_tb\"][\"hot_working_set_tb\"] for d in long_history])\n\n    if len(st_p50_history) < 7:\n        st_p50_base = np.mean(st_p50_history) if st_p50_history.size > 0 else 0.0\n        st_p99_base = np.mean(st_p99_history) if st_p99_history.size > 0 else st_p50_base\n        st_p99_base = max(st_p50_base, st_p99_base * 1.10) # Ensure P99 >= P50 and add a buffer\n        hot_ws_base = np.mean(hot_ws_history) if hot_ws_history.size > 0 else 0.0\n\n        out[\"tiered_storage_tb\"] = {\n            \"tactical_7d_p50\": [st_p50_base] * 7,\n            \"tactical_7d_p99\": [st_p99_base] * 7,\n            \"quarterly_90d_p50\": st_p50_base,\n            \"quarterly_90d_p99\": st_p99_base,\n            \"allocation\": {\n                \"nvme_parallel_fs_tb\": hot_ws_base * 1.06, # Default buffer\n                \"object_storage_tb\": st_p99_base * 0.95,  # Remaining, assuming most is cold\n            },\n        }\n        return out\n\n    # Storage forecasting (simpler, less seasonality expected, but trend is important)\n    # Use medium history for trend for storage\n    st_p50_trend_data = np.array([d[\"tiered_storage_tb\"][\"p50\"] for d in medium_history])\n    st_p99_trend_data = np.array([d[\"tiered_storage_tb\"][\"p99\"] for d in medium_history])\n    hot_ws_trend_data = np.array([d[\"tiered_storage_tb\"][\"hot_working_set_tb\"] for d in medium_history])\n\n    st_p50_growth_rate = 0.0\n    st_p99_growth_rate = 0.0\n    hot_ws_growth_rate = 0.0\n\n    if medium_history_days >= 2:\n        x_st = np.arange(medium_history_days)\n        A_st = np.vstack([x_st, np.ones(medium_history_days)]).T\n        try:\n            m_st_p50, _ = np.linalg.lstsq(A_st, st_p50_trend_data, rcond=None)[0]\n            st_p50_growth_rate = m_st_p50\n            m_st_p99, _ = np.linalg.lstsq(A_st, st_p99_trend_data, rcond=None)[0]\n            st_p99_growth_rate = m_st_p99\n            m_hot_ws, _ = np.linalg.lstsq(A_st, hot_ws_trend_data, rcond=None)[0]\n            hot_ws_growth_rate = m_hot_ws\n        except np.linalg.LinAlgError:\n            pass\n\n    # Base values for storage (use a 21-day average)\n    base_st_avg_window = min(len(st_p50_history), 21)\n    st_base_p50 = np.mean(st_p50_history[-base_st_avg_window:]) if base_st_avg_window > 0 else 0.0\n    st_base_p99 = np.mean(st_p99_history[-base_st_avg_window:]) if base_st_avg_window > 0 else 0.0\n    hot_ws_base = np.mean(hot_ws_history[-base_st_avg_window:]) if base_st_avg_window > 0 else 0.0\n\n    tactical_7d_st_p50 = []\n    tactical_7d_st_p99 = []\n    tactical_7d_hot_ws = []\n    for i in range(7):\n        # Storage forecasts are primarily trend-based, with dampened seasonality/surge\n        p50_forecast = st_base_p50 + st_p50_growth_rate * (i + 1)\n        p99_forecast = st_base_p99 + st_p99_growth_rate * (i + 1)\n        hot_ws_forecast = hot_ws_base + hot_ws_growth_rate * (i + 1)\n        \n        # Apply surge for storage as well, though perhaps with a smaller max_boost\n        forecast_quarter_day = (current_quarter_day + 1 + i) % 91\n        p50_forecast *= surge_kernel(forecast_quarter_day, max_boost=0.08) # Reduced max_boost\n        p99_forecast *= surge_kernel(forecast_quarter_day, max_boost=0.08) # Reduced max_boost\n        hot_ws_forecast *= surge_kernel(forecast_quarter_day, max_boost=0.08) # Reduced max_boost\n\n        tactical_7d_st_p50.append(max(0.0, p50_forecast))\n        tactical_7d_st_p99.append(max(p50_forecast, p99_forecast)) # Ensure P99 >= P50\n        tactical_7d_hot_ws.append(max(0.0, hot_ws_forecast))\n\n    quarterly_90d_st_p50 = np.mean(st_p50_history) + st_p50_growth_rate * 45 if long_history_days > 0 else 0.0\n    quarterly_90d_st_p99 = np.mean(st_p99_history) + st_p99_growth_rate * 45 if long_history_days > 0 else 0.0\n    quarterly_90d_hot_ws = np.mean(hot_ws_history) + hot_ws_growth_rate * 45 if long_history_days > 0 else 0.0\n    \n    # Apply average surge for quarterly storage forecast\n    avg_surge_factor_st = 1.0\n    if long_history_days > 0:\n        surge_factors_st = [surge_kernel((current_quarter_day + 1 + i) % 91, max_boost=0.08) for i in range(90)]\n        avg_surge_factor_st = np.mean(surge_factors_st)\n    quarterly_90d_st_p50 *= avg_surge_factor_st\n    quarterly_90d_st_p99 *= avg_surge_factor_st\n    quarterly_90d_hot_ws *= avg_surge_factor_st\n\n    quarterly_90d_st_p50 = max(0.0, quarterly_90d_st_p50)\n    quarterly_90d_st_p99 = max(quarterly_90d_st_p50, quarterly_90d_st_p99)\n    quarterly_90d_hot_ws = max(0.0, quarterly_90d_hot_ws)\n\n    # Storage Allocation\n    # NVMe: allocate >=1.05x active hot_working_set_tb (diagnostic feedback suggested ~1.06x)\n    # Use the peak hot_working_set_tb from the 7-day forecast\n    predicted_peak_hot_ws = max(tactical_7d_hot_ws) if tactical_7d_hot_ws else quarterly_90d_hot_ws\n    nvme_parallel_fs_tb = predicted_peak_hot_ws * 1.06 # Adjusted to 1.06x as per diagnostic\n    nvme_parallel_fs_tb = max(0.0, nvme_parallel_fs_tb) # Ensure non-negative\n\n    # Object Storage: Tier all cold lakehouse capacity onto object_storage_tb\n    # Total storage needed is driven by P99. Deduct NVMe.\n    predicted_peak_st_p99 = max(tactical_7d_st_p99) if tactical_7d_st_p99 else quarterly_90d_st_p99\n    \n    # Allocate remaining total TB (1.02 * predicted_peak_st_p99 - nvme_tb) to object storage (from Elite)\n    # Use 1.02x predicted_peak_st_p99 as a target for total storage, similar to compute safety buffer\n    total_target_storage_p99 = predicted_peak_st_p99 * 1.02\n    object_storage_tb = max(0.0, total_target_storage_p99 - nvme_parallel_fs_tb)\n    \n    # Ensure a minimal amount of object storage if total P99 is significant (from Elite)\n    if predicted_peak_st_p99 > 0 and object_storage_tb < 0.01 * predicted_peak_st_p99:\n        object_storage_tb = max(object_storage_tb, predicted_peak_st_p99 * 0.01)\n\n    out[\"tiered_storage_tb\"] = {\n        \"tactical_7d_p50\": tactical_7d_st_p50,\n        \"tactical_7d_p99\": tactical_7d_st_p99,\n        \"quarterly_90d_p50\": quarterly_90d_st_p50,\n        \"quarterly_90d_p99\": quarterly_90d_st_p99,\n        \"allocation\": {\n            \"nvme_parallel_fs_tb\": nvme_parallel_fs_tb,\n            \"object_storage_tb\": object_storage_tb,\n        },\n    }\n    return out\n# EVOLVE-BLOCK-END\n",
+  "code_diff": "--- pillars/demand_forecasting/main.py (seed)\n+++ pillars/demand_forecasting/main.py (evolved)\n@@ -44,44 +44,351 @@\n               }\n             }\n     \"\"\"\n-    # Naive Seed Heuristic:\n-    # 1. Simple 14-day flat moving average (ignores weekday/weekend cycle, secular AI/GPU\n-    #    growth trend, and 91-day quarterly submission surges).\n-    # 2. Static +20% P99 buffer and fixed 50% CUD / 50% On-Demand split (ignores DWS Flex Start,\n-    #    safe Spot share, and asymmetric 5x stockout cost).\n-    # 3. Fixed 60% NVMe Parallel FS / 40% Object Storage static storage split.\n-    recent = history_window[-14:] if len(history_window) >= 14 else history_window\n     out: dict[str, dict[str, Any]] = {}\n \n+    total_history_len = len(history_window)\n+    if total_history_len == 0:\n+        # Handle empty history to prevent errors, return zero allocations\n+        for pool in COMPUTE_POOLS:\n+            out[pool] = {\n+                \"tactical_7d_p50\": [0.0] * 7,\n+                \"tactical_7d_p99\": [0.0] * 7,\n+                \"quarterly_90d_p50\": 0.0,\n+                \"quarterly_90d_p99\": 0.0,\n+                \"allocation\": {\n+                    \"cud_1y_3y_units\": 0.0,\n+                    \"dws_flex_units\": 0.0,\n+                    \"on_demand_units\": 0.0,\n+                    \"spot_units\": 0.0,\n+                },\n+            }\n+        out[\"tiered_storage_tb\"] = {\n+            \"tactical_7d_p50\": [0.0] * 7,\n+            \"tactical_7d_p99\": [0.0] * 7,\n+            \"quarterly_90d_p50\": 0.0,\n+            \"quarterly_90d_p99\": 0.0,\n+            \"allocation\": {\n+                \"nvme_parallel_fs_tb\": 0.0,\n+                \"object_storage_tb\": 0.0,\n+            },\n+        }\n+        return out\n+\n+    # Define history windows for different calculations\n+    # Use longer history for more robust statistical analysis\n+    long_history_days = min(total_history_len, 90)\n+    medium_history_days = min(total_history_len, 42) # Increased from 28 for better DoW/trend\n+    short_history_days = min(total_history_len, 14)\n+\n+    long_history = history_window[-long_history_days:]\n+    medium_history = history_window[-medium_history_days:]\n+    short_history = history_window[-short_history_days:]\n+\n+    # Determine current day_of_week and quarter_day for forecasting\n+    current_day_of_week = history_window[-1][\"day_of_week\"]\n+    current_quarter_day = history_window[-1][\"quarter_day\"]\n+\n+    # Newsvendor-inspired safety factor for P99 target\n+    # Goal: target ~1.03x tactical peak P99 for default penalty ratio (5.0)\n+    # Scale from 1.02x to 1.25x for penalty_ratio from 1 to 10 (as per elite)\n+    safety_buffer_factor = 1.02 + (asymmetric_penalty_ratio - 1) * (0.23 / 9.0)\n+    safety_buffer_factor = min(1.25, max(1.02, safety_buffer_factor)) # Clamp to reasonable bounds\n+\n+    # Quarterly surge kernel\n+    def surge_kernel(qd: int, peak_qd: float = 78.0, width: float = 6.0, max_boost: float = 0.20) -> float:\n+        # Gaussian-like kernel: 1 + max_boost * exp(-0.5 * ((qd - peak_qd) / width)**2)\n+        # Max boost of 20% (1.20x) at peak_qd, tapering off.\n+        # width determines how wide the surge is.\n+        # Handle wrap-around for quarter_day (0-90)\n+        distance = min(abs(qd - peak_qd), abs(qd - (peak_qd + 91)), abs(qd - (peak_qd - 91)))\n+        return 1.0 + max_boost * math.exp(-0.5 * (distance / width)**2)\n+\n     for pool in COMPUTE_POOLS:\n-        p50_ma = float(np.mean([d[pool][\"p50\"] for d in recent]))\n-        p99_est = p50_ma * 1.20\n-\n-        cud_units = 0.50 * p99_est\n-        od_units = 0.50 * p99_est\n+        # Collect historical data for the pool\n+        pool_p50_history = np.array([d[pool][\"p50\"] for d in long_history])\n+        pool_p99_history = np.array([d[pool][\"p99\"] for d in long_history])\n+\n+        # Handle insufficient history\n+        if len(pool_p50_history) < 7:\n+            p50_base = np.mean(pool_p50_history) if pool_p50_history.size > 0 else 0.0\n+            p99_base = np.mean(pool_p99_history) if pool_p99_history.size > 0 else p50_base\n+            p99_base = max(p50_base, p99_base * 1.15) # Ensure P99 >= P50 and add a buffer\n+\n+            out[pool] = {\n+                \"tactical_7d_p50\": [p50_base] * 7,\n+                \"tactical_7d_p99\": [p99_base] * 7,\n+                \"quarterly_90d_p50\": p50_base,\n+                \"quarterly_90d_p99\": p99_base,\n+                \"allocation\": {\n+                    \"cud_1y_3y_units\": p50_base * 0.8,\n+                    \"dws_flex_units\": 0.0,\n+                    \"on_demand_units\": p99_base * 0.2,\n+                    \"spot_units\": 0.0,\n+                },\n+            }\n+            continue\n+\n+        # --- Forecasting Model ---\n+        # 1. Day of Week (DoW) Seasonality\n+        dow_p50_sums = np.zeros(7)\n+        dow_p99_sums = np.zeros(7)\n+        dow_p99_to_p50_ratios_sums = np.zeros(7)\n+        dow_counts = np.zeros(7)\n+\n+        for d in medium_history:\n+            dow = d[\"day_of_week\"]\n+            p50_val = d[pool][\"p50\"]\n+            p99_val = d[pool][\"p99\"]\n+            dow_p50_sums[dow] += p50_val\n+            dow_p99_sums[dow] += p99_val\n+            if p50_val > 0:\n+                dow_p99_to_p50_ratios_sums[dow] += (p99_val / p50_val)\n+            dow_counts[dow] += 1\n+\n+        dow_p50_multipliers = np.ones(7)\n+        dow_p99_to_p50_multipliers = np.ones(7)\n+\n+        overall_p50_mean_medium = np.mean([d[pool][\"p50\"] for d in medium_history]) if medium_history_days > 0 else 1.0\n+        \n+        for i in range(7):\n+            if dow_counts[i] > 0:\n+                dow_p50_avg = dow_p50_sums[i] / dow_counts[i]\n+                dow_p99_to_p50_avg_ratio = dow_p99_to_p50_ratios_sums[i] / dow_counts[i]\n+                \n+                if overall_p50_mean_medium > 0:\n+                    dow_p50_multipliers[i] = dow_p50_avg / overall_p50_mean_medium\n+                dow_p99_to_p50_multipliers[i] = max(1.0, dow_p99_to_p50_avg_ratio) # Ratio must be >= 1\n+            else: # If no data for a specific DoW in medium_history, use overall average\n+                dow_p50_multipliers[i] = 1.0\n+                dow_p99_to_p50_multipliers[i] = np.mean([d[pool][\"p99\"]/d[pool][\"p50\"] for d in medium_history if d[pool][\"p50\"] > 0]) if medium_history_days > 0 else 1.15\n+                dow_p99_to_p50_multipliers[i] = max(1.0, dow_p99_to_p50_multipliers[i])\n+\n+        # 2. Secular Growth Trend (linear regression over medium_history)\n+        p50_trend_data = np.array([d[pool][\"p50\"] for d in medium_history])\n+        p99_trend_data = np.array([d[pool][\"p99\"] for d in medium_history])\n+        \n+        p50_growth_rate = 0.0\n+        p99_growth_rate = 0.0\n+\n+        if medium_history_days >= 2: # Need at least 2 points for a slope\n+            x = np.arange(medium_history_days)\n+            A = np.vstack([x, np.ones(medium_history_days)]).T\n+            try:\n+                m_p50, _ = np.linalg.lstsq(A, p50_trend_data, rcond=None)[0]\n+                p50_growth_rate = m_p50\n+                m_p99, _ = np.linalg.lstsq(A, p99_trend_data, rcond=None)[0]\n+                p99_growth_rate = m_p99\n+            except np.linalg.LinAlgError:\n+                pass # Fallback to 0 growth if regression fails\n+\n+        # Base forecast from a recent average (e.g., last 21 days for stability)\n+        base_avg_window = min(len(pool_p50_history), 21)\n+        base_p50 = np.mean(pool_p50_history[-base_avg_window:]) if base_avg_window > 0 else 0.0\n+        \n+        # Tactical 7-day forecast\n+        tactical_7d_p50 = []\n+        tactical_7d_p99 = []\n+        for i in range(7):\n+            forecast_day_of_week = (current_day_of_week + 1 + i) % 7\n+            forecast_quarter_day = (current_quarter_day + 1 + i) % 91\n+\n+            # Apply base, then DoW, then trend, then surge\n+            p50_forecast = base_p50 * dow_p50_multipliers[forecast_day_of_week]\n+            p50_forecast += p50_growth_rate * (i + 1)\n+            p50_forecast *= surge_kernel(forecast_quarter_day)\n+            \n+            p99_forecast = p50_forecast * dow_p99_to_p50_multipliers[forecast_day_of_week]\n+            p99_forecast += p99_growth_rate * (i + 1) # P99 trend might be different\n+            p99_forecast *= surge_kernel(forecast_quarter_day)\n+\n+            tactical_7d_p50.append(max(0.0, p50_forecast))\n+            tactical_7d_p99.append(max(p50_forecast, p99_forecast)) # Ensure P99 >= P50\n+\n+        # Quarterly 90-day forecast (more stable, less volatile)\n+        # Use longer history for overall average and apply a dampened long-term trend\n+        quarterly_90d_p50 = np.mean(pool_p50_history) if long_history_days > 0 else 0.0\n+        quarterly_90d_p99 = np.mean(pool_p99_history) if long_history_days > 0 else 0.0\n+\n+        # Apply trend for mid-point of the 90-day window (45 days)\n+        quarterly_90d_p50 += p50_growth_rate * 45\n+        quarterly_90d_p99 += p99_growth_rate * 45\n+\n+        # Average surge factor over the next 90 days for the quarterly forecast\n+        avg_surge_factor = 1.0\n+        if long_history_days > 0:\n+            surge_factors = [surge_kernel((current_quarter_day + 1 + i) % 91) for i in range(90)]\n+            avg_surge_factor = np.mean(surge_factors)\n+        \n+        quarterly_90d_p50 *= avg_surge_factor\n+        quarterly_90d_p99 *= avg_surge_factor\n+\n+        quarterly_90d_p50 = max(0.0, quarterly_90d_p50)\n+        quarterly_90d_p99 = max(quarterly_90d_p50, quarterly_90d_p99)\n+\n+        # --- Commercial Tier Allocation ---\n+        pool_spec = pool_specs[pool]\n+        max_safe_spot_share = pool_spec.get(\"max_safe_spot_share\", 0.15)\n+        dws_capacity_cap_ratio = pool_spec.get(\"dws_capacity_cap_ratio\", 0.25)\n+\n+        # Target P99 for allocation (use the max of tactical P99s, adjusted by safety factor)\n+        target_p99_for_allocation = max(tactical_7d_p99) * safety_buffer_factor\n+        \n+        # CUDs: Anchor near 0.85 * sustained P50 baseline, avoid >1.05x 90d P50 lock-in excess.\n+        # Use the 90-day P50 forecast for CUD base, with a buffer.\n+        cud_units = quarterly_90d_p50 * 0.85\n+        cud_units = min(cud_units, quarterly_90d_p50 * 1.05) # Cap to avoid excess lock-in\n+        cud_units = max(0.0, cud_units)\n+\n+        remaining_allocation_target = target_p99_for_allocation - cud_units\n+\n+        # Spot: Up to 0.95 * max_safe_spot_share * peak_p99 (from goal)\n+        spot_cap = target_p99_for_allocation * max_safe_spot_share * 0.95\n+        spot_units = min(remaining_allocation_target, spot_cap)\n+        remaining_allocation_target -= spot_units\n+\n+        # DWS Flex: Up to 0.95 * dws_capacity_cap_ratio * peak_p99 (from goal)\n+        dws_cap = target_p99_for_allocation * dws_capacity_cap_ratio * 0.95\n+        dws_flex_units = min(remaining_allocation_target, dws_cap)\n+        remaining_allocation_target -= dws_flex_units\n+\n+        # On-Demand: Covers the rest of the P99 peak tail (which is ~1.03x tactical peak P99)\n+        on_demand_units = remaining_allocation_target\n+        \n+        # Ensure non-negative values\n+        cud_units = max(0.0, cud_units)\n+        spot_units = max(0.0, spot_units)\n+        dws_flex_units = max(0.0, dws_flex_units)\n+        on_demand_units = max(0.0, on_demand_units)\n+\n         out[pool] = {\n-            \"tactical_7d_p50\": [p50_ma] * 7,\n-            \"tactical_7d_p99\": [p99_est] * 7,\n-            \"quarterly_90d_p50\": p50_ma,\n-            \"quarterly_90d_p99\": p99_est,\n+            \"tactical_7d_p50\": tactical_7d_p50,\n+            \"tactical_7d_p99\": tactical_7d_p99,\n+            \"quarterly_90d_p50\": quarterly_90d_p50,\n+            \"quarterly_90d_p99\": quarterly_90d_p99,\n             \"allocation\": {\n                 \"cud_1y_3y_units\": cud_units,\n-                \"dws_flex_units\": 0.0,\n-                \"on_demand_units\": od_units,\n-                \"spot_units\": 0.0,\n+                \"dws_flex_units\": dws_flex_units,\n+                \"on_demand_units\": on_demand_units,\n+                \"spot_units\": spot_units,\n             },\n         }\n \n-    st_p50 = float(np.mean([d[\"tiered_storage_tb\"][\"p50\"] for d in recent]))\n-    st_p99 = st_p50 * 1.15\n+    # --- Tiered Storage TB ---\n+    st_p50_history = np.array([d[\"tiered_storage_tb\"][\"p50\"] for d in long_history])\n+    st_p99_history = np.array([d[\"tiered_storage_tb\"][\"p99\"] for d in long_history])\n+    hot_ws_history = np.array([d[\"tiered_storage_tb\"][\"hot_working_set_tb\"] for d in long_history])\n+\n+    if len(st_p50_history) < 7:\n+        st_p50_base = np.mean(st_p50_history) if st_p50_history.size > 0 else 0.0\n+        st_p99_base = np.mean(st_p99_history) if st_p99_history.size > 0 else st_p50_base\n+        st_p99_base = max(st_p50_base, st_p99_base * 1.10) # Ensure P99 >= P50 and add a buffer\n+        hot_ws_base = np.mean(hot_ws_history) if hot_ws_history.size > 0 else 0.0\n+\n+        out[\"tiered_storage_tb\"] = {\n+            \"tactical_7d_p50\": [st_p50_base] * 7,\n+            \"tactical_7d_p99\": [st_p99_base] * 7,\n+            \"quarterly_90d_p50\": st_p50_base,\n+            \"quarterly_90d_p99\": st_p99_base,\n+            \"allocation\": {\n+                \"nvme_parallel_fs_tb\": hot_ws_base * 1.06, # Default buffer\n+                \"object_storage_tb\": st_p99_base * 0.95,  # Remaining, assuming most is cold\n+            },\n+        }\n+        return out\n+\n+    # Storage forecasting (simpler, less seasonality expected, but trend is important)\n+    # Use medium history for trend for storage\n+    st_p50_trend_data = np.array([d[\"tiered_storage_tb\"][\"p50\"] for d in medium_history])\n+    st_p99_trend_data = np.array([d[\"tiered_storage_tb\"][\"p99\"] for d in medium_history])\n+    hot_ws_trend_data = np.array([d[\"tiered_storage_tb\"][\"hot_working_set_tb\"] for d in medium_history])\n+\n+    st_p50_growth_rate = 0.0\n+    st_p99_growth_rate = 0.0\n+    hot_ws_growth_rate = 0.0\n+\n+    if medium_history_days >= 2:\n+        x_st = np.arange(medium_history_days)\n+        A_st = np.vstack([x_st, np.ones(medium_history_days)]).T\n+        try:\n+            m_st_p50, _ = np.linalg.lstsq(A_st, st_p50_trend_data, rcond=None)[0]\n+            st_p50_growth_rate = m_st_p50\n+            m_st_p99, _ = np.linalg.lstsq(A_st, st_p99_trend_data, rcond=None)[0]\n+            st_p99_growth_rate = m_st_p99\n+            m_hot_ws, _ = np.linalg.lstsq(A_st, hot_ws_trend_data, rcond=None)[0]\n+            hot_ws_growth_rate = m_hot_ws\n+        except np.linalg.LinAlgError:\n+            pass\n+\n+    # Base values for storage (use a 21-day average)\n+    base_st_avg_window = min(len(st_p50_history), 21)\n+    st_base_p50 = np.mean(st_p50_history[-base_st_avg_window:]) if base_st_avg_window > 0 else 0.0\n+    st_base_p99 = np.mean(st_p99_history[-base_st_avg_window:]) if base_st_avg_window > 0 else 0.0\n+    hot_ws_base = np.mean(hot_ws_history[-base_st_avg_window:]) if base_st_avg_window > 0 else 0.0\n+\n+    tactical_7d_st_p50 = []\n+    tactical_7d_st_p99 = []\n+    tactical_7d_hot_ws = []\n+    for i in range(7):\n+        # Storage forecasts are primarily trend-based, with dampened seasonality/surge\n+        p50_forecast = st_base_p50 + st_p50_growth_rate * (i + 1)\n+        p99_forecast = st_base_p99 + st_p99_growth_rate * (i + 1)\n+        hot_ws_forecast = hot_ws_base + hot_ws_growth_rate * (i + 1)\n+        \n+        # Apply surge for storage as well, though perhaps with a smaller max_boost\n+        forecast_quarter_day = (current_quarter_day + 1 + i) % 91\n+        p50_forecast *= surge_kernel(forecast_quarter_day, max_boost=0.08) # Reduced max_boost\n+        p99_forecast *= surge_kernel(forecast_quarter_day, max_boost=0.08) # Reduced max_boost\n+        hot_ws_forecast *= surge_kernel(forecast_quarter_day, max_boost=0.08) # Reduced max_boost\n+\n+        tactical_7d_st_p50.append(max(0.0, p50_forecast))\n+        tactical_7d_st_p99.append(max(p50_forecast, p99_forecast)) # Ensure P99 >= P50\n+        tactical_7d_hot_ws.append(max(0.0, hot_ws_forecast))\n+\n+    quarterly_90d_st_p50 = np.mean(st_p50_history) + st_p50_growth_rate * 45 if long_history_days > 0 else 0.0\n+    quarterly_90d_st_p99 = np.mean(st_p99_history) + st_p99_growth_rate * 45 if long_history_days > 0 else 0.0\n+    quarterly_90d_hot_ws = np.mean(hot_ws_history) + hot_ws_growth_rate * 45 if long_history_days > 0 else 0.0\n+    \n+    # Apply average surge for quarterly storage forecast\n+    avg_surge_factor_st = 1.0\n+    if long_history_days > 0:\n+        surge_factors_st = [surge_kernel((current_quarter_day + 1 + i) % 91, max_boost=0.08) for i in range(90)]\n+        avg_surge_factor_st = np.mean(surge_factors_st)\n+    quarterly_90d_st_p50 *= avg_surge_factor_st\n+    quarterly_90d_st_p99 *= avg_surge_factor_st\n+    quarterly_90d_hot_ws *= avg_surge_factor_st\n+\n+    quarterly_90d_st_p50 = max(0.0, quarterly_90d_st_p50)\n+    quarterly_90d_st_p99 = max(quarterly_90d_st_p50, quarterly_90d_st_p99)\n+    quarterly_90d_hot_ws = max(0.0, quarterly_90d_hot_ws)\n+\n+    # Storage Allocation\n+    # NVMe: allocate >=1.05x active hot_working_set_tb (diagnostic feedback suggested ~1.06x)\n+    # Use the peak hot_working_set_tb from the 7-day forecast\n+    predicted_peak_hot_ws = max(tactical_7d_hot_ws) if tactical_7d_hot_ws else quarterly_90d_hot_ws\n+    nvme_parallel_fs_tb = predicted_peak_hot_ws * 1.06 # Adjusted to 1.06x as per diagnostic\n+    nvme_parallel_fs_tb = max(0.0, nvme_parallel_fs_tb) # Ensure non-negative\n+\n+    # Object Storage: Tier all cold lakehouse capacity onto object_storage_tb\n+    # Total storage needed is driven by P99. Deduct NVMe.\n+    predicted_peak_st_p99 = max(tactical_7d_st_p99) if tactical_7d_st_p99 else quarterly_90d_st_p99\n+    \n+    # Allocate remaining total TB (1.02 * predicted_peak_st_p99 - nvme_tb) to object storage (from Elite)\n+    # Use 1.02x predicted_peak_st_p99 as a target for total storage, similar to compute safety buffer\n+    total_target_storage_p99 = predicted_peak_st_p99 * 1.02\n+    object_storage_tb = max(0.0, total_target_storage_p99 - nvme_parallel_fs_tb)\n+    \n+    # Ensure a minimal amount of object storage if total P99 is significant (from Elite)\n+    if predicted_peak_st_p99 > 0 and object_storage_tb < 0.01 * predicted_peak_st_p99:\n+        object_storage_tb = max(object_storage_tb, predicted_peak_st_p99 * 0.01)\n+\n     out[\"tiered_storage_tb\"] = {\n-        \"tactical_7d_p50\": [st_p50] * 7,\n-        \"tactical_7d_p99\": [st_p99] * 7,\n-        \"quarterly_90d_p50\": st_p50,\n-        \"quarterly_90d_p99\": st_p99,\n+        \"tactical_7d_p50\": tactical_7d_st_p50,\n+        \"tactical_7d_p99\": tactical_7d_st_p99,\n+        \"quarterly_90d_p50\": quarterly_90d_st_p50,\n+        \"quarterly_90d_p99\": quarterly_90d_st_p99,\n         \"allocation\": {\n-            \"nvme_parallel_fs_tb\": 0.60 * st_p99,\n-            \"object_storage_tb\": 0.40 * st_p99,\n+            \"nvme_parallel_fs_tb\": nvme_parallel_fs_tb,\n+            \"object_storage_tb\": object_storage_tb,\n         },\n     }\n     return out"
+}

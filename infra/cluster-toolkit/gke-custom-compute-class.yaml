@@ -1,0 +1,116 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# GKE Custom Compute Classes (CCC) Declarative Obtainability Cascade
+# Parameterized by AlphaEvolve Pillar 1 Evolved Scheduling & Spillover Policy:
+#   Priority 1: Specific/Shared Committed Reservations (Zero incremental cost)
+#   Priority 2: Dynamic Workload Scheduler (DWS Flex Start) queued provisioning
+#   Priority 3: Gen-4 High-Throughput Compute (C4D AMD Turin / N4 Emerald Rapids)
+#   Priority 4: Fault-Tolerant Multi-Family Spot Fallback (C4D -> C3D -> N4 Spot)
+#
+# Apply to a GKE cluster (v1.30.3-gke.1451000+):
+#   kubectl apply -f infra/cluster-toolkit/gke-custom-compute-class.yaml
+---
+apiVersion: cloud.google.com/v1
+kind: ComputeClass
+metadata:
+  name: hpc-ai-obtainability-cascade
+  labels:
+    managed-by: alphaevolve-hpc-optimizer
+    optimization-pillar: cluster-scheduling
+spec:
+  # Ordered priority cascade synthesized from historical trace replay evaluation
+  priorities:
+    # Tier 1: Consume pre-paid GPU/HPC capacity reservations first
+    - machineFamily: a3
+      spot: false
+      reservations:
+        affinity: Specific
+        specific:
+          - name: hpc-gpu-committed-res
+      gpu:
+        type: nvidia-h100-80gb
+        count: 8
+
+    # Tier 2: Burst GPU jobs into Dynamic Workload Scheduler (DWS Flex Start)
+    - machineFamily: a3
+      spot: false
+      flexStart:
+        enabled: true
+        nodeRecycling:
+          leadTimeSeconds: 1800
+      gpu:
+        type: nvidia-h100-80gb
+        count: 8
+      maxRunDurationSeconds: 259200
+
+    # Tier 3: Gen-4 On-Demand CPU fallback for mixed scientific compute
+    - machineFamily: c4d
+      spot: false
+      minCores: 32
+      storage:
+        bootDiskType: hyperdisk-balanced
+        bootDiskKmsKey: ""
+
+    - machineFamily: n4
+      spot: false
+      minCores: 16
+      storage:
+        bootDiskType: hyperdisk-balanced
+
+    # Tier 4: Fault-tolerant Spot spillover across diversified machine families
+    - machineFamily: c4d
+      spot: true
+      minCores: 16
+    - machineFamily: c3d
+      spot: true
+      minCores: 16
+    - machineFamily: n4
+      spot: true
+      minCores: 8
+
+  # Automatically migrate workloads back up the priority ladder when higher-tier
+  # committed reservation capacity frees up (eliminating lingering On-Demand spend).
+  activeMigration:
+    optimizeRulePriority: true
+
+  nodePoolAutoCreation:
+    enabled: true
+
+  whenUnsatisfiable: ScaleUpAnyway
+---
+apiVersion: cloud.google.com/v1
+kind: ComputeClass
+metadata:
+  name: interactive-research-workbench
+  labels:
+    managed-by: alphaevolve-hpc-optimizer
+    workload-tier: interactive-ide
+spec:
+  # Dedicated right-sized interactive compute class isolating 2-16 vCPU notebook
+  # & IDE sessions away from 64-core Ultramem and 8-GPU training nodes.
+  priorities:
+    - machineFamily: n4
+      spot: false
+      minCores: 8
+      maxPodsPerNode: 32
+    - machineFamily: c4d
+      spot: false
+      minCores: 8
+      maxPodsPerNode: 32
+  activeMigration:
+    optimizeRulePriority: true
+  nodePoolAutoCreation:
+    enabled: true
+  whenUnsatisfiable: ScaleUpAnyway

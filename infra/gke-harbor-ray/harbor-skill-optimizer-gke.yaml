@@ -1,0 +1,340 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# GKE Harbor Agent Skill Optimizer (gVisor Pod-per-Trial) + KubeRay GPU Evaluator Blueprint
+# Aligned with:
+#   1. Google Cloud AlphaEvolve + Harbor Agent Skill Optimizer pattern (1 pod per trial on GKE)
+#   2. Google-Cloud-AI/alphaevolve-on-googlecloud GKE + KubeRay + GCS FUSE architecture
+#
+# Built-in Production Guardrails for 10h+ Evolutionary Searches:
+#   - Ring-buffered local ephemeral storage (`emptyDir.sizeLimit: 2Gi` + log rotation) and
+#     direct GCS FUSE / Cloud Logging trial-log streaming so controller/node disks NEVER fill up.
+#   - Paired concurrent candidate-vs-baseline trial execution (`cand_score - base_score`) +
+#     adaptive P95 latency window so transient model slowdowns never stall candidate scoring.
+#   - GKE Sandbox (`runtimeClassName: gvisor`) kernel isolation for untrusted coding agent trials.
+#
+# Apply after substituting <YOUR_GCP_PROJECT_ID> and <YOUR_GE_APP_ID>:
+#   kubectl apply -f infra/gke-harbor-ray/harbor-skill-optimizer-gke.yaml
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: alphaevolve-harbor
+  labels:
+    app.kubernetes.io/part-of: alphaevolve-hpc-optimization
+    optimization-pillar: agent-skill-optimization
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: harbor-trial-runner-sa
+  namespace: alphaevolve-harbor
+  annotations:
+    iam.gke.io/gcp-service-account: ae-harbor-eval-sa@<YOUR_GCP_PROJECT_ID>.iam.gserviceaccount.com
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: harbor-skill-optimizer-guardrails
+  namespace: alphaevolve-harbor
+data:
+  PAIRED_CONCURRENT_BASELINE: "true"
+  SCORE_AGGREGATION_MODE: "paired_delta_cand_minus_base"
+  ADAPTIVE_LATENCY_WINDOW_ENABLED: "true"
+  LATENCY_GATE_P95_MULTIPLIER: "2.5"
+  TRIAL_LOG_DESTINATION: "gcs_and_cloud_logging"
+  LOCAL_RINGBUFFER_MAX_MB: "512"
+  DISCOVERY_ENGINE_BASE_URL: "discoveryengine.googleapis.com"
+  DISCOVERY_ENGINE_COLLECTION: "default_collection"
+  ringbuffer-cleanup.sh: |
+    #!/usr/bin/env sh
+    set -eu
+    RING_DIR="/var/log/harbor-ringbuffer"
+    mkdir -p "${RING_DIR}"
+    while true; do
+      # Stream completed trial logs to GCS mount and prune oldest local files above 512 MiB
+      find "${RING_DIR}" -type f -mmin +5 -delete 2>/dev/null || true
+      sleep 30
+    done
+---
+# Pod-per-Trial Harbor Evaluator Template isolated via GKE Sandbox (gVisor)
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: harbor-paired-skill-trial-template
+  namespace: alphaevolve-harbor
+  labels:
+    component: harbor-trial-sandbox
+    sandbox: gvisor
+spec:
+  parallelism: 8
+  completions: 8
+  backoffLimit: 1
+  ttlSecondsAfterFinished: 300
+  template:
+    metadata:
+      annotations:
+        gke-gcsfuse/volumes: "true"
+        gke-gcsfuse/ephemeral-storage-limit: "2Gi"
+      labels:
+        component: harbor-trial-sandbox
+    spec:
+      serviceAccountName: harbor-trial-runner-sa
+      runtimeClassName: gvisor
+      restartPolicy: Never
+      nodeSelector:
+        cloud.google.com/compute-class: hpc-ai-obtainability-cascade
+      containers:
+        # Runs candidate SKILL.md and baseline SKILL.md concurrently on the same Harbor task
+        # to cancel out transient LLM latency variance (`delta = score(cand) - score(base)`).
+        - name: harbor-paired-trial
+          image: us-central1-docker.pkg.dev/<YOUR_GCP_PROJECT_ID>/alphaevolve-hpc-poc/alphaevolve-hpc-workbench:latest
+          command:
+            - python3
+            - -m
+            - pillars.agent_skill_optimization.evaluator
+          envFrom:
+            - configMapRef:
+                name: harbor-skill-optimizer-guardrails
+          env:
+            - name: GCP_PROJECT_ID
+              value: "<YOUR_GCP_PROJECT_ID>"
+            - name: GE_APP_ID
+              value: "<YOUR_GE_APP_ID>"
+            - name: HARBOR_LOG_STREAM_DIR
+              value: "/mnt/gcs-archive/harbor-trial-logs"
+            - name: HARBOR_LOCAL_SCRATCH_DIR
+              value: "/var/log/harbor-ringbuffer"
+          resources:
+            requests:
+              cpu: "2"
+              memory: "4Gi"
+              ephemeral-storage: "1Gi"
+            limits:
+              cpu: "4"
+              memory: "8Gi"
+              ephemeral-storage: "2Gi"
+          volumeMounts:
+            - name: local-ringbuffer
+              mountPath: /var/log/harbor-ringbuffer
+            - name: gcs-trial-archive
+              mountPath: /mnt/gcs-archive
+        # Sidecar pruning local ring-buffer so controller/node ephemeral disks never fill
+        - name: log-ringbuffer-pruner
+          image: busybox:1.36
+          command: ["/bin/sh", "/scripts/ringbuffer-cleanup.sh"]
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "100m"
+              memory: "128Mi"
+          volumeMounts:
+            - name: local-ringbuffer
+              mountPath: /var/log/harbor-ringbuffer
+            - name: guardrails-scripts
+              mountPath: /scripts
+              readOnly: true
+      volumes:
+        - name: local-ringbuffer
+          emptyDir:
+            sizeLimit: 2Gi
+        - name: guardrails-scripts
+          configMap:
+            name: harbor-skill-optimizer-guardrails
+            defaultMode: 0755
+        - name: gcs-trial-archive
+          csi:
+            driver: gcsfuse.csi.storage.gke.io
+            volumeAttributes:
+              bucketName: "<YOUR_GCP_PROJECT_ID>-alphaevolve-hpc-poc"
+              mountOptions: "implicit-dirs,only-dir=harbor-trials"
+---
+# Managed AlphaEvolve Controller & Evaluation Gateway Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alphaevolve-harbor-gateway
+  namespace: alphaevolve-harbor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alphaevolve-harbor-gateway
+  template:
+    metadata:
+      annotations:
+        gke-gcsfuse/volumes: "true"
+      labels:
+        app: alphaevolve-harbor-gateway
+    spec:
+      serviceAccountName: harbor-trial-runner-sa
+      containers:
+        - name: gateway
+          image: us-central1-docker.pkg.dev/<YOUR_GCP_PROJECT_ID>/alphaevolve-hpc-poc/alphaevolve-hpc-workbench:latest
+          ports:
+            - containerPort: 8080
+              name: http
+          envFrom:
+            - configMapRef:
+                name: harbor-skill-optimizer-guardrails
+          env:
+            - name: GCP_PROJECT_ID
+              value: "<YOUR_GCP_PROJECT_ID>"
+            - name: GE_APP_ID
+              value: "<YOUR_GE_APP_ID>"
+            - name: AE_BQ_DATASET
+              value: "alphaevolve_hpc_poc"
+            - name: AE_ARCHIVE_BUCKET
+              value: "<YOUR_GCP_PROJECT_ID>-alphaevolve-hpc-poc"
+          resources:
+            requests:
+              cpu: "1"
+              memory: "2Gi"
+              ephemeral-storage: "2Gi"
+            limits:
+              cpu: "2"
+              memory: "4Gi"
+              ephemeral-storage: "4Gi"
+          volumeMounts:
+            - name: controller-ringbuffer
+              mountPath: /tmp/ae-controller-ringbuffer
+            - name: gcs-trial-archive
+              mountPath: /mnt/gcs-archive
+      volumes:
+        - name: controller-ringbuffer
+          emptyDir:
+            sizeLimit: 4Gi
+        - name: gcs-trial-archive
+          csi:
+            driver: gcsfuse.csi.storage.gke.io
+            volumeAttributes:
+              bucketName: "<YOUR_GCP_PROJECT_ID>-alphaevolve-hpc-poc"
+              mountOptions: "implicit-dirs"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alphaevolve-harbor-gateway-svc
+  namespace: alphaevolve-harbor
+spec:
+  type: ClusterIP
+  selector:
+    app: alphaevolve-harbor-gateway
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+---
+# Persistent KubeRay Cluster for GPU Kernel & Model Training Evaluations (autoscales 0..8 L4 GPUs)
+apiVersion: ray.io/v1
+kind: RayCluster
+metadata:
+  name: alphaevolve-kuberay-gpu-pool
+  namespace: alphaevolve-harbor
+spec:
+  rayVersion: "2.54.0"
+  enableInTreeAutoscaling: true
+  headGroupSpec:
+    rayStartParams:
+      dashboard-host: "0.0.0.0"
+      num-cpus: "0"
+    template:
+      metadata:
+        annotations:
+          gke-gcsfuse/volumes: "true"
+      spec:
+        serviceAccountName: harbor-trial-runner-sa
+        containers:
+          - name: ray-head
+            image: us-central1-docker.pkg.dev/<YOUR_GCP_PROJECT_ID>/alphaevolve-hpc-poc/alphaevolve-hpc-workbench:latest
+            ports:
+              - containerPort: 6379
+                name: gcs-server
+              - containerPort: 8265
+                name: dashboard
+              - containerPort: 10001
+                name: client
+            resources:
+              requests:
+                cpu: "2"
+                memory: "8Gi"
+                ephemeral-storage: "2Gi"
+              limits:
+                cpu: "4"
+                memory: "16Gi"
+                ephemeral-storage: "4Gi"
+            volumeMounts:
+              - name: ray-log-ringbuffer
+                mountPath: /tmp/ray
+              - name: gcs-artifacts
+                mountPath: /mnt/artifacts
+        volumes:
+          - name: ray-log-ringbuffer
+            emptyDir:
+              sizeLimit: 4Gi
+          - name: gcs-artifacts
+            csi:
+              driver: gcsfuse.csi.storage.gke.io
+              volumeAttributes:
+                bucketName: "<YOUR_GCP_PROJECT_ID>-alphaevolve-hpc-poc"
+                mountOptions: "implicit-dirs"
+  workerGroupSpecs:
+    - groupName: l4-gpu-evaluators
+      replicas: 0
+      minReplicas: 0
+      maxReplicas: 8
+      rayStartParams: {}
+      template:
+        metadata:
+          annotations:
+            gke-gcsfuse/volumes: "true"
+        spec:
+          serviceAccountName: harbor-trial-runner-sa
+          containers:
+            - name: ray-gpu-worker
+              image: us-central1-docker.pkg.dev/<YOUR_GCP_PROJECT_ID>/alphaevolve-hpc-poc/alphaevolve-hpc-workbench:latest
+              resources:
+                requests:
+                  cpu: "4"
+                  memory: "16Gi"
+                  nvidia.com/gpu: "1"
+                  ephemeral-storage: "4Gi"
+                limits:
+                  cpu: "8"
+                  memory: "32Gi"
+                  nvidia.com/gpu: "1"
+                  ephemeral-storage: "8Gi"
+              volumeMounts:
+                - name: ray-worker-ringbuffer
+                  mountPath: /tmp/ray
+                - name: gcs-artifacts
+                  mountPath: /mnt/artifacts
+          tolerations:
+            - key: nvidia.com/gpu
+              operator: Exists
+              effect: NoSchedule
+          nodeSelector:
+            cloud.google.com/gke-accelerator: nvidia-l4
+          volumes:
+            - name: ray-worker-ringbuffer
+              emptyDir:
+                sizeLimit: 8Gi
+            - name: gcs-artifacts
+              csi:
+                driver: gcsfuse.csi.storage.gke.io
+                volumeAttributes:
+                  bucketName: "<YOUR_GCP_PROJECT_ID>-alphaevolve-hpc-poc"
+                  mountOptions: "implicit-dirs"

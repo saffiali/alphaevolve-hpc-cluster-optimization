@@ -3,7 +3,7 @@
   "execution_mode": "vertex_ai_live",
   "vertex_ai_model": "gemini-2.5-flash",
   "vertex_ai_region": "us-central1",
-  "total_candidates_evaluated": 39,
+  "total_candidates_evaluated": 52,
   "pillars": {
     "cluster_scheduling": {
       "title": "Enterprise HPC & AI Cluster Scheduling Policy",
@@ -143,6 +143,49 @@
         }
       ],
       "artifact_file": "pillars/results/demand_forecasting_results.json"
+    },
+    "agent_skill_optimization": {
+      "title": "Agent Skill & HPC Harness Optimizer (AlphaEvolve + Harbor)",
+      "primary_metric": "paired_delta_score",
+      "execution_mode": "vertex_ai_live",
+      "vertex_ai_model": "gemini-2.5-flash",
+      "num_candidates_evaluated": 13,
+      "valid_candidates_count": 11,
+      "rejected_by_gates_count": 2,
+      "winning_generation": 4,
+      "baseline_score": 0.0,
+      "evolved_score": 76.25,
+      "held_out_improvement_pct": 300.0,
+      "kpi_summary": [
+        {
+          "kpi": "Unseen Holdout Harbor Task Pass Rate",
+          "unit": "%",
+          "baseline": 25.0,
+          "evolved": 100.0,
+          "delta_pts": 75.0
+        },
+        {
+          "kpi": "Paired Concurrent Baseline Delta Score",
+          "unit": "pts",
+          "baseline": 0.0,
+          "evolved": 76.25,
+          "delta_pts": 76.25
+        },
+        {
+          "kpi": "Timeout + OOM + NFS + Token Trial Failures",
+          "unit": "failed trials",
+          "baseline": 15,
+          "evolved": 0,
+          "delta_pct": -100.0
+        },
+        {
+          "kpi": "Paired Score Std vs Raw Latency-Wave Std",
+          "unit": "pts std",
+          "baseline": 1.984,
+          "evolved": 0.0
+        }
+      ],
+      "artifact_file": "pillars/results/agent_skill_optimization_results.json"
     }
   }
 }

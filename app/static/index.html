@@ -143,11 +143,15 @@
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-    .grid-sidebar { display: grid; grid-template-columns: 350px minmax(0, 1fr); gap: 20px; align-items: start; }
-    @media (max-width: 1060px) {
-      .grid-3, .grid-2, .grid-sidebar { grid-template-columns: 1fr; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .grid-sidebar { display: grid; grid-template-columns: 310px minmax(0, 1fr); gap: 18px; align-items: start; }
+    @media (max-width: 1200px) {
+      .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 820px) {
+      .grid-4, .grid-3, .grid-2, .grid-sidebar { grid-template-columns: 1fr; }
     }
 
     .card {
@@ -341,14 +345,14 @@
         <div class="brand-left">
           <div class="brand-mark">AE</div>
           <div>
-            <div class="brand-title">AlphaEvolve for Enterprise HPC &amp; AI Clusters</div>
-            <div class="brand-sub">Autonomous Code &amp; Policy Evolution across Scheduling, GPU/SIMD Kernels &amp; Capacity Allocation</div>
+            <div class="brand-title">AlphaEvolve for Enterprise HPC, AI &amp; Agentic Skills</div>
+            <div class="brand-sub">4-Pillar Optimization: Cluster Scheduling, GPU/SIMD Kernels, Capacity Allocation &amp; Harbor Agent Skill Evolution</div>
           </div>
         </div>
         <div class="header-badges">
           <span class="pill pill-green" id="badge-cloudrun"><span class="dot"></span>Cloud Run Active</span>
           <span class="pill pill-blue" id="badge-bq"><span class="dot"></span>BigQuery Telemetry</span>
-          <span class="pill pill-purple" id="badge-batch"><span class="dot"></span>Cloud Batch Verified</span>
+          <span class="pill pill-purple" id="badge-batch"><span class="dot"></span>4-Pillar Batch Verified</span>
           <button class="btn btn-vertex" id="btn-open-evolve" onclick="scrollToLiveMutator()">
             &#9889; Propose &amp; Score Candidate (Live Vertex AI)
           </button>
@@ -358,7 +362,8 @@
         <button class="tab-btn active" id="tab-btn-overview" onclick="switchTab('overview')">Executive Overview</button>
         <button class="tab-btn" id="tab-btn-pillar1" onclick="switchTab('pillar1')">Pillar 1: Cluster Scheduling</button>
         <button class="tab-btn" id="tab-btn-pillar2" onclick="switchTab('pillar2')">Pillar 2: HPC Code Optimization</button>
-        <button class="tab-btn" id="tab-btn-pillar3" onclick="switchTab('pillar3')">Pillar 3: Demand &amp; Resource Allocation</button>
+        <button class="tab-btn" id="tab-btn-pillar3" onclick="switchTab('pillar3')">Pillar 3: Demand &amp; Allocation</button>
+        <button class="tab-btn" id="tab-btn-pillar4" onclick="switchTab('pillar4')">Pillar 4: Harbor Skill Optimizer</button>
       </nav>
     </div>
   </header>
@@ -389,8 +394,8 @@
         </div>
       </div>
 
-      <!-- Unified 3-Pillar Executive KPI Scorecard -->
-      <div class="grid-3">
+      <!-- Unified 4-Pillar Executive KPI Scorecard -->
+      <div class="grid-4">
         <div class="card">
           <div class="card-header">
             <div>
@@ -405,7 +410,7 @@
           <div class="kpi-row"><span class="kpi-muted">Bin-Packing Efficiency</span><strong id="ov-p1-pack">--</strong></div>
           <div class="kpi-row"><span class="kpi-muted">OOM &amp; Timeout Failure Rate</span><strong id="ov-p1-fail">--</strong></div>
           <div class="mt-16">
-            <button class="btn btn-outline" style="width:100%;" onclick="switchTab('pillar1')">Open Interactive Cluster Simulator &rarr;</button>
+            <button class="btn btn-outline" style="width:100%;" onclick="switchTab('pillar1')">Open Cluster Simulator &rarr;</button>
           </div>
         </div>
 
@@ -423,7 +428,7 @@
           <div class="kpi-row"><span class="kpi-muted">Held-Out Fitness Score</span><strong id="ov-p2-score">--</strong></div>
           <div class="kpi-row"><span class="kpi-muted">CUDA / AVX-512 Companion</span><strong>Warp-Shuffle Tile Ready</strong></div>
           <div class="mt-16">
-            <button class="btn btn-outline" style="width:100%;" onclick="switchTab('pillar2')">Open Kernel Benchmark Lab &rarr;</button>
+            <button class="btn btn-outline" style="width:100%;" onclick="switchTab('pillar2')">Open Kernel Lab &rarr;</button>
           </div>
         </div>
 
@@ -441,7 +446,25 @@
           <div class="kpi-row"><span class="kpi-muted">Held-Out Fitness Gain</span><strong id="ov-p3-score">--</strong></div>
           <div class="kpi-row"><span class="kpi-muted">Storage Tier Routing</span><strong>NVMe Scratch + GCS Lake</strong></div>
           <div class="mt-16">
-            <button class="btn btn-outline" style="width:100%;" onclick="switchTab('pillar3')">Open Capacity &amp; TCO Planner &rarr;</button>
+            <button class="btn btn-outline" style="width:100%;" onclick="switchTab('pillar3')">Open Capacity Planner &rarr;</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <span class="pill pill-amber">Pillar 4 • AlphaEvolve + Harbor</span>
+              <div class="card-title" style="margin-top:8px;">Agent Skill &amp; Harness Optimizer</div>
+              <div class="card-subtitle">Evolves `def build_skill()` (`SKILL.md`) via paired GKE Harbor trials</div>
+            </div>
+          </div>
+          <div class="kpi-big" style="color: var(--amber);" id="ov-p4-headline">--</div>
+          <div class="card-subtitle" id="ov-p4-sub">Zero-shot pass rate on strictly unseen holdout tasks</div>
+          <div class="kpi-row"><span class="kpi-muted">Unseen Holdout Pass Rate</span><strong id="ov-p4-holdout">--</strong></div>
+          <div class="kpi-row"><span class="kpi-muted">Paired Delta vs. Baseline</span><strong id="ov-p4-delta">--</strong></div>
+          <div class="kpi-row"><span class="kpi-muted">Timeouts &amp; OOMs</span><strong id="ov-p4-guard">Checkpoint + Right-Sized</strong></div>
+          <div class="mt-16">
+            <button class="btn btn-outline" style="width:100%;" onclick="switchTab('pillar4')">Open Harbor Skill Lab &rarr;</button>
           </div>
         </div>
       </div>
@@ -839,6 +862,126 @@
       </div>
     </section>
 
+    <!-- ==================== TAB 5: PILLAR 4 HARBOR AGENT SKILL OPTIMIZER ==================== -->
+    <section class="tab-panel" id="panel-pillar4">
+      <div class="grid-sidebar">
+        <div class="card">
+          <div class="card-title">Harbor Trial &amp; Latency Sliders</div>
+          <div class="card-subtitle" style="margin-bottom:16px;">Simulates GKE Harbor pod-per-trial evaluation (`def build_skill()`) with paired concurrent baseline delta scoring</div>
+
+          <div class="control-group">
+            <div class="control-label"><span>Task Timeout Strictness</span><span class="control-val" id="val-p4-timeout">1.00x</span></div>
+            <input type="range" id="inp-p4-timeout" min="0.6" max="1.9" step="0.1" value="1.0" oninput="updateP4Labels()" onchange="runPillar4Sim()" />
+          </div>
+
+          <div class="control-group">
+            <div class="control-label"><span>Input Dataset Scale</span><span class="control-val" id="val-p4-scale">64 GB</span></div>
+            <input type="range" id="inp-p4-scale" min="16" max="240" step="16" value="64" oninput="updateP4Labels()" onchange="runPillar4Sim()" />
+          </div>
+
+          <div class="control-group">
+            <div class="control-label"><span>LLM Latency Jitter</span><span class="control-val" id="val-p4-jitter">650 ms</span></div>
+            <input type="range" id="inp-p4-jitter" min="0" max="2400" step="100" value="650" oninput="updateP4Labels()" onchange="runPillar4Sim()" />
+          </div>
+
+          <button class="btn btn-primary" style="width:100%;" onclick="runPillar4Sim()">Run Paired Harbor Evaluation</button>
+
+          <div class="mt-20" style="padding-top:14px; border-top:1px solid var(--border);">
+            <div class="proof-item-label">Execution Topology (`alphaevolve-on-googlecloud`)</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:8px;">
+              <button class="btn btn-outline active" id="topo-btn-ge" style="font-size:11.5px; padding:7px 8px;" onclick="selectArchTopology('ge')">Managed GE_APP_ID</button>
+              <button class="btn btn-outline" id="topo-btn-gke" style="font-size:11.5px; padding:7px 8px;" onclick="selectArchTopology('gke')">GKE Harbor + Ray</button>
+              <button class="btn btn-outline" id="topo-btn-batch" style="font-size:11.5px; padding:7px 8px;" onclick="selectArchTopology('batch')">Cloud Batch</button>
+              <button class="btn btn-outline" id="topo-btn-podman" style="font-size:11.5px; padding:7px 8px;" onclick="selectArchTopology('podman')">Rootless Podman</button>
+            </div>
+            <div class="card-subtitle mt-16" id="topo-detail-box" style="background:var(--surface-alt); padding:10px 12px; border-radius:9px; color:var(--text);">
+              <strong>Managed AlphaEvolve (`GE_APP_ID` Discovery Engine):</strong> Regional `eu-` / `us-` endpoints, server-side MAP-Elites + weighted Gemini ensembles (`gemini-3.5/3.8-flash` + `gemini-3.1-pro-preview`), and 6 self-service `ae` CLI skills.
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="grid-3" style="margin-bottom: 16px;">
+            <div class="card">
+              <div class="proof-item-label">Unseen Holdout Pass Rate</div>
+              <div class="kpi-big" style="color: var(--amber); margin-top:4px;" id="p4-kpi-holdout">--</div>
+              <div class="card-subtitle" id="p4-kpi-holdout-sub">Zero-shot generalization (4 unseen tasks)</div>
+            </div>
+            <div class="card">
+              <div class="proof-item-label">Dev Benchmark Pass Rate</div>
+              <div class="kpi-big" style="color: var(--blue); margin-top:4px;" id="p4-kpi-dev">--</div>
+              <div class="card-subtitle" id="p4-kpi-dev-sub">8 Harbor v1.1 HPC job-authoring tasks</div>
+            </div>
+            <div class="card">
+              <div class="proof-item-label">Paired Baseline Ranking Stability</div>
+              <div class="kpi-big" style="color: var(--green); margin-top:4px;" id="p4-kpi-stab">--</div>
+              <div class="card-subtitle" id="p4-kpi-stab-sub">Cancels shared LLM latency variance</div>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Why Paired Concurrent Scoring Matters</div>
+                  <div class="card-subtitle">Running candidate `SKILL.md` next to baseline `SKILL.md` simultaneously (`cand - base`)</div>
+                </div>
+                <span class="pill pill-green" id="p4-var-badge">Variance Cut</span>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Scoring Method</th>
+                    <th>Score Noise (&sigma;)</th>
+                    <th>Rank Inversion / Stall Risk</th>
+                  </tr>
+                </thead>
+                <tbody id="p4-noise-tbody"></tbody>
+              </table>
+              <div class="card-subtitle mt-16">
+                <strong>10h+ Production Guardrails:</strong> Adaptive P95 latency window avoids stalled evaluations during slow model windows, while ring-buffered `emptyDir` (`2Gi`) + GCS streaming prevents trial logs from filling controller disks.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">HPC Failure Modes Eliminated by Evolved Skill</div>
+                  <div class="card-subtitle">Baseline generic checklist vs. AlphaEvolve timeout/I/O/OOM protocol</div>
+                </div>
+              </div>
+              <div id="p4-failures-bars"></div>
+            </div>
+          </div>
+
+          <div class="card mt-16">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Side-by-Side `Baseline SKILL.md` vs. `AlphaEvolve Evolved SKILL.md` (`def build_skill()`)</div>
+                <div class="card-subtitle">Inspect the evolved skill protocol ("Ship Baseline Early", `--signal=B:USR1`, input-driven `--mem`, NVMe `/scratch`)</div>
+              </div>
+              <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                <button class="btn btn-outline active" id="p4-btn-sidebyside" onclick="setP4CodeTab('sidebyside')">Side-by-Side SKILL.md</button>
+                <button class="btn btn-outline" id="p4-btn-diff" onclick="setP4CodeTab('diff')">#EVOLVE-BLOCK Diff</button>
+                <button class="btn btn-outline" id="p4-btn-evolved" onclick="setP4CodeTab('evolved')">Evolved SKILL.md Only</button>
+              </div>
+            </div>
+            <div id="p4-sidebyside-wrap" class="grid-2">
+              <div>
+                <div class="proof-item-label" style="margin-bottom:6px; color:var(--red);">Baseline Vibe-Written `SKILL.md`</div>
+                <pre class="code-box" id="p4-base-skill-box"></pre>
+              </div>
+              <div>
+                <div class="proof-item-label" style="margin-bottom:6px; color:var(--green);">AlphaEvolve Evolved `SKILL.md`</div>
+                <pre class="code-box" id="p4-evol-skill-box"></pre>
+              </div>
+            </div>
+            <pre class="code-box" id="p4-diff-only-box" style="display:none;"></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ==================== LIVE VERTEX AI SANDBOX MUTATOR ==================== -->
     <section class="card mt-20" id="live-evolve-drawer" style="border: 2px solid #d2e3fc;">
       <div class="card-header">
@@ -857,6 +1000,7 @@
             <option value="cluster_scheduling">Pillar 1: Cluster Scheduling (Slurm / GKE CCC)</option>
             <option value="hpc_code_optimization" selected>Pillar 2: HPC Code Optimization (3D Ewald Solver)</option>
             <option value="demand_forecasting">Pillar 3: Demand Forecasting &amp; Allocation</option>
+            <option value="agent_skill_optimization">Pillar 4: Harbor Agent Skill Optimizer (SKILL.md)</option>
           </select>
         </div>
         <div>
@@ -926,10 +1070,11 @@
         renderP1Code();
         renderP2TrajectoryAndCode();
         renderP3Code();
+        renderP4Code();
       } catch (e) {
         console.error('Failed to load /api/pillars:', e);
       }
-      await Promise.all([runPillar1Sim(), runPillar2Sim(), runPillar3Sim()]);
+      await Promise.all([runPillar1Sim(), runPillar2Sim(), runPillar3Sim(), runPillar4Sim()]);
     }
 
     function renderProofAndOverview(data) {
@@ -941,9 +1086,10 @@
       document.getElementById('proof-revision').textContent =
         `${proof.service || 'alphaevolve-hpc-workbench'} (${proof.revision || 'live'})`;
       document.getElementById('proof-region').textContent =
-        `Region: ${proof.region || 'us-central1'} • Vertex AI gemini-2.5-flash`;
+        `Region: ${proof.region || 'us-central1'} • Managed GE_APP_ID & Vertex AI`;
 
-      document.getElementById('proof-bq-dataset').textContent = bq.dataset || 'alphaevolve_hpc_poc';
+      const cleanDataset = String(bq.dataset || 'alphaevolve_hpc_poc').split('.').pop();
+      document.getElementById('proof-bq-dataset').textContent = `${cleanDataset} (BigQuery US)`;
       const totalRows = (counts.evolution_runs || 0) + (counts.candidate_evaluations || 0) + (counts.cluster_replay_metrics || 0);
       document.getElementById('proof-bq-counts').textContent = bq.connected
         ? `${counts.evolution_runs || 0} runs • ${counts.candidate_evaluations || 0} evals • ${counts.cluster_replay_metrics || 0} metrics (${totalRows} rows)`
@@ -989,7 +1135,19 @@
       const bw = p3bm.blended_wmape_pct || p3bm.wmape_pct || (p3bm.wmape ? p3bm.wmape * 100 : 19.4);
       const ew = p3em.blended_wmape_pct || p3em.wmape_pct || (p3em.wmape ? p3em.wmape * 100 : 8.3);
       document.getElementById('ov-p3-wmape').textContent = `${Number(bw).toFixed(1)}% → ${Number(ew).toFixed(1)}%`;
-      document.getElementById('ov-p3-score').textContent = `+${(p3.improvement_pct || 27.4).toFixed(1)}% Holdout Gain`;
+      document.getElementById('ov-p3-score').textContent = `+${(p3.improvement_pct || 30.8).toFixed(1)}% Holdout Gain`;
+
+      const p4 = (data.pillars || {}).agent_skill_optimization || {};
+      const p4bm = p4.baseline_metrics || {};
+      const p4em = p4.evolved_metrics || {};
+      const rawP4Base = p4bm.pass_rate_pct ?? p4bm.holdout_pass_rate_pct ?? p4bm.candidate_pass_rate_pct ?? 25.0;
+      const rawP4Evol = p4em.pass_rate_pct ?? p4em.holdout_pass_rate_pct ?? p4em.candidate_pass_rate_pct ?? 100.0;
+      const p4BasePct = rawP4Base <= 1.0 && rawP4Base > 0 ? rawP4Base * 100 : Number(rawP4Base);
+      const p4EvolPct = rawP4Evol <= 1.0 && rawP4Evol > 0 ? rawP4Evol * 100 : Number(rawP4Evol);
+      const p4Delta = (p4EvolPct - p4BasePct).toFixed(1);
+      document.getElementById('ov-p4-headline').textContent = `${p4EvolPct.toFixed(0)}% Pass Rate`;
+      document.getElementById('ov-p4-holdout').textContent = `${p4BasePct.toFixed(0)}% → ${p4EvolPct.toFixed(0)}%`;
+      document.getElementById('ov-p4-delta').textContent = `+${p4Delta} pts (cand - base)`;
     }
 
     /* ---------------- PILLAR 1 ---------------- */
@@ -1252,6 +1410,113 @@
     function renderP3Code() {
       const p3 = PILLARS_DATA?.pillars?.demand_forecasting || {};
       document.getElementById('p3-code-box').innerHTML = formatDiffHtml(p3.unified_diff || p3.evolved_block || p3.seed_block);
+    }
+
+    /* ---------------- PILLAR 4 (HARBOR SKILL OPTIMIZER) ---------------- */
+    let P4_CODE_TAB = 'sidebyside';
+
+    const ARCH_TOPOLOGIES = {
+      ge: '<strong>Managed AlphaEvolve (`GE_APP_ID` Discovery Engine):</strong> Regional `eu-` / `us-` endpoints (`discoveryengine.googleapis.com`), server-side MAP-Elites + weighted Gemini ensembles (`gemini-3.5/3.8-flash` + `gemini-3.1-pro-preview`), and 6 self-service `ae` CLI skills.',
+      gke: '<strong>GKE Sandbox (`gVisor`) Harbor + KubeRay GPU Pool:</strong> 1 isolated `gVisor` pod per Harbor trial (`paired_delta = cand - base`) + autoscaling L4/A100 Ray workers + `2Gi` ring-buffered disk streaming trial logs to GCS.',
+      batch: '<strong>Google Cloud Batch Ephemeral Sandbox Pool:</strong> VPC-isolated (`noExternalIpAddress: true`) parallel container workers mounting trace/conformation datasets read-only (`-o ro`) with per-candidate write isolation.',
+      podman: '<strong>Rootless Podman (`subuids`) Workbench Mode:</strong> Zero-root local container evaluation (`usermod --add-subuids 100000-165535`) for interactive developer &amp; scientist login nodes without daemon privileges.',
+    };
+
+    function selectArchTopology(key) {
+      ['ge', 'gke', 'batch', 'podman'].forEach(k => {
+        document.getElementById('topo-btn-' + k)?.classList.toggle('active', k === key);
+      });
+      document.getElementById('topo-detail-box').innerHTML = ARCH_TOPOLOGIES[key] || ARCH_TOPOLOGIES.ge;
+    }
+
+    function updateP4Labels() {
+      document.getElementById('val-p4-timeout').textContent = Number(document.getElementById('inp-p4-timeout').value).toFixed(2) + 'x';
+      document.getElementById('val-p4-scale').textContent = Number(document.getElementById('inp-p4-scale').value).toFixed(0) + ' GB';
+      document.getElementById('val-p4-jitter').textContent = Number(document.getElementById('inp-p4-jitter').value).toFixed(0) + ' ms';
+    }
+
+    async function runPillar4Sim() {
+      const qs = new URLSearchParams({
+        pillar: 'agent_skill_optimization',
+        timeout_strictness: document.getElementById('inp-p4-timeout').value,
+        dataset_scale_gb: document.getElementById('inp-p4-scale').value,
+        llm_latency_jitter_ms: document.getElementById('inp-p4-jitter').value,
+      });
+      const res = await fetch('/api/simulate?' + qs.toString());
+      const d = await res.json();
+      const dev = d.splits.dev_8_tasks;
+      const hold = d.splits.unseen_holdout_4_tasks;
+      const ps = d.paired_scoring_analysis;
+
+      document.getElementById('p4-kpi-holdout').textContent = `${hold.evolved_pass_rate_pct}%`;
+      document.getElementById('p4-kpi-holdout-sub').textContent =
+        `${hold.baseline_pass_rate_pct}% → ${hold.evolved_pass_rate_pct}% (+${hold.delta_pts} pts unseen holdout)`;
+      document.getElementById('p4-kpi-dev').textContent = `${dev.evolved_pass_rate_pct}%`;
+      document.getElementById('p4-kpi-dev-sub').textContent =
+        `${dev.baseline_pass_rate_pct}% → ${dev.evolved_pass_rate_pct}% (+${dev.delta_pts} pts across 8 dev tasks)`;
+      document.getElementById('p4-kpi-stab').textContent = `${ps.paired_ranking_stability_pct}%`;
+      document.getElementById('p4-kpi-stab-sub').textContent =
+        `${ps.variance_reduction_factor_x}x lower noise vs. unpaired evaluation`;
+
+      document.getElementById('p4-var-badge').textContent = `${ps.variance_reduction_factor_x}x Noise Reduction`;
+      document.getElementById('p4-noise-tbody').innerHTML = `
+        <tr>
+          <td>Unpaired Sequential Score</td>
+          <td>&plusmn;${ps.unpaired_score_noise_pts} pts</td>
+          <td style="color:var(--red); font-weight:600;">${ps.unpaired_rank_inversion_risk_pct}% rank flip / gate stall risk</td>
+        </tr>
+        <tr class="highlight-row">
+          <td>Paired Concurrent (<code>cand - base</code>)</td>
+          <td>&plusmn;${ps.paired_delta_noise_pts} pts</td>
+          <td style="color:var(--green);">${(100 - ps.paired_ranking_stability_pct).toFixed(1)}% flip risk (Stable)</td>
+        </tr>
+      `;
+
+      const maxF = Math.max(...(d.failure_modes || []).map(f => f.baseline_failures), 1);
+      document.getElementById('p4-failures-bars').innerHTML = (d.failure_modes || []).map(fm => {
+        const wb = Math.max(8, (fm.baseline_failures / maxF) * 100);
+        const we = fm.evolved_failures === 0 ? 3 : Math.max(6, (fm.evolved_failures / maxF) * 100);
+        return `<div style="margin-bottom:10px; font-size:12px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:3px;">
+            <strong>${escapeHtml(fm.category)}</strong>
+            <span><span style="color:var(--red);">${fm.baseline_failures}</span> &rarr; <strong style="color:var(--green);">${fm.evolved_failures} fails</strong></span>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:3px;">
+            <div style="height:7px; width:${wb}%; background:#f87171; border-radius:4px;"></div>
+            <div style="height:7px; width:${we}%; background:#188038; border-radius:4px;"></div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    function setP4CodeTab(tab) {
+      P4_CODE_TAB = tab;
+      ['sidebyside', 'diff', 'evolved'].forEach(t => {
+        document.getElementById('p4-btn-' + t)?.classList.toggle('active', t === tab);
+      });
+      renderP4Code();
+    }
+
+    function renderP4Code() {
+      const p4 = PILLARS_DATA?.pillars?.agent_skill_optimization || {};
+      const wrap = document.getElementById('p4-sidebyside-wrap');
+      const diffBox = document.getElementById('p4-diff-only-box');
+      if (P4_CODE_TAB === 'sidebyside') {
+        wrap.style.display = 'grid';
+        diffBox.style.display = 'none';
+        document.getElementById('p4-base-skill-box').textContent =
+          p4.baseline_skill_markdown || p4.seed_block || '// Waiting for Pillar 4 baseline SKILL.md...';
+        document.getElementById('p4-evol-skill-box').textContent =
+          p4.evolved_skill_markdown || p4.evolved_block || '// Waiting for Pillar 4 evolved SKILL.md...';
+      } else {
+        wrap.style.display = 'none';
+        diffBox.style.display = 'block';
+        if (P4_CODE_TAB === 'diff') {
+          diffBox.innerHTML = formatDiffHtml(p4.unified_diff || p4.evolved_block);
+        } else {
+          diffBox.textContent = p4.evolved_skill_markdown || p4.evolved_block || '';
+        }
+      }
     }
 
     /* ---------------- LIVE VERTEX AI MUTATION ---------------- */

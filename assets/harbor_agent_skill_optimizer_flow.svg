@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 860" width="1600" height="860">
+  <defs>
+    <style>
+      .title { font: 700 23px 'Google Sans', 'Inter', Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 500 13.5px 'Google Sans', 'Inter', Arial, sans-serif; fill: #475569; }
+      .node-title { font: 700 15.5px 'Google Sans', 'Inter', Arial, sans-serif; fill: #0f172a; }
+      .node-sub { font: 500 12.5px 'Google Sans', 'Inter', Arial, sans-serif; fill: #475569; }
+      .badge { font: 700 11.5px 'Google Sans', 'Roboto Mono', monospace; fill: #ffffff; letter-spacing: 0.3px; }
+      .flow-pill { font: 700 10.5px 'Google Sans', Arial, sans-serif; fill: #0f172a; }
+    </style>
+    <filter id="shadow" x="-2%" y="-4%" width="104%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.07"/>
+    </filter>
+    <marker id="arrow-purple" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#6d28d9"/>
+    </marker>
+    <marker id="arrow-blue" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#1a73e8"/>
+    </marker>
+    <marker id="arrow-green" markerUnits="userSpaceOnUse" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="860" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+
+  <!-- Header -->
+  <rect x="24" y="18" width="1552" height="68" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="24" y="18" width="10" height="68" rx="4" fill="#d97706"/>
+  <text x="50" y="47" class="title">Pillar 4 — Agent Skill &amp; Harness Optimizer with AlphaEvolve and Harbor</text>
+  <text x="50" y="70" class="subtitle">Treat SKILL.md as Code  |  Paired Concurrent Harbor Trials on GKE gVisor  |  Zero-Shot Unseen Holdout Verification</text>
+
+  <!-- LAYER 1: SKILL PROPOSAL PLANE -->
+  <rect x="24" y="106" width="1552" height="214" rx="12" fill="#f5f3ff" stroke="#8b5cf6" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="24" y="106" width="1552" height="34" rx="10" fill="#6d28d9"/>
+  <text x="48" y="128" class="badge">LAYER 1 — SKILL PROPOSAL PLANE: Treat Agent Skills as Evolvable Programs (agentskills.io Format)</text>
+
+  <rect x="56" y="160" width="468" height="136" rx="10" fill="#ffffff" stroke="#ddd6fe" stroke-width="1.5" filter="url(#shadow)"/>
+  <svg x="78" y="204" width="48" height="48" viewBox="0 0 24 24"><defs><style>.ico_cloud_code_h1_cls-1{fill:#aecbfa;}.ico_cloud_code_h1_cls-2{fill:#669df6;}.ico_cloud_code_h1_cls-3{fill:#4285f4;}</style></defs><title>Icon_24px_CloudCode_Color</title><g data-name="Product Icons"><g ><g data-name="Layer 1-2"><polygon class="ico_cloud_code_h1_cls-1" points="5.45 8.53 8.55 5.42 11.65 8.53 8.55 11.65 5.45 8.53"/><polygon class="ico_cloud_code_h1_cls-2" points="2 12 5.1 8.88 8.2 12 5.1 15.12 2 12"/><polygon class="ico_cloud_code_h1_cls-3" points="5.45 15.47 8.55 12.35 11.65 15.47 8.55 18.59 5.45 15.47"/><polygon class="ico_cloud_code_h1_cls-1" points="12.35 8.53 15.45 5.42 18.55 8.53 15.45 11.65 12.35 8.53"/><polygon class="ico_cloud_code_h1_cls-2" points="15.8 12 18.9 8.88 22 12 18.9 15.12 15.8 12"/><polygon class="ico_cloud_code_h1_cls-3" points="12.35 15.47 15.45 12.35 18.55 15.47 15.45 18.59 12.35 15.47"/></g></g></g></svg>
+  <text x="144" y="218" class="node-title">def build_skill() #EVOLVE-BLOCK</text>
+  <text x="144" y="242" class="node-sub">Wraps SKILL.md description &amp; protocol body as code</text>
+
+  <rect x="566" y="160" width="468" height="136" rx="10" fill="#ffffff" stroke="#6d28d9" stroke-width="2" filter="url(#shadow)"/>
+  <svg x="588" y="204" width="48" height="48" viewBox="0 0 24 24"><path d="M20,13.89A.77.77,0,0,0,19,13.73l-7,5.14v.22a.72.72,0,1,1,0,1.43v0a.74.74,0,0,0,.45-.15l7.41-5.47A.76.76,0,0,0,20,13.89Z" style="fill:#669df6"/><path d="M12,20.52a.72.72,0,0,1,0-1.43h0v-.22L5,13.73a.76.76,0,0,0-1,.16.74.74,0,0,0,.16,1l7.41,5.47a.73.73,0,0,0,.44.15v0Z" style="fill:#aecbfa"/><path d="M12,18.34a1.47,1.47,0,1,0,1.47,1.47A1.47,1.47,0,0,0,12,18.34Zm0,2.18a.72.72,0,1,1,.72-.71A.71.71,0,0,1,12,20.52Z" style="fill:#4285f4"/><path d="M6,6.11a.76.76,0,0,1-.75-.75V3.48a.76.76,0,1,1,1.51,0V5.36A.76.76,0,0,1,6,6.11Z" style="fill:#aecbfa"/><circle cx="5.98" cy="12" r="0.76" style="fill:#aecbfa"/><circle cx="5.98" cy="9.79" r="0.76" style="fill:#aecbfa"/><circle cx="5.98" cy="7.57" r="0.76" style="fill:#aecbfa"/><path d="M18,8.31a.76.76,0,0,1-.75-.76V5.67a.75.75,0,1,1,1.5,0V7.55A.75.75,0,0,1,18,8.31Z" style="fill:#4285f4"/><circle cx="18.02" cy="12.01" r="0.76" style="fill:#4285f4"/><circle cx="18.02" cy="9.76" r="0.76" style="fill:#4285f4"/><circle cx="18.02" cy="3.48" r="0.76" style="fill:#4285f4"/><path d="M12,15a.76.76,0,0,1-.75-.75V12.34a.76.76,0,0,1,1.51,0v1.89A.76.76,0,0,1,12,15Z" style="fill:#669df6"/><circle cx="12" cy="16.45" r="0.76" style="fill:#669df6"/><circle cx="12" cy="10.14" r="0.76" style="fill:#669df6"/><circle cx="12" cy="7.92" r="0.76" style="fill:#669df6"/><path d="M15,10.54a.76.76,0,0,1-.75-.75V7.91a.76.76,0,1,1,1.51,0V9.79A.76.76,0,0,1,15,10.54Z" style="fill:#4285f4"/><circle cx="15.01" cy="5.69" r="0.76" style="fill:#4285f4"/><circle cx="15.01" cy="14.19" r="0.76" style="fill:#4285f4"/><circle cx="15.01" cy="11.97" r="0.76" style="fill:#4285f4"/><circle cx="8.99" cy="14.19" r="0.76" style="fill:#aecbfa"/><circle cx="8.99" cy="7.92" r="0.76" style="fill:#aecbfa"/><circle cx="8.99" cy="5.69" r="0.76" style="fill:#aecbfa"/><path d="M9,12.73A.76.76,0,0,1,8.24,12V10.1a.75.75,0,1,1,1.5,0V12A.75.75,0,0,1,9,12.73Z" style="fill:#aecbfa"/></svg>
+  <text x="654" y="218" class="node-title">Managed AlphaEvolve (GE_APP_ID)</text>
+  <text x="654" y="242" class="node-sub">Discovery Engine &amp; Gemini rewrite operational rules</text>
+
+  <rect x="1076" y="160" width="468" height="136" rx="10" fill="#ffffff" stroke="#ddd6fe" stroke-width="1.5" filter="url(#shadow)"/>
+  <svg x="1098" y="204" width="48" height="48" viewBox="0 0 24 24">
+<g >
+	<rect y="0" fill="none" width="24" height="24"/>
+	<polygon fill-rule="evenodd" fill="#5C85DE" points="6,2.4 0.8,5.4 0.8,19.1 6,22.1 6,19.5 3,17.8 3,6.7 6,5 	"/>
+	<polygon fill-rule="evenodd" fill="#3367D6" points="0.8,8 0.8,16.5 3,17.8 3,6.7 	"/>
+	<polygon fill-rule="evenodd" fill="#3367D6" points="0.8,8 3,7.5 3,6.7 	"/>
+	<polygon fill-rule="evenodd" fill="#5C85DE" points="18,2.4 18,5 21,6.7 21,17.8 18,19.5 18,22.1 23.2,19.1 23.2,5.4 	"/>
+	<polygon fill-rule="evenodd" fill="#3367D6" points="21,17.8 23.2,16.5 23.2,8 21,6.7 	"/>
+	<polygon fill-rule="evenodd" fill="#3367D6" points="21,7.5 23.2,8 21,6.7 	"/>
+	<polygon fill-rule="evenodd" fill="#3367D6" points="21,17.1 21,17.8 23.2,16.5 	"/>
+	<g transform="translate(6.860000, 6.500000)">
+		<g transform="translate(4.540000, 0.000000)">
+			<polygon fill-rule="evenodd" fill="#5C85DE" points="0.6,-1 -2.4,0.6 0.6,2.2 3.6,0.6 			"/>
+			<polygon fill-rule="evenodd" fill="#3367D6" points="1,5.9 3.9,4.3 3.9,1.2 1,2.8 			"/>
+			<polygon fill-rule="evenodd" fill="#3367D6" points="0.3,2.8 -2.7,1.2 -2.7,4.3 0.3,5.9 			"/>
+		</g>
+		<g transform="translate(0.000000, 7.976190)">
+			<polygon fill-rule="evenodd" fill="#5C85DE" points="1.7,-3.1 -1.2,-1.5 1.7,0.1 4.5,-1.5 			"/>
+			<polygon fill-rule="evenodd" fill="#3367D6" points="1.9,3.8 4.8,2.2 4.8,-1 1.9,0.6 			"/>
+			<polygon fill-rule="evenodd" fill="#3367D6" points="1.4,0.6 -1.5,-1 -1.5,2.2 1.4,3.8 			"/>
+		</g>
+		<g transform="translate(9.360000, 7.976190)">
+			<polygon fill-rule="evenodd" fill="#5C85DE" points="-0.7,-3.1 -3.6,-1.5 -0.7,0.1 2.2,-1.5 			"/>
+			<polygon fill-rule="evenodd" fill="#3367D6" points="-0.4,3.8 2.5,2.2 2.5,-1 -0.4,0.6 			"/>
+			<polygon fill-rule="evenodd" fill="#3367D6" points="-1,0.6 -3.9,-1 -3.9,2.2 -1,3.8 			"/>
+		</g>
+	</g>
+</g>
+</svg>
+  <text x="1164" y="218" class="node-title">MAP-Elites &amp; Timeout Notes</text>
+  <text x="1164" y="242" class="node-sub">Feeds timeout, OOM &amp; staging failure notes to search</text>
+
+  <path d="M 524 228 L 564 228" stroke="#6d28d9" stroke-width="2.5" marker-end="url(#arrow-purple)"/>
+  <path d="M 1034 228 L 1074 228" stroke="#6d28d9" stroke-width="2.5" marker-end="url(#arrow-purple)"/>
+
+  <!-- Connector 1 <-> 2 -->
+  <path d="M 560 320 L 560 354" stroke="#1a73e8" stroke-width="2.8" marker-end="url(#arrow-blue)"/>
+  <rect x="336" y="327" width="210" height="20" rx="5" fill="#e0f2fe" stroke="#93c5fd" stroke-width="1"/>
+  <text x="348" y="341" class="flow-pill">Candidate + Baseline SKILL.md</text>
+
+  <path d="M 1040 356 L 1040 322" stroke="#6d28d9" stroke-width="2.5" stroke-dasharray="5,3" marker-end="url(#arrow-purple)"/>
+  <rect x="1054" y="327" width="248" height="20" rx="5" fill="#ede9fe" stroke="#c4b5fd" stroke-width="1"/>
+  <text x="1066" y="341" class="flow-pill">Delta Score + Task Failure Notes</text>
+
+  <!-- LAYER 2: PAIRED HARBOR GKE SANDBOX PLANE -->
+  <rect x="24" y="356" width="1552" height="214" rx="12" fill="#eff6ff" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="24" y="356" width="1552" height="34" rx="10" fill="#1a73e8"/>
+  <text x="48" y="378" class="badge">LAYER 2 — PAIRED HARBOR GKE SANDBOX PLANE: Noise-Cancelled Concurrent Agent Trials Inside VPC</text>
+
+  <rect x="56" y="410" width="468" height="136" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5" filter="url(#shadow)"/>
+  <svg x="78" y="454" width="48" height="48" viewBox="0 0 24 24"><defs><style>.ico_google_kubernetes_engine_h4_cls-1{fill:#4285f4;}.ico_google_kubernetes_engine_h4_cls-1,.ico_google_kubernetes_engine_h4_cls-2,.ico_google_kubernetes_engine_h4_cls-4{fill-rule:evenodd;}.ico_google_kubernetes_engine_h4_cls-2{fill:#669df6;}.cls-3,.ico_google_kubernetes_engine_h4_cls-4{fill:#aecbfa;}</style></defs><title>Icon_24px_K8Engine_Color</title><g data-name="Product Icons"><g ><polygon class="ico_google_kubernetes_engine_h4_cls-1" points="14.68 13.06 19.23 15.69 19.23 16.68 14.29 13.83 14.68 13.06"/><polygon class="ico_google_kubernetes_engine_h4_cls-2" points="9.98 13.65 4.77 16.66 4.45 15.86 9.53 12.92 9.98 13.65"/><rect class="cls-3" x="11.55" y="3.29" width="0.86" height="5.78"/><path class="ico_google_kubernetes_engine_h4_cls-4" d="M3.25,7V17L12,22l8.74-5V7L12,2Zm15.63,8.89L12,19.78,5.12,15.89V8.11L12,4.22l6.87,3.89v7.78Z"/><polygon class="ico_google_kubernetes_engine_h4_cls-4" points="11.98 11.5 15.96 9.21 11.98 6.91 8.01 9.21 11.98 11.5"/><polygon class="ico_google_kubernetes_engine_h4_cls-2" points="11.52 12.3 7.66 10.01 7.66 14.6 11.52 16.89 11.52 12.3"/><polygon class="ico_google_kubernetes_engine_h4_cls-1" points="12.48 12.3 12.48 16.89 16.34 14.6 16.34 10.01 12.48 12.3"/></g></g></svg>
+  <text x="144" y="468" class="node-title">GKE gVisor Pod-per-Trial Runner</text>
+  <text x="144" y="492" class="node-sub">Executes Harbor v1.1 tasks (or rootless Podman locally)</text>
+
+  <rect x="566" y="410" width="468" height="136" rx="10" fill="#ffffff" stroke="#1a73e8" stroke-width="2" filter="url(#shadow)"/>
+  <svg x="588" y="454" width="48" height="48" viewBox="0 0 24 24">
+  <path fill="#4285F4" d="M15.62271,5 L21.638741,11.5594321 L15.62271,18.1188642 L13.612,15.926 L11.5874595,18.1343249 L9.794,16.179 L8.01603096,18.1188642 L2,11.5594321 L8.01603096,5 L9.808,6.954 L9.179,7.64 L8.01603096,6.37241434 L3.25871981,11.5594321 L8.01603096,16.7464499 L9.165,15.493 L5.57142857,11.5748928 L11.5874595,5.01546073 L13.598,7.207 L15.62271,5 Z M11.5874595,6.38787507 L6.83014838,11.5748928 L11.5874595,16.7619106 L12.982,15.24 L9.60667904,11.5594321 L12.968,7.893 L11.5874595,6.38787507 Z"/>
+</svg>
+  <text x="654" y="468" class="node-title">Concurrent Candidate vs. Baseline</text>
+  <text x="654" y="492" class="node-sub">Runs both skills simultaneously to cancel latency drift</text>
+
+  <rect x="1076" y="410" width="468" height="136" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5" filter="url(#shadow)"/>
+  <svg x="1098" y="454" width="48" height="48" viewBox="0 0 24 24"><defs><style>.ico_cloud_storage_h6_cls-1{fill:#aecbfa;}.ico_cloud_storage_h6_cls-2{fill:#669df6;}.ico_cloud_storage_h6_cls-3{fill:#4285f4;}.ico_cloud_storage_h6_cls-4{fill:#fff;}</style></defs><title>Icon_24px_CloudStorage_Color</title><g data-name="Product Icons"><rect class="ico_cloud_storage_h6_cls-1" x="2" y="4" width="20" height="7"/><rect class="ico_cloud_storage_h6_cls-2" x="20" y="4" width="2" height="7"/><polygon class="ico_cloud_storage_h6_cls-3" points="22 4 20 4 20 11 22 4"/><rect class="ico_cloud_storage_h6_cls-2" x="2" y="4" width="2" height="7"/><rect class="ico_cloud_storage_h6_cls-4" x="6" y="7" width="6" height="1"/><rect class="ico_cloud_storage_h6_cls-4" x="15" y="6" width="3" height="3" rx="1.5"/><rect class="ico_cloud_storage_h6_cls-1" x="2" y="13" width="20" height="7"/><rect class="ico_cloud_storage_h6_cls-2" x="20" y="13" width="2" height="7"/><polygon class="ico_cloud_storage_h6_cls-3" points="22 13 20 13 20 20 22 13"/><rect class="ico_cloud_storage_h6_cls-2" x="2" y="13" width="2" height="7"/><rect class="ico_cloud_storage_h6_cls-4" x="6" y="16" width="6" height="1"/><rect class="ico_cloud_storage_h6_cls-4" x="15" y="15" width="3" height="3" rx="1.5"/></g></svg>
+  <text x="1164" y="468" class="node-title">GCS Streaming Trial Logs</text>
+  <text x="1164" y="492" class="node-sub">Ring-buffered local disk prevents 10h+ controller fulls</text>
+
+  <path d="M 524 478 L 564 478" stroke="#1a73e8" stroke-width="2.5" marker-end="url(#arrow-blue)"/>
+  <path d="M 1034 478 L 1074 478" stroke="#1a73e8" stroke-width="2.5" marker-end="url(#arrow-blue)"/>
+
+  <!-- Connector 2 -> 3 -->
+  <path d="M 800 570 L 800 604" stroke="#059669" stroke-width="2.8" marker-end="url(#arrow-green)"/>
+  <rect x="814" y="577" width="280" height="20" rx="5" fill="#d1fae5" stroke="#6ee7b7" stroke-width="1"/>
+  <text x="826" y="591" class="flow-pill">VERIFIED DEV WINNER -&gt; UNSEEN HOLDOUT</text>
+
+  <!-- LAYER 3: VERIFICATION & UNSEEN HOLDOUT GATE -->
+  <rect x="24" y="606" width="1552" height="226" rx="12" fill="#ecfdf5" stroke="#059669" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="24" y="606" width="1552" height="34" rx="10" fill="#059669"/>
+  <text x="48" y="628" class="badge">LAYER 3 — VERIFICATION &amp; UNSEEN HOLDOUT GATE: Anti-Overfitting Check &amp; Zero-Redeploy Rollout</text>
+
+  <rect x="56" y="662" width="468" height="142" rx="10" fill="#ffffff" stroke="#a7f3d0" stroke-width="1.5" filter="url(#shadow)"/>
+  <svg x="78" y="709" width="48" height="48" viewBox="0 0 24 24">
+<g >
+	<g transform="translate(4.000000, 1.000000)">
+		<path fill="#85A4E6" d="M8,0l-9,4v6c0,5.6,3.8,10.7,9,12c5.2-1.3,9-6.4,9-12V4L8,0z M8,11h7c-0.5,4.1-3.3,7.8-7,8.9V11l-7,0V5.3
+			l7-3.1V11z"/>
+		<path fill="#5C85DE" d="M8,0v22c5.2-1.3,9-6.4,9-12V4L8,0z M15,11c-0.5,4.1-3.3,7.8-7,8.9V11L15,11z"/>
+		<path fill-rule="evenodd" fill="#3367D6" d="M17,11h-2c0,0,0,0.3-0.1,0.6L17,11z"/>
+		<polygon fill-rule="evenodd" fill="#3367D6" points="-1,11 1,11 1,10.4 		"/>
+	</g>
+</g>
+</svg>
+  <text x="144" y="724" class="node-title">Deterministic Task Verifiers</text>
+  <text x="144" y="748" class="node-sub">Checks checkpoints, --mem &amp; scratch; -1e12 on cheats</text>
+
+  <rect x="566" y="662" width="468" height="142" rx="10" fill="#ffffff" stroke="#059669" stroke-width="2" filter="url(#shadow)"/>
+  <svg x="588" y="709" width="48" height="48" viewBox="0 0 24 24">
+<style type="text/css">
+	.ico_cloud_optimization_ai_h8_st0{fill:#669DF6;}
+	.ico_cloud_optimization_ai_h8_st1{fill:#AECBFA;}
+	.ico_cloud_optimization_ai_h8_st2{fill:#4285F4;}
+</style>
+<path class="ico_cloud_optimization_ai_h8_st0" d="M10.48,6.35c0-0.203,0.04-0.404,0.12-0.591C7.743,6.4,5.6,8.953,5.6,12c0,0.414,0.336,0.75,0.75,0.75
+	S7.1,12.414,7.1,12c0-2.283,1.571-4.2,3.688-4.742C10.589,6.997,10.481,6.678,10.48,6.35z M17.65,11.25
+	c-0.414,0-0.75,0.336-0.75,0.75c0,2.283-1.571,4.2-3.688,4.742c0.328,0.43,0.4,1.003,0.188,1.5C16.257,17.6,18.4,15.047,18.4,12
+	C18.4,11.586,18.064,11.25,17.65,11.25z"/>
+<path class="ico_cloud_optimization_ai_h8_st1" d="M20.605,10.48c0.221,0.001,0.438,0.05,0.638,0.145C20.573,6.118,16.69,2.645,12,2.645
+	c-0.414,0-0.75,0.336-0.75,0.75s0.336,0.75,0.75,0.75c3.904,0,7.143,2.866,7.745,6.603C19.998,10.573,20.298,10.48,20.605,10.48z
+	 M12,19.855c-3.904,0-7.143-2.866-7.745-6.603c-0.441,0.307-1.012,0.354-1.497,0.123c0.669,4.507,4.555,7.98,9.242,7.98
+	c0.414,0,0.75-0.336,0.75-0.75C12.75,20.191,12.414,19.855,12,19.855z"/>
+<path class="ico_cloud_optimization_ai_h8_st2" d="M12,15.543c-1.957,0-3.543-1.586-3.543-3.543S10.043,8.457,12,8.457s3.543,1.586,3.543,3.543c0,0,0,0,0,0
+	C15.54,13.956,13.956,15.54,12,15.543z M12,9.957c-1.128,0-2.043,0.915-2.043,2.043s0.915,2.043,2.043,2.043
+	s2.043-0.915,2.043-2.043C14.041,10.872,13.128,9.959,12,9.957L12,9.957z M20.605,11.23c-0.425,0-0.77,0.345-0.77,0.77
+	c0,0.425,0.345,0.77,0.77,0.77c0.425,0,0.77-0.345,0.77-0.77C21.374,11.575,21.03,11.23,20.605,11.23L20.605,11.23z M12,5.578
+	c-0.425,0-0.77,0.345-0.77,0.77s0.345,0.77,0.77,0.77c0.425,0,0.77-0.345,0.77-0.77v0C12.77,5.923,12.425,5.579,12,5.578z
+	 M3.395,11.23c-0.425,0-0.77,0.345-0.77,0.77s0.345,0.77,0.77,0.77s0.77-0.345,0.77-0.77l0,0C4.165,11.575,3.82,11.23,3.395,11.23z
+	 M12,16.88c-0.425,0-0.77,0.345-0.77,0.77c0,0.425,0.345,0.77,0.77,0.77c0.425,0,0.77-0.345,0.77-0.77c0,0,0,0,0,0
+	C12.77,17.225,12.425,16.88,12,16.88z"/>
+</svg>
+  <text x="654" y="724" class="node-title">Paired Delta Score (cand - base)</text>
+  <text x="654" y="748" class="node-sub">Isolates true skill lift from model response variance</text>
+
+  <rect x="1076" y="662" width="468" height="142" rx="10" fill="#ffffff" stroke="#a7f3d0" stroke-width="1.5" filter="url(#shadow)"/>
+  <svg x="1098" y="709" width="48" height="48" viewBox="0 0 24 24"><defs><style>.ico_cloud_run_h9_cls-1{fill:#aecbfa;}.ico_cloud_run_h9_cls-1,.ico_cloud_run_h9_cls-2{fill-rule:evenodd;}.ico_cloud_run_h9_cls-2{fill:#4285f4;}</style></defs><title>Icon_24px_CloudRun_Color</title><g data-name="Product Icons"><g ><polygon class="ico_cloud_run_h9_cls-1" points="8.9 2.63 12.02 12 21.38 12 8.9 2.63"/><polygon class="ico_cloud_run_h9_cls-2" points="21.38 12 12.02 12 8.9 21.38 21.38 12"/><polygon class="ico_cloud_run_h9_cls-2" points="3.44 21.38 6.57 19.81 8.9 12 5.78 12 3.44 21.38"/><polygon class="ico_cloud_run_h9_cls-1" points="3.44 2.63 5.78 12 8.9 12 6.57 4.19 3.44 2.63"/></g></g></svg>
+  <text x="1164" y="724" class="node-title">Unseen Holdout -&gt; SKILL.md PR</text>
+  <text x="1164" y="748" class="node-sub">Zero-shot holdout check &amp; drop-in agent skill bundle</text>
+
+  <path d="M 524 733 L 564 733" stroke="#059669" stroke-width="2.5" marker-end="url(#arrow-green)"/>
+  <path d="M 1034 733 L 1074 733" stroke="#059669" stroke-width="2.5" marker-end="url(#arrow-green)"/>
+</svg>

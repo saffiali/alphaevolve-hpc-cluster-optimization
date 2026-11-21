@@ -36,6 +36,10 @@ PILLAR_META = {
         "title": "Demand Forecasting & Resource Allocation (CUD / DWS / Tiered Storage)",
         "primary_kpi": "total_risk_adjusted_tco_k_usd",
     },
+    "agent_skill_optimization": {
+        "title": "Agent Skill & Harness Optimizer (AlphaEvolve + Harbor)",
+        "primary_kpi": "candidate_pass_rate_pct",
+    },
 }
 
 

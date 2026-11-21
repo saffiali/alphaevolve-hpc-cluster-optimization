@@ -1,9 +1,9 @@
 # Google Cloud Deployment Guide
 
-> **Deploy the Interactive AlphaEvolve HPC Workbench on Cloud Run, provision telemetry in BigQuery & Cloud Storage via Terraform, and run isolated candidate evaluations on Google Cloud Batch & Cluster Toolkit (`gcluster`).**
+> **Deploy the 4-Pillar Interactive AlphaEvolve HPC & Harbor Workbench on Cloud Run, connect to Managed AlphaEvolve (`GE_APP_ID`), provision BigQuery & Cloud Storage via Terraform, and scale isolated evaluators across Cloud Batch, GKE Harbor/KubeRay, Cluster Toolkit (`gcluster`), or Rootless Podman.**
 
 <p align="center">
-  <img src="../assets/alphaevolve_hpc_reference_architecture.png" alt="AlphaEvolve HPC Reference Architecture" width="100%"/>
+  <img src="../assets/alphaevolve_hpc_reference_architecture.png" alt="AlphaEvolve HPC, Cluster & Harbor Reference Architecture" width="100%"/>
 </p>
 
 ---
@@ -14,24 +14,27 @@
 flowchart LR
     classDef local fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a
     classDef cloud fill:#eff6ff,stroke:#1a73e8,stroke-width:2px,color:#0f172a
+    classDef gke fill:#f5f3ff,stroke:#6d28d9,stroke-width:2px,color:#0f172a
     classDef hpc fill:#ecfdf5,stroke:#059669,stroke-width:2px,color:#0f172a
 
-    M1["Mode A: Local Sandbox\npytest + uvicorn (< 30s)\nOffline or Vertex AI"]:::local --> M2["Mode B: Cloud Run + BigQuery + Batch\nTerraform + Containerized Evaluators\nLive PoC Workbench"]:::cloud
-    M2 --> M3["Mode C: Production Cluster Toolkit\ngcluster Blueprints for Slurm,\nGKE CCC & Cloud Batch"]:::hpc
+    M1["Mode A: Local / Rootless Podman\npytest + ae CLI + uvicorn\n(< 30s setup)"]:::local --> M2["Mode B: Cloud Run + BigQuery + Batch\nTerraform + 4-Pillar Evaluators\nLive PoC Workbench"]:::cloud
+    M2 --> M3["Mode C: GKE Harbor + KubeRay\ngVisor Pod-per-Trial + GPU Ray\n+ GCS Log Streaming"]:::gke
+    M3 --> M4["Mode D: Cluster Toolkit (gcluster)\nSlurm / Cluster Director + DWS\n+ GKE Custom Compute Classes"]:::hpc
 ```
 
 | Deployment Mode | Prerequisites | Provisioned Components | Typical Setup Time |
 | :--- | :--- | :--- | :---: |
-| **Mode A — Local Quickstart** | Python `3.11+` | Local 3-pillar evaluators, unit tests & FastAPI Workbench on `:8080` | `~1 min` |
-| **Mode B — Live Cloud PoC** | `gcloud`, `terraform >= 1.5`, GCP Project | Cloud Run Workbench, BigQuery telemetry dataset, GCS archive, Cloud Batch evaluator job | `~5 min` |
-| **Mode C — Cluster Toolkit (`gcluster`)** | Cluster Toolkit CLI + Quota | Slurm / Cluster Director with DWS spillover, GKE Custom Compute Classes & Batch pool | `~15–25 min` |
+| **Mode A — Local & `ae` Skills** | Python `3.11+` (`uv`, optional `podman`) | Local 4-pillar evaluators, `ae` skills & FastAPI Workbench on `:8080` | `~1 min` |
+| **Mode B — Live Cloud PoC** | `gcloud`, `terraform >= 1.5`, GCP Project | Cloud Run Workbench, BigQuery dataset, GCS archive & 4-pillar Cloud Batch job | `~5 min` |
+| **Mode C — GKE Harbor & KubeRay** | GKE Autopilot / Standard Cluster | `gVisor` Harbor pod-per-trial pool, autoscaling GPU KubeRay & GCS log streaming | `~10 min` |
+| **Mode D — Cluster Toolkit (`gcluster`)** | Cluster Toolkit CLI + Quota | Slurm / Cluster Director with DWS spillover & GKE Custom Compute Classes | `~15–25 min` |
 
 ---
 
-## 2. Mode A — Local Sandbox & Interactive Workbench
+## 2. Mode A — Local Sandbox, Rootless Podman & `alphaevolve-on-googlecloud` Skills
 
 ```bash
-# 1. Install dependencies & run full verification suite
+# 1. Install dependencies & run the full 4-pillar verification suite
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 pytest -v
@@ -40,13 +43,37 @@ pytest -v
 uvicorn app.server:app --host 0.0.0.0 --port 8080
 ```
 
-> **Optional Live Vertex AI Mutation Locally**: Export `GCP_PROJECT_ID="<YOUR_GCP_PROJECT_ID>"` and `GCP_REGION="us-central1"` with Application Default Credentials (`gcloud auth application-default login`) to enable live `gemini-2.5-flash` `# EVOLVE-BLOCK` mutations via `/api/evolve-step`.
+### Optional: Install the Official `ae` CLI, 6 AlphaEvolve Skills & Rootless Podman
+
+```bash
+# Install the official ae CLI and 6 coding-assistant skills from Google-Cloud-AI/alphaevolve-on-googlecloud
+uv tool install "git+https://github.com/Google-Cloud-AI/alphaevolve-on-googlecloud.git#subdirectory=skills"
+ae version
+ae skills install
+
+# On shared multi-user HPC login/workbench nodes, allocate distinct subuid/subgid ranges per user for rootless Podman:
+sudo usermod --add-subuids 100000-165535 "$USER"
+sudo usermod --add-subgids 100000-165535 "$USER"
+```
+
+### Connecting to Managed AlphaEvolve (`GE_APP_ID`) vs. Vertex AI Gemini
+
+`pillars/common/managed_ae_client.py` supports both managed **Gemini Enterprise AlphaEvolve (`discoveryengine.googleapis.com`)** and direct **Vertex AI Gemini** mutation out of the box:
+
+```bash
+export GCP_PROJECT_ID="<YOUR_GCP_PROJECT_ID>"
+export GCP_REGION="us-central1"
+
+# Optional: set GE_APP_ID (and AE_LOCATION=global|us|eu) to use Managed AlphaEvolve Discovery Engine
+export GE_APP_ID="<YOUR_GEMINI_ENTERPRISE_ENGINE_ID>"
+export AE_BASE_URL="discoveryengine.googleapis.com"   # or eu-discoveryengine.googleapis.com / us-discoveryengine.googleapis.com
+```
 
 ---
 
 ## 3. Mode B — Terraform, BigQuery, Cloud Batch & Cloud Run Deployment
 
-### Step 1: Set Environment Variables & Enable APIs
+### Step 1: Enable Required Google Cloud APIs
 
 ```bash
 export GCP_PROJECT_ID="<YOUR_GCP_PROJECT_ID>"
@@ -54,9 +81,11 @@ export GCP_REGION="us-central1"
 
 gcloud services enable \
   aiplatform.googleapis.com \
+  discoveryengine.googleapis.com \
   batch.googleapis.com \
   bigquery.googleapis.com \
   cloudbuild.googleapis.com \
+  container.googleapis.com \
   run.googleapis.com \
   artifactregistry.googleapis.com \
   storage.googleapis.com \
@@ -73,32 +102,37 @@ terraform -chdir=infra/terraform apply \
   -var="region=${GCP_REGION}"
 ```
 
-| Provisioned Resource | Purpose |
-| :--- | :--- |
-| **Cloud Storage Archive Bucket** | Stores seed `# EVOLVE-BLOCK` programs, candidate diffs, and Cloud Batch evaluation outputs |
-| **BigQuery Dataset (`alphaevolve_hpc_poc`)** | Stores `evolution_runs`, `candidate_evaluations`, and `cluster_replay_metrics` |
-| **Artifact Registry Repository** | Hosts immutable container images for the Workbench and Cloud Batch evaluators |
-| **Least-Privilege Service Accounts** | Scoped IAM roles for isolated Cloud Batch workers and Cloud Run service |
-| **Cloud Run Service (`alphaevolve-hpc-workbench`)** | Serverless HTTPS UI + REST API for interactive simulation and live Vertex AI mutations |
-
-### Step 3: Build & Deploy Cloud Run, Seed BigQuery & Submit Cloud Batch Job
+### Step 3: Deploy Cloud Run Workbench, Seed BigQuery & Submit 4-Pillar Cloud Batch Job
 
 ```bash
-# 1. Build container image & deploy the Interactive Workbench to Cloud Run
+# 1. Build container image & deploy the 4-Pillar Interactive Workbench to Cloud Run
 ./scripts/deploy_cloud_run.sh
 
-# 2. Seed BigQuery telemetry tables (evolution_runs, candidate_evaluations, cluster_replay_metrics)
+# 2. Seed BigQuery telemetry tables across all 4 pillars
 python3 scripts/seed_bigquery.py
 
-# 3. Submit & verify an isolated Google Cloud Batch 3-pillar evaluation job
+# 3. Submit & verify an isolated Google Cloud Batch 4-pillar evaluation job
 python3 scripts/submit_cloud_batch_job.py
 ```
 
 ---
 
-## 4. Mode C — Production HPC Blueprints (`infra/cluster-toolkit/`)
+## 4. Mode C — GKE Harbor (`gVisor`) Pod-per-Trial + KubeRay GPU Evaluators
 
-The `infra/cluster-toolkit/` directory provides declarative blueprints aligning AlphaEvolve's evaluation plane with production HPC orchestrators:
+For Pillar 4 (**Agent Skill Optimization with Harbor**) and GPU-accelerated hyperparameter/kernel runs (`llm_fine_tuning` pattern), [`infra/gke-harbor-ray/harbor-skill-optimizer-gke.yaml`](../infra/gke-harbor-ray/harbor-skill-optimizer-gke.yaml) configures:
+- **GKE Sandbox (`runtimeClassName: gvisor`)** isolating every Harbor agent trial in its own pod,
+- **Concurrent Baseline + Candidate Execution** eliminating LLM latency-window score drift,
+- **GCS / Cloud Logging Trial-Log Streaming + Bounded `emptyDir`** preventing local controller disk exhaustion during 10h+ evolutionary runs,
+- **Autoscaling KubeRay GPU Worker Group** scaling down to `0` idle GPUs between runs.
+
+```bash
+# Validate & apply the GKE Harbor + KubeRay evaluation manifests
+kubectl apply --dry-run=client -f infra/gke-harbor-ray/harbor-skill-optimizer-gke.yaml
+```
+
+---
+
+## 5. Mode D — Production HPC Blueprints (`infra/cluster-toolkit/`)
 
 | Blueprint File | Orchestrator | Key Architectural Pattern |
 | :--- | :--- | :--- |
@@ -107,16 +141,8 @@ The `infra/cluster-toolkit/` directory provides declarative blueprints aligning 
 | `gke-custom-compute-class.yaml` | **GKE Custom Compute Classes** | Declarative `ComputeClass` priority list cascading across reserved accelerators, DWS Flex Start, and Gen-4 nodes |
 
 ```bash
-# Validate & render a Cluster Toolkit blueprint before deployment
+# Render a Cluster Toolkit blueprint before deployment
 gcluster create infra/cluster-toolkit/hpc-slurm-dws-spillover.yaml \
   --vars "project_id=${GCP_PROJECT_ID},region=${GCP_REGION}" \
   -o deployment/
 ```
-
----
-
-## 5. Security & VPC Data-Isolation Checklist
-
-- **Zero Raw Data Egress**: Historical job traces, molecular structures, and capacity telemetry reside strictly inside your VPC's Cloud Storage and BigQuery resources; only compact source-code diffs and scalar fitness diagnostics cross the proposal boundary.
-- **Ephemeral Non-Root Evaluators**: Each `evaluator.Dockerfile` runs as UID `1000` inside an isolated Cloud Batch container with AST/syscall guardrails.
-- **Human-in-the-Loop Canary Promotion**: Evolved heuristics and kernels are exported as standard, diffable Python/CUDA pull requests validated in shadow mode prior to production rollout.

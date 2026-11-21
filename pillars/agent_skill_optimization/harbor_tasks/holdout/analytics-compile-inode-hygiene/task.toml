@@ -1,0 +1,40 @@
+schema_version = "1.1"
+
+[task]
+name = "hpc-skills/analytics-compile-inode-hygiene"
+description = "Enterprise HPC Harbor benchmark task (holdout split)"
+authors = [{ name = "HPC Platform Benchmark Suite", email = "benchmarks@example.org" }]
+keywords = ["cache-routing", "cpu-partition", "early-baseline"]
+
+[metadata]
+difficulty = "medium"
+category = "interactive-analytics"
+split = "holdout"
+tags = ["cache-routing", "cpu-partition", "early-baseline"]
+
+[verifier]
+timeout_sec = 120.0
+
+[agent]
+timeout_sec = 150.0
+
+[environment]
+build_timeout_sec = 600.0
+cpus = 8
+memory_mb = 32768
+storage_mb = 81920
+gpus = 0
+mcp_servers = []
+skills_dir = "/skills"
+
+[verifier.checks]
+dataset_gb = 9.0
+walltime_hours = 2.0
+spot_mode = false
+required_protocols = ["scratch_nvme_staging", "partition_gpu_hygiene", "timeout_checkpoint_hard_stop"]
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

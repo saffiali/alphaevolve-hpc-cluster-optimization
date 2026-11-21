@@ -1,0 +1,579 @@
+{
+  "pillar_id": "agent_skill_optimization",
+  "title": "Agent Skill & HPC Harness Optimizer (AlphaEvolve + Harbor)",
+  "execution_mode": "vertex_ai_live",
+  "vertex_ai_model": "gemini-2.5-flash",
+  "vertex_ai_region": "us-central1",
+  "primary_metric": "paired_delta_score",
+  "higher_is_better": true,
+  "num_candidates_evaluated": 13,
+  "valid_candidates_count": 11,
+  "rejected_by_gates_count": 2,
+  "map_elites_niches_populated": 3,
+  "winning_generation": 4,
+  "winning_island": "island_0_efficiency",
+  "winning_niche": "pass_90_plus_detailed",
+  "train_split": {
+    "baseline_score": 0.0,
+    "evolved_score": 85.75
+  },
+  "validation_split": {
+    "baseline_score": 0.0,
+    "evolved_score": 85.75
+  },
+  "baseline_score": 0.0,
+  "evolved_score": 76.25,
+  "held_out_improvement_pct": 300.0,
+  "baseline_metrics": {
+    "paired_delta_score": 0.0,
+    "raw_paired_delta_pts": 0.0,
+    "candidate_pass_rate_pct": 25.0,
+    "baseline_pass_rate_pct": 25.0,
+    "pass_rate_gain_pct_pts": 0.0,
+    "candidate_mean_trial_score": 23.6,
+    "baseline_mean_trial_score": 23.6,
+    "raw_score_std_across_latency_waves": 1.984,
+    "unpaired_delta_std_across_latency_waves": 2.806,
+    "paired_delta_std_across_latency_waves": 0.0,
+    "num_tasks": 4,
+    "num_paired_trials_per_task": 5,
+    "total_paired_trials": 20,
+    "skill_char_length": 928,
+    "protocol_coverage": {
+      "timeout_checkpoint_hard_stop": 0.0,
+      "input_size_memory_rightsizing": 0.0,
+      "scratch_nvme_staging": 0.0,
+      "partition_gpu_hygiene": 0.0,
+      "token_broker_renewal": 0.0
+    },
+    "baseline_protocol_coverage": {
+      "timeout_checkpoint_hard_stop": 0.0,
+      "input_size_memory_rightsizing": 0.0,
+      "scratch_nvme_staging": 0.0,
+      "partition_gpu_hygiene": 0.0,
+      "token_broker_renewal": 0.0
+    },
+    "candidate_failures": {
+      "timeout": 6,
+      "oom": 4,
+      "nfs_thrash": 0,
+      "partition": 3,
+      "auth_expiry": 2
+    },
+    "baseline_failures": {
+      "timeout": 6,
+      "oom": 4,
+      "nfs_thrash": 0,
+      "partition": 3,
+      "auth_expiry": 2
+    },
+    "per_task_results": [
+      {
+        "slug": "analytics-compile-inode-hygiene",
+        "category": "interactive-analytics",
+        "difficulty": "medium",
+        "baseline_pass_rate_pct": 100.0,
+        "candidate_pass_rate_pct": 100.0,
+        "diagnostic": "PASS"
+      },
+      {
+        "slug": "cryoem-reconstruction-oom-guard",
+        "category": "structural-biology",
+        "difficulty": "hard",
+        "baseline_pass_rate_pct": 0.0,
+        "candidate_pass_rate_pct": 0.0,
+        "diagnostic": "OOM_KILL (static memory insufficient for 52.0 GB input working set)"
+      },
+      {
+        "slug": "multiday-fep-credential-guard",
+        "category": "free-energy-perturbation",
+        "difficulty": "hard",
+        "baseline_pass_rate_pct": 0.0,
+        "candidate_pass_rate_pct": 0.0,
+        "diagnostic": "TIMEOUT (exceeded Harbor agent budget during slow model window)"
+      },
+      {
+        "slug": "workflow-elastic-batch-spillover",
+        "category": "workflow-orchestration",
+        "difficulty": "hard",
+        "baseline_pass_rate_pct": 0.0,
+        "candidate_pass_rate_pct": 0.0,
+        "diagnostic": "PARTITION_OR_SPOT_VIOLATION (missing --gpus=0 CPU isolation, array cap, or Spot resume)"
+      }
+    ]
+  },
+  "evolved_metrics": {
+    "paired_delta_score": 76.25,
+    "raw_paired_delta_pts": 76.25,
+    "candidate_pass_rate_pct": 100.0,
+    "baseline_pass_rate_pct": 25.0,
+    "pass_rate_gain_pct_pts": 75.0,
+    "candidate_mean_trial_score": 99.85,
+    "baseline_mean_trial_score": 23.6,
+    "raw_score_std_across_latency_waves": 1.984,
+    "unpaired_delta_std_across_latency_waves": 2.806,
+    "paired_delta_std_across_latency_waves": 0.0,
+    "num_tasks": 4,
+    "num_paired_trials_per_task": 5,
+    "total_paired_trials": 20,
+    "skill_char_length": 4401,
+    "protocol_coverage": {
+      "timeout_checkpoint_hard_stop": 1.0,
+      "input_size_memory_rightsizing": 1.0,
+      "scratch_nvme_staging": 1.0,
+      "partition_gpu_hygiene": 1.0,
+      "token_broker_renewal": 1.0
+    },
+    "baseline_protocol_coverage": {
+      "timeout_checkpoint_hard_stop": 0.0,
+      "input_size_memory_rightsizing": 0.0,
+      "scratch_nvme_staging": 0.0,
+      "partition_gpu_hygiene": 0.0,
+      "token_broker_renewal": 0.0
+    },
+    "candidate_failures": {
+      "timeout": 0,
+      "oom": 0,
+      "nfs_thrash": 0,
+      "partition": 0,
+      "auth_expiry": 0
+    },
+    "baseline_failures": {
+      "timeout": 6,
+      "oom": 4,
+      "nfs_thrash": 0,
+      "partition": 3,
+      "auth_expiry": 2
+    },
+    "per_task_results": [
+      {
+        "slug": "analytics-compile-inode-hygiene",
+        "category": "interactive-analytics",
+        "difficulty": "medium",
+        "baseline_pass_rate_pct": 100.0,
+        "candidate_pass_rate_pct": 100.0,
+        "diagnostic": "PASS"
+      },
+      {
+        "slug": "cryoem-reconstruction-oom-guard",
+        "category": "structural-biology",
+        "difficulty": "hard",
+        "baseline_pass_rate_pct": 0.0,
+        "candidate_pass_rate_pct": 100.0,
+        "diagnostic": "PASS"
+      },
+      {
+        "slug": "multiday-fep-credential-guard",
+        "category": "free-energy-perturbation",
+        "difficulty": "hard",
+        "baseline_pass_rate_pct": 0.0,
+        "candidate_pass_rate_pct": 100.0,
+        "diagnostic": "PASS"
+      },
+      {
+        "slug": "workflow-elastic-batch-spillover",
+        "category": "workflow-orchestration",
+        "difficulty": "hard",
+        "baseline_pass_rate_pct": 0.0,
+        "candidate_pass_rate_pct": 100.0,
+        "diagnostic": "PASS"
+      }
+    ]
+  },
+  "kpi_summary": [
+    {
+      "kpi": "Unseen Holdout Harbor Task Pass Rate",
+      "unit": "%",
+      "baseline": 25.0,
+      "evolved": 100.0,
+      "delta_pts": 75.0
+    },
+    {
+      "kpi": "Paired Concurrent Baseline Delta Score",
+      "unit": "pts",
+      "baseline": 0.0,
+      "evolved": 76.25,
+      "delta_pts": 76.25
+    },
+    {
+      "kpi": "Timeout + OOM + NFS + Token Trial Failures",
+      "unit": "failed trials",
+      "baseline": 15,
+      "evolved": 0,
+      "delta_pct": -100.0
+    },
+    {
+      "kpi": "Paired Score Std vs Raw Latency-Wave Std",
+      "unit": "pts std",
+      "baseline": 1.984,
+      "evolved": 0.0
+    }
+  ],
+  "extra_benchmarks": {
+    "baseline_rendered_skill_md": "---\nname: enterprise-hpc-workload-authoring\ndescription: >-\n  Guide coding agents when writing Linux bash, container, and Slurm or Cloud Batch submission scripts for scientific and AI computing tasks.\n---\n\n# Enterprise HPC Workload Submission Guide\n\nYou are working in a Linux cluster workspace. Follow a clean engineering workflow when preparing and submitting jobs:\n\n1. **Read the Request Carefully**: Review `instruction.md` and understand the desired output file path and software tools before writing any script.\n2. **Inspect the Workspace**: Check input files, directory layout, and available CLI flags so your script uses valid paths.\n3. **Write Clean, Modular Scripts**: Include `#!/usr/bin/env bash` and `set -euo pipefail`, add clear comments, and organize environment setup, execution, and post-processing into readable steps.\n4. **Test Incrementally**: Validate syntax (`bash -n`), test logic on small inputs, refine command flags for performance, and verify outputs before finishing.\n",
+    "evolved_rendered_skill_md": "---\nname: enterprise-hpc-workload-authoring\ndescription: >-\n  Guide coding agents when writing Linux bash, container, and Slurm or Cloud Batch submission scripts for scientific and AI computing tasks.\n---\n\n# Enterprise HPC Workload Submission Guide\n\nYou are working in a Linux cluster workspace. Follow a clean engineering workflow when preparing and submitting jobs:\n\n1. **Read the Request Carefully**: Review `instruction.md` and understand the desired output file path and software tools before writing any script.\n2. **Inspect the Workspace**: Check input files, directory layout, and available CLI flags so your script uses valid paths.\n3. **Write Clean, Modular Scripts**: Include `#!/usr/bin/env bash` and `set -euo pipefail`, add clear comments, and organize environment setup, execution, and post-processing into readable steps.\n4. **Test Incrementally**: Validate syntax (`bash -n`), test logic on small inputs, refine command flags for performance, and verify outputs before finishing.\n5. **Implement Robust Time Management**:\n    *   **Early Baseline Output**: Before extensive refinement, generate a minimal, valid output to the target path. This ensures *some* result is available even if the job is preempted or times out.\n    *   **Graceful Shutdown & Checkpointing**: For long-running jobs, use Slurm's `--signal=B:USR1@120` to send a `USR1` signal 120 seconds before walltime. Implement a `trap '...' USR1` handler in your script to flush checkpoints or save intermediate results.\n    *   **Hard Stop When Green**: Once all acceptance criteria are met and the required output is generated, terminate the job immediately to conserve resources and avoid unnecessary walltime consumption.\n6. **Optimize Resource Allocation**:\n    *   **Dynamic Memory Sizing**: Avoid static `--mem` defaults. Calculate `--mem` dynamically for Slurm/Cloud Batch jobs by inspecting input file sizes (e.g., `du -sb input_file` or `stat -c %s input_file`). Multiply the input data size by a `3.0x` working-set safety factor for memory, and always clamp this value below known node memory limits to prevent cgroup OOM kills.\n7. **Optimize Storage and I/O Hygiene**:\n    *   **Avoid Shared NFS for Scratch I/O**: Never unpack archives, store temporary files, or write high-volume scratch data to shared network file systems like `/home`. These are optimized for small, frequent metadata operations, leading to performance bottlenecks and stalled jobs.\n    *   **Utilize Local NVMe (`/scratch`)**: Stage active archives and all temporary/scratch data on the local high-IOPS NVMe drive, typically mounted at `/scratch`. This significantly improves I/O performance.\n    *   **Redirect Caches and Temporary Directories**: Explicitly set environment variables to point caches and temporary files to `/scratch` or a job-specific subdirectory within it. For example:\n        ```bash\n        export TMPDIR=\"/scratch/$USER/$SLURM_JOB_ID/tmp\"\n        export XDG_CACHE_HOME=\"/scratch/$USER/$SLURM_JOB_ID/cache\"\n        export PIP_CACHE_DIR=\"/scratch/$USER/$SLURM_JOB_ID/pip_cache\"\n        export R_LIBS_USER=\"/scratch/$USER/$SLURM_JOB_ID/R_libs\"\n        mkdir -p \"$TMPDIR\" \"$XDG_CACHE_HOME\" \"$PIP_CACHE_DIR\" \"$R_LIBS_USER\"\n        ```\n    *   **Stream Cold Outputs to Object Storage**: For large, infrequently accessed output files, stream them directly to cloud object storage (e.g., `gs://your-bucket/path/`) instead of writing them to local disk and then copying. This avoids filling local storage and reduces I/O pressure.\n8. **Partition, Accelerator, and Spot Hygiene**:\n    *   **CPU/GPU Partitioning**: Explicitly set `--gpus=0` for jobs not requiring GPUs and route them to CPU/batch partitions. Avoid using GPU or ultramemory pools for CPU-only workloads.\n    *   **Job Array Throttling**: Cap concurrent tasks in job arrays using Slurm's `--array=1-N%32` (or similar) to prevent overwhelming shared resources.\n    *   **Spot Instance Resilience**: When using preemptible Spot workers, include `--requeue` for automatic job resubmission. Implement idempotent resume logic (e.g., `if [ -f checkpoint ]; then resume_from_checkpoint; fi`) to restart from the last saved state, ensuring progress is not lost on preemption.\n9. **Credential Management for Long-Running Jobs**:\n    *   **Token Refresh**: For jobs expected to run longer than 8 hours, configure non-interactive background token-broker credential renewal to prevent mid-run failures due to short-lived OAuth token expiry.\n",
+    "dev_split_metrics": {
+      "paired_delta_score": 85.75,
+      "raw_paired_delta_pts": 85.75,
+      "candidate_pass_rate_pct": 100.0,
+      "baseline_pass_rate_pct": 15.0,
+      "pass_rate_gain_pct_pts": 85.0,
+      "candidate_mean_trial_score": 99.5,
+      "baseline_mean_trial_score": 13.75,
+      "raw_score_std_across_latency_waves": 1.11,
+      "unpaired_delta_std_across_latency_waves": 4.193,
+      "paired_delta_std_across_latency_waves": 4.75,
+      "num_tasks": 8,
+      "num_paired_trials_per_task": 5,
+      "total_paired_trials": 40,
+      "skill_char_length": 4401,
+      "protocol_coverage": {
+        "timeout_checkpoint_hard_stop": 1.0,
+        "input_size_memory_rightsizing": 1.0,
+        "scratch_nvme_staging": 1.0,
+        "partition_gpu_hygiene": 1.0,
+        "token_broker_renewal": 1.0
+      },
+      "baseline_protocol_coverage": {
+        "timeout_checkpoint_hard_stop": 0.0,
+        "input_size_memory_rightsizing": 0.0,
+        "scratch_nvme_staging": 0.0,
+        "partition_gpu_hygiene": 0.0,
+        "token_broker_renewal": 0.0
+      },
+      "candidate_failures": {
+        "timeout": 0,
+        "oom": 0,
+        "nfs_thrash": 0,
+        "partition": 0,
+        "auth_expiry": 0
+      },
+      "baseline_failures": {
+        "timeout": 11,
+        "oom": 8,
+        "nfs_thrash": 7,
+        "partition": 4,
+        "auth_expiry": 4
+      },
+      "per_task_results": [
+        {
+          "slug": "alignment-dynamic-mem",
+          "category": "bioinformatics-hpc",
+          "difficulty": "medium",
+          "baseline_pass_rate_pct": 0.0,
+          "candidate_pass_rate_pct": 100.0,
+          "diagnostic": "PASS"
+        },
+        {
+          "slug": "conformer-archive-iops",
+          "category": "storage-tiering",
+          "difficulty": "medium",
+          "baseline_pass_rate_pct": 0.0,
+          "candidate_pass_rate_pct": 100.0,
+          "diagnostic": "PASS"
+        },
+        {
+          "slug": "cpu-array-sweep-hygiene",
+          "category": "batch-arrays",
+          "difficulty": "easy",
+          "baseline_pass_rate_pct": 20.0,
+          "candidate_pass_rate_pct": 100.0,
+          "diagnostic": "PASS"
+        },
+        {
+          "slug": "ddp-checkpoint-trap",
+          "category": "distributed-training",
+          "difficulty": "hard",
+          "baseline_pass_rate_pct": 0.0,
+          "candidate_pass_rate_pct": 100.0,
+          "diagnostic": "PASS"
+        },
+        {
+          "slug": "interactive-workbench-caches",
+          "category": "interactive-ide",
+          "difficulty": "medium",
+          "baseline_pass_rate_pct": 100.0,
+          "candidate_pass_rate_pct": 100.0,
+          "diagnostic": "PASS"
+        },
+        {
+          "slug": "long-md-token-renewal",
+          "category": "long-horizon-compute",
+          "difficulty": "hard",
+          "baseline_pass_rate_pct": 0.0,
+          "candidate_pass_rate_pct": 100.0,
+          "diagnostic": "PASS"
+        },
+        {
+          "slug": "sparse-svd-early-baseline",
+          "category": "numerical-linear-algebra",
+          "difficulty": "medium",
+          "baseline_pass_rate_pct": 0.0,
+          "candidate_pass_rate_pct": 100.0,
+          "diagnostic": "PASS"
+        },
+        {
+          "slug": "spot-docking-resume",
+          "category": "preemptible-batch",
+          "difficulty": "hard",
+          "baseline_pass_rate_pct": 0.0,
+          "candidate_pass_rate_pct": 100.0,
+          "diagnostic": "PASS"
+        }
+      ]
+    },
+    "holdout_split_metrics": {
+      "paired_delta_score": 76.25,
+      "raw_paired_delta_pts": 76.25,
+      "candidate_pass_rate_pct": 100.0,
+      "baseline_pass_rate_pct": 25.0,
+      "pass_rate_gain_pct_pts": 75.0,
+      "candidate_mean_trial_score": 99.85,
+      "baseline_mean_trial_score": 23.6,
+      "raw_score_std_across_latency_waves": 1.984,
+      "unpaired_delta_std_across_latency_waves": 2.806,
+      "paired_delta_std_across_latency_waves": 0.0,
+      "num_tasks": 4,
+      "num_paired_trials_per_task": 5,
+      "total_paired_trials": 20,
+      "skill_char_length": 4401,
+      "protocol_coverage": {
+        "timeout_checkpoint_hard_stop": 1.0,
+        "input_size_memory_rightsizing": 1.0,
+        "scratch_nvme_staging": 1.0,
+        "partition_gpu_hygiene": 1.0,
+        "token_broker_renewal": 1.0
+      },
+      "baseline_protocol_coverage": {
+        "timeout_checkpoint_hard_stop": 0.0,
+        "input_size_memory_rightsizing": 0.0,
+        "scratch_nvme_staging": 0.0,
+        "partition_gpu_hygiene": 0.0,
+        "token_broker_renewal": 0.0
+      },
+      "candidate_failures": {
+        "timeout": 0,
+        "oom": 0,
+        "nfs_thrash": 0,
+        "partition": 0,
+        "auth_expiry": 0
+      },
+      "baseline_failures": {
+        "timeout": 6,
+        "oom": 4,
+        "nfs_thrash": 0,
+        "partition": 3,
+        "auth_expiry": 2
+      },
+      "per_task_results": [
+        {
+          "slug": "analytics-compile-inode-hygiene",
+          "category": "interactive-analytics",
+          "difficulty": "medium",
+          "baseline_pass_rate_pct": 100.0,
+          "candidate_pass_rate_pct": 100.0,
+          "diagnostic": "PASS"
+        },
+        {
+          "slug": "cryoem-reconstruction-oom-guard",
+          "category": "structural-biology",
+          "difficulty": "hard",
+          "baseline_pass_rate_pct": 0.0,
+          "candidate_pass_rate_pct": 100.0,
+          "diagnostic": "PASS"
+        },
+        {
+          "slug": "multiday-fep-credential-guard",
+          "category": "free-energy-perturbation",
+          "difficulty": "hard",
+          "baseline_pass_rate_pct": 0.0,
+          "candidate_pass_rate_pct": 100.0,
+          "diagnostic": "PASS"
+        },
+        {
+          "slug": "workflow-elastic-batch-spillover",
+          "category": "workflow-orchestration",
+          "difficulty": "hard",
+          "baseline_pass_rate_pct": 0.0,
+          "candidate_pass_rate_pct": 100.0,
+          "diagnostic": "PASS"
+        }
+      ]
+    },
+    "exported_skill_path": "pillars/agent_skill_optimization/evolved_skill/SKILL.md"
+  },
+  "generation_history": [
+    {
+      "generation": 0,
+      "island": "seed_baseline",
+      "niche": "pass_lt60_concise",
+      "candidate_val_score": 0.0,
+      "best_val_score_so_far": 0.0,
+      "valid": true,
+      "stage_reached": "stage_3_harbor_paired_eval",
+      "latency_ms": 0.0,
+      "model": "seed_program",
+      "insight_summary": "paired_delta_score=+0.00 pts | Candidate Pass Rate=15.0% vs Concurrent Baseline=15.0% (split=dev, 40 paired trials, length=928 chars)"
+    },
+    {
+      "generation": 1,
+      "island": "island_0_efficiency",
+      "niche": "pass_lt60_concise",
+      "candidate_val_score": 11.5139,
+      "best_val_score_so_far": 11.5139,
+      "valid": true,
+      "stage_reached": "stage_3_harbor_paired_eval",
+      "latency_ms": 9285.1,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "paired_delta_score=+11.51 pts | Candidate Pass Rate=25.0% vs Concurrent Baseline=15.0% (split=dev, 40 paired trials, length=1635 chars)"
+    },
+    {
+      "generation": 2,
+      "island": "island_1_sla_accuracy",
+      "niche": "pass_lt60_concise",
+      "candidate_val_score": 36.2014,
+      "best_val_score_so_far": 36.2014,
+      "valid": true,
+      "stage_reached": "stage_3_harbor_paired_eval",
+      "latency_ms": 7405.4,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "paired_delta_score=+36.20 pts | Candidate Pass Rate=50.0% vs Concurrent Baseline=15.0% (split=dev, 40 paired trials, length=2049 chars)"
+    },
+    {
+      "generation": 3,
+      "island": "island_2_cost_tiering",
+      "niche": "pass_60_90_detailed",
+      "candidate_val_score": 61.2014,
+      "best_val_score_so_far": 61.2014,
+      "valid": true,
+      "stage_reached": "stage_3_harbor_paired_eval",
+      "latency_ms": 10789.6,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "paired_delta_score=+61.20 pts | Candidate Pass Rate=75.0% vs Concurrent Baseline=15.0% (split=dev, 40 paired trials, length=3464 chars)"
+    },
+    {
+      "generation": 4,
+      "island": "island_0_efficiency",
+      "niche": "pass_90_plus_detailed",
+      "candidate_val_score": 85.75,
+      "best_val_score_so_far": 85.75,
+      "valid": true,
+      "stage_reached": "stage_3_harbor_paired_eval",
+      "latency_ms": 11124.9,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "paired_delta_score=+85.75 pts | Candidate Pass Rate=100.0% vs Concurrent Baseline=15.0% (split=dev, 40 paired trials, length=4401 chars)"
+    },
+    {
+      "generation": 5,
+      "island": "island_1_sla_accuracy",
+      "niche": "rejected_gate",
+      "candidate_val_score": -1000000000000.0,
+      "best_val_score_so_far": 85.75,
+      "valid": false,
+      "stage_reached": "stage_1_skill_integrity",
+      "latency_ms": 9424.1,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "Syntax error inside EVOLVE-BLOCK: unterminated triple-quoted string literal (detected at line 24) (<unknown>, line 6)"
+    },
+    {
+      "generation": 6,
+      "island": "island_2_cost_tiering",
+      "niche": "pass_90_plus_detailed",
+      "candidate_val_score": 85.75,
+      "best_val_score_so_far": 85.75,
+      "valid": true,
+      "stage_reached": "stage_3_harbor_paired_eval",
+      "latency_ms": 11365.3,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "paired_delta_score=+85.75 pts | Candidate Pass Rate=100.0% vs Concurrent Baseline=15.0% (split=dev, 40 paired trials, length=4426 chars)"
+    },
+    {
+      "generation": 7,
+      "island": "island_0_efficiency",
+      "niche": "pass_90_plus_detailed",
+      "candidate_val_score": 85.75,
+      "best_val_score_so_far": 85.75,
+      "valid": true,
+      "stage_reached": "stage_3_harbor_paired_eval",
+      "latency_ms": 9102.5,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "paired_delta_score=+85.75 pts | Candidate Pass Rate=100.0% vs Concurrent Baseline=15.0% (split=dev, 40 paired trials, length=4401 chars)"
+    },
+    {
+      "generation": 8,
+      "island": "island_1_sla_accuracy",
+      "niche": "pass_60_90_detailed",
+      "candidate_val_score": 61.2014,
+      "best_val_score_so_far": 85.75,
+      "valid": true,
+      "stage_reached": "stage_3_harbor_paired_eval",
+      "latency_ms": 10782.0,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "paired_delta_score=+61.20 pts | Candidate Pass Rate=75.0% vs Concurrent Baseline=15.0% (split=dev, 40 paired trials, length=3439 chars)"
+    },
+    {
+      "generation": 9,
+      "island": "island_2_cost_tiering",
+      "niche": "pass_90_plus_detailed",
+      "candidate_val_score": 85.75,
+      "best_val_score_so_far": 85.75,
+      "valid": true,
+      "stage_reached": "stage_3_harbor_paired_eval",
+      "latency_ms": 11396.4,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "paired_delta_score=+85.75 pts | Candidate Pass Rate=100.0% vs Concurrent Baseline=15.0% (split=dev, 40 paired trials, length=4401 chars)"
+    },
+    {
+      "generation": 10,
+      "island": "island_0_efficiency",
+      "niche": "pass_90_plus_detailed",
+      "candidate_val_score": 85.75,
+      "best_val_score_so_far": 85.75,
+      "valid": true,
+      "stage_reached": "stage_3_harbor_paired_eval",
+      "latency_ms": 9023.2,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "paired_delta_score=+85.75 pts | Candidate Pass Rate=100.0% vs Concurrent Baseline=15.0% (split=dev, 40 paired trials, length=4387 chars)"
+    },
+    {
+      "generation": 11,
+      "island": "island_1_sla_accuracy",
+      "niche": "rejected_gate",
+      "candidate_val_score": -1000000000000.0,
+      "best_val_score_so_far": 85.75,
+      "valid": false,
+      "stage_reached": "stage_1_skill_integrity",
+      "latency_ms": 9375.0,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "Syntax error inside EVOLVE-BLOCK: unexpected indent (<unknown>, line 6)"
+    },
+    {
+      "generation": 12,
+      "island": "island_2_cost_tiering",
+      "niche": "pass_90_plus_detailed",
+      "candidate_val_score": 85.7147,
+      "best_val_score_so_far": 85.75,
+      "valid": true,
+      "stage_reached": "stage_3_harbor_paired_eval",
+      "latency_ms": 11040.7,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "paired_delta_score=+85.71 pts | Candidate Pass Rate=100.0% vs Concurrent Baseline=15.0% (split=dev, 40 paired trials, length=4547 chars)"
+    },
+    {
+      "generation": 13,
+      "island": "island_0_efficiency",
+      "niche": "pass_90_plus_detailed",
+      "candidate_val_score": 85.75,
+      "best_val_score_so_far": 85.75,
+      "valid": true,
+      "stage_reached": "stage_3_harbor_paired_eval",
+      "latency_ms": 11453.3,
+      "model": "gemini-2.5-flash",
+      "insight_summary": "paired_delta_score=+85.75 pts | Candidate Pass Rate=100.0% vs Concurrent Baseline=15.0% (split=dev, 40 paired trials, length=4401 chars)"
+    }
+  ],
+  "seed_code_block": "    description = (\n        \"Guide coding agents when writing Linux bash, container, and Slurm or Cloud Batch \"\n        \"submission scripts for scientific and AI computing tasks.\"\n    )\n    body = r\"\"\"# Enterprise HPC Workload Submission Guide\n\nYou are working in a Linux cluster workspace. Follow a clean engineering workflow when preparing and submitting jobs:\n\n1. **Read the Request Carefully**: Review `instruction.md` and understand the desired output file path and software tools before writing any script.\n2. **Inspect the Workspace**: Check input files, directory layout, and available CLI flags so your script uses valid paths.\n3. **Write Clean, Modular Scripts**: Include `#!/usr/bin/env bash` and `set -euo pipefail`, add clear comments, and organize environment setup, execution, and post-processing into readable steps.\n4. **Test Incrementally**: Validate syntax (`bash -n`), test logic on small inputs, refine command flags for performance, and verify outputs before finishing.\n\"\"\"",
+  "winning_evolved_code_block": "    description = (\n        \"Guide coding agents when writing Linux bash, container, and Slurm or Cloud Batch \"\n        \"submission scripts for scientific and AI computing tasks.\"\n    )\n    body = r\"\"\"# Enterprise HPC Workload Submission Guide\n\nYou are working in a Linux cluster workspace. Follow a clean engineering workflow when preparing and submitting jobs:\n\n1. **Read the Request Carefully**: Review `instruction.md` and understand the desired output file path and software tools before writing any script.\n2. **Inspect the Workspace**: Check input files, directory layout, and available CLI flags so your script uses valid paths.\n3. **Write Clean, Modular Scripts**: Include `#!/usr/bin/env bash` and `set -euo pipefail`, add clear comments, and organize environment setup, execution, and post-processing into readable steps.\n4. **Test Incrementally**: Validate syntax (`bash -n`), test logic on small inputs, refine command flags for performance, and verify outputs before finishing.\n5. **Implement Robust Time Management**:\n    *   **Early Baseline Output**: Before extensive refinement, generate a minimal, valid output to the target path. This ensures *some* result is available even if the job is preempted or times out.\n    *   **Graceful Shutdown & Checkpointing**: For long-running jobs, use Slurm's `--signal=B:USR1@120` to send a `USR1` signal 120 seconds before walltime. Implement a `trap '...' USR1` handler in your script to flush checkpoints or save intermediate results.\n    *   **Hard Stop When Green**: Once all acceptance criteria are met and the required output is generated, terminate the job immediately to conserve resources and avoid unnecessary walltime consumption.\n6. **Optimize Resource Allocation**:\n    *   **Dynamic Memory Sizing**: Avoid static `--mem` defaults. Calculate `--mem` dynamically for Slurm/Cloud Batch jobs by inspecting input file sizes (e.g., `du -sb input_file` or `stat -c %s input_file`). Multiply the input data size by a `3.0x` working-set safety factor for memory, and always clamp this value below known node memory limits to prevent cgroup OOM kills.\n7. **Optimize Storage and I/O Hygiene**:\n    *   **Avoid Shared NFS for Scratch I/O**: Never unpack archives, store temporary files, or write high-volume scratch data to shared network file systems like `/home`. These are optimized for small, frequent metadata operations, leading to performance bottlenecks and stalled jobs.\n    *   **Utilize Local NVMe (`/scratch`)**: Stage active archives and all temporary/scratch data on the local high-IOPS NVMe drive, typically mounted at `/scratch`. This significantly improves I/O performance.\n    *   **Redirect Caches and Temporary Directories**: Explicitly set environment variables to point caches and temporary files to `/scratch` or a job-specific subdirectory within it. For example:\n        ```bash\n        export TMPDIR=\"/scratch/$USER/$SLURM_JOB_ID/tmp\"\n        export XDG_CACHE_HOME=\"/scratch/$USER/$SLURM_JOB_ID/cache\"\n        export PIP_CACHE_DIR=\"/scratch/$USER/$SLURM_JOB_ID/pip_cache\"\n        export R_LIBS_USER=\"/scratch/$USER/$SLURM_JOB_ID/R_libs\"\n        mkdir -p \"$TMPDIR\" \"$XDG_CACHE_HOME\" \"$PIP_CACHE_DIR\" \"$R_LIBS_USER\"\n        ```\n    *   **Stream Cold Outputs to Object Storage**: For large, infrequently accessed output files, stream them directly to cloud object storage (e.g., `gs://your-bucket/path/`) instead of writing them to local disk and then copying. This avoids filling local storage and reduces I/O pressure.\n8. **Partition, Accelerator, and Spot Hygiene**:\n    *   **CPU/GPU Partitioning**: Explicitly set `--gpus=0` for jobs not requiring GPUs and route them to CPU/batch partitions. Avoid using GPU or ultramemory pools for CPU-only workloads.\n    *   **Job Array Throttling**: Cap concurrent tasks in job arrays using Slurm's `--array=1-N%32` (or similar) to prevent overwhelming shared resources.\n    *   **Spot Instance Resilience**: When using preemptible Spot workers, include `--requeue` for automatic job resubmission. Implement idempotent resume logic (e.g., `if [ -f checkpoint ]; then resume_from_checkpoint; fi`) to restart from the last saved state, ensuring progress is not lost on preemption.\n9. **Credential Management for Long-Running Jobs**:\n    *   **Token Refresh**: For jobs expected to run longer than 8 hours, configure non-interactive background token-broker credential renewal to prevent mid-run failures due to short-lived OAuth token expiry.\n\"\"\"",
+  "winning_full_program": "\"\"\"Seed program for Pillar 4: Agent Skill Optimizer with AlphaEvolve and Harbor.\n\nFollows the Google Cloud AlphaEvolve + Harbor pattern (`def build_skill() -> tuple[str, str]`):\ntreats the agent's `SKILL.md` (`description`, `body`) as the mutable program inside\ncolumn-0 `EVOLVE-BLOCK` markers, scored by running an HPC job-authoring\nagent side-by-side against the baseline skill across Harbor benchmark tasks.\n\"\"\"\n\nfrom __future__ import annotations\n\nSKILL_NAME = \"enterprise-hpc-workload-authoring\"\n\n\ndef render_skill_markdown(name: str, description: str, body: str) -> str:\n    \"\"\"Format `(description, body)` into a standard `agentskills.io` `SKILL.md` document.\"\"\"\n    clean_desc = \" \".join(line.strip() for line in description.strip().splitlines())\n    return f\"---\\nname: {name}\\ndescription: >-\\n  {clean_desc}\\n---\\n\\n{body.strip()}\\n\"\n\n\ndef build_skill() -> tuple[str, str]:\n    \"\"\"Return the evolvable (description, body) pair for the HPC workload skill.\"\"\"\n# EVOLVE-BLOCK-START\n    description = (\n        \"Guide coding agents when writing Linux bash, container, and Slurm or Cloud Batch \"\n        \"submission scripts for scientific and AI computing tasks.\"\n    )\n    body = r\"\"\"# Enterprise HPC Workload Submission Guide\n\nYou are working in a Linux cluster workspace. Follow a clean engineering workflow when preparing and submitting jobs:\n\n1. **Read the Request Carefully**: Review `instruction.md` and understand the desired output file path and software tools before writing any script.\n2. **Inspect the Workspace**: Check input files, directory layout, and available CLI flags so your script uses valid paths.\n3. **Write Clean, Modular Scripts**: Include `#!/usr/bin/env bash` and `set -euo pipefail`, add clear comments, and organize environment setup, execution, and post-processing into readable steps.\n4. **Test Incrementally**: Validate syntax (`bash -n`), test logic on small inputs, refine command flags for performance, and verify outputs before finishing.\n5. **Implement Robust Time Management**:\n    *   **Early Baseline Output**: Before extensive refinement, generate a minimal, valid output to the target path. This ensures *some* result is available even if the job is preempted or times out.\n    *   **Graceful Shutdown & Checkpointing**: For long-running jobs, use Slurm's `--signal=B:USR1@120` to send a `USR1` signal 120 seconds before walltime. Implement a `trap '...' USR1` handler in your script to flush checkpoints or save intermediate results.\n    *   **Hard Stop When Green**: Once all acceptance criteria are met and the required output is generated, terminate the job immediately to conserve resources and avoid unnecessary walltime consumption.\n6. **Optimize Resource Allocation**:\n    *   **Dynamic Memory Sizing**: Avoid static `--mem` defaults. Calculate `--mem` dynamically for Slurm/Cloud Batch jobs by inspecting input file sizes (e.g., `du -sb input_file` or `stat -c %s input_file`). Multiply the input data size by a `3.0x` working-set safety factor for memory, and always clamp this value below known node memory limits to prevent cgroup OOM kills.\n7. **Optimize Storage and I/O Hygiene**:\n    *   **Avoid Shared NFS for Scratch I/O**: Never unpack archives, store temporary files, or write high-volume scratch data to shared network file systems like `/home`. These are optimized for small, frequent metadata operations, leading to performance bottlenecks and stalled jobs.\n    *   **Utilize Local NVMe (`/scratch`)**: Stage active archives and all temporary/scratch data on the local high-IOPS NVMe drive, typically mounted at `/scratch`. This significantly improves I/O performance.\n    *   **Redirect Caches and Temporary Directories**: Explicitly set environment variables to point caches and temporary files to `/scratch` or a job-specific subdirectory within it. For example:\n        ```bash\n        export TMPDIR=\"/scratch/$USER/$SLURM_JOB_ID/tmp\"\n        export XDG_CACHE_HOME=\"/scratch/$USER/$SLURM_JOB_ID/cache\"\n        export PIP_CACHE_DIR=\"/scratch/$USER/$SLURM_JOB_ID/pip_cache\"\n        export R_LIBS_USER=\"/scratch/$USER/$SLURM_JOB_ID/R_libs\"\n        mkdir -p \"$TMPDIR\" \"$XDG_CACHE_HOME\" \"$PIP_CACHE_DIR\" \"$R_LIBS_USER\"\n        ```\n    *   **Stream Cold Outputs to Object Storage**: For large, infrequently accessed output files, stream them directly to cloud object storage (e.g., `gs://your-bucket/path/`) instead of writing them to local disk and then copying. This avoids filling local storage and reduces I/O pressure.\n8. **Partition, Accelerator, and Spot Hygiene**:\n    *   **CPU/GPU Partitioning**: Explicitly set `--gpus=0` for jobs not requiring GPUs and route them to CPU/batch partitions. Avoid using GPU or ultramemory pools for CPU-only workloads.\n    *   **Job Array Throttling**: Cap concurrent tasks in job arrays using Slurm's `--array=1-N%32` (or similar) to prevent overwhelming shared resources.\n    *   **Spot Instance Resilience**: When using preemptible Spot workers, include `--requeue` for automatic job resubmission. Implement idempotent resume logic (e.g., `if [ -f checkpoint ]; then resume_from_checkpoint; fi`) to restart from the last saved state, ensuring progress is not lost on preemption.\n9. **Credential Management for Long-Running Jobs**:\n    *   **Token Refresh**: For jobs expected to run longer than 8 hours, configure non-interactive background token-broker credential renewal to prevent mid-run failures due to short-lived OAuth token expiry.\n\"\"\"\n# EVOLVE-BLOCK-END\n    return description, body\n",
+  "code_diff": "--- pillars/agent_skill_optimization/main.py (seed)\n+++ pillars/agent_skill_optimization/main.py (evolved)\n@@ -10,4 +10,28 @@\n 2. **Inspect the Workspace**: Check input files, directory layout, and available CLI flags so your script uses valid paths.\n 3. **Write Clean, Modular Scripts**: Include `#!/usr/bin/env bash` and `set -euo pipefail`, add clear comments, and organize environment setup, execution, and post-processing into readable steps.\n 4. **Test Incrementally**: Validate syntax (`bash -n`), test logic on small inputs, refine command flags for performance, and verify outputs before finishing.\n+5. **Implement Robust Time Management**:\n+    *   **Early Baseline Output**: Before extensive refinement, generate a minimal, valid output to the target path. This ensures *some* result is available even if the job is preempted or times out.\n+    *   **Graceful Shutdown & Checkpointing**: For long-running jobs, use Slurm's `--signal=B:USR1@120` to send a `USR1` signal 120 seconds before walltime. Implement a `trap '...' USR1` handler in your script to flush checkpoints or save intermediate results.\n+    *   **Hard Stop When Green**: Once all acceptance criteria are met and the required output is generated, terminate the job immediately to conserve resources and avoid unnecessary walltime consumption.\n+6. **Optimize Resource Allocation**:\n+    *   **Dynamic Memory Sizing**: Avoid static `--mem` defaults. Calculate `--mem` dynamically for Slurm/Cloud Batch jobs by inspecting input file sizes (e.g., `du -sb input_file` or `stat -c %s input_file`). Multiply the input data size by a `3.0x` working-set safety factor for memory, and always clamp this value below known node memory limits to prevent cgroup OOM kills.\n+7. **Optimize Storage and I/O Hygiene**:\n+    *   **Avoid Shared NFS for Scratch I/O**: Never unpack archives, store temporary files, or write high-volume scratch data to shared network file systems like `/home`. These are optimized for small, frequent metadata operations, leading to performance bottlenecks and stalled jobs.\n+    *   **Utilize Local NVMe (`/scratch`)**: Stage active archives and all temporary/scratch data on the local high-IOPS NVMe drive, typically mounted at `/scratch`. This significantly improves I/O performance.\n+    *   **Redirect Caches and Temporary Directories**: Explicitly set environment variables to point caches and temporary files to `/scratch` or a job-specific subdirectory within it. For example:\n+        ```bash\n+        export TMPDIR=\"/scratch/$USER/$SLURM_JOB_ID/tmp\"\n+        export XDG_CACHE_HOME=\"/scratch/$USER/$SLURM_JOB_ID/cache\"\n+        export PIP_CACHE_DIR=\"/scratch/$USER/$SLURM_JOB_ID/pip_cache\"\n+        export R_LIBS_USER=\"/scratch/$USER/$SLURM_JOB_ID/R_libs\"\n+        mkdir -p \"$TMPDIR\" \"$XDG_CACHE_HOME\" \"$PIP_CACHE_DIR\" \"$R_LIBS_USER\"\n+        ```\n+    *   **Stream Cold Outputs to Object Storage**: For large, infrequently accessed output files, stream them directly to cloud object storage (e.g., `gs://your-bucket/path/`) instead of writing them to local disk and then copying. This avoids filling local storage and reduces I/O pressure.\n+8. **Partition, Accelerator, and Spot Hygiene**:\n+    *   **CPU/GPU Partitioning**: Explicitly set `--gpus=0` for jobs not requiring GPUs and route them to CPU/batch partitions. Avoid using GPU or ultramemory pools for CPU-only workloads.\n+    *   **Job Array Throttling**: Cap concurrent tasks in job arrays using Slurm's `--array=1-N%32` (or similar) to prevent overwhelming shared resources.\n+    *   **Spot Instance Resilience**: When using preemptible Spot workers, include `--requeue` for automatic job resubmission. Implement idempotent resume logic (e.g., `if [ -f checkpoint ]; then resume_from_checkpoint; fi`) to restart from the last saved state, ensuring progress is not lost on preemption.\n+9. **Credential Management for Long-Running Jobs**:\n+    *   **Token Refresh**: For jobs expected to run longer than 8 hours, configure non-interactive background token-broker credential renewal to prevent mid-run failures due to short-lived OAuth token expiry.\n \"\"\""
+}

@@ -1,0 +1,40 @@
+schema_version = "1.1"
+
+[task]
+name = "hpc-skills/ddp-checkpoint-trap"
+description = "Enterprise HPC Harbor benchmark task (dev split)"
+authors = [{ name = "HPC Platform Benchmark Suite", email = "benchmarks@example.org" }]
+keywords = ["slurm", "pytorch-ddp", "timeout-guard", "checkpointing"]
+
+[metadata]
+difficulty = "hard"
+category = "distributed-training"
+split = "dev"
+tags = ["slurm", "pytorch-ddp", "timeout-guard", "checkpointing"]
+
+[verifier]
+timeout_sec = 120.0
+
+[agent]
+timeout_sec = 180.0
+
+[environment]
+build_timeout_sec = 600.0
+cpus = 16
+memory_mb = 65536
+storage_mb = 102400
+gpus = 4
+mcp_servers = []
+skills_dir = "/skills"
+
+[verifier.checks]
+dataset_gb = 18.0
+walltime_hours = 4.0
+spot_mode = false
+required_protocols = ["timeout_checkpoint_hard_stop", "scratch_nvme_staging"]
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

@@ -30,9 +30,10 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 RESULTS_DIR = REPO_ROOT / "pillars" / "results"
 
 PILLAR_SPECS = [
-    ("cluster_scheduling", "pillars.cluster_scheduling"),
-    ("hpc_code_optimization", "pillars.hpc_code_optimization"),
-    ("demand_forecasting", "pillars.demand_forecasting"),
+    ("cluster_scheduling", "pillars.cluster_scheduling", "test"),
+    ("hpc_code_optimization", "pillars.hpc_code_optimization", "test"),
+    ("demand_forecasting", "pillars.demand_forecasting", "test"),
+    ("agent_skill_optimization", "pillars.agent_skill_optimization", "holdout"),
 ]
 
 
@@ -42,12 +43,17 @@ def _invoke_pillar_evaluator(pillar_pkg: str, source_code: str, split: str = "te
     for fn_name in ("evaluate_candidate_source", "evaluate_source", "evaluate_program", "evaluate"):
         fn = getattr(eval_mod, fn_name, None)
         if callable(fn):
-            try:
-                res = fn(source_code, split=split)
-            except TypeError:
-                res = fn(source_code)
-            if isinstance(res, dict):
-                return res
+            for candidate_split in (split, "test", "holdout"):
+                try:
+                    res = fn(source_code, split=candidate_split)
+                    if isinstance(res, dict):
+                        return res
+                except ValueError:
+                    continue
+                except TypeError:
+                    res = fn(source_code)
+                    if isinstance(res, dict):
+                        return res
     raise RuntimeError(f"No compatible evaluation entrypoint found in {pillar_pkg}.evaluator")
 
 
@@ -83,12 +89,14 @@ def main() -> None:
 
     pillar_verifications: list[dict[str, Any]] = []
 
-    for pillar_id, pillar_pkg in PILLAR_SPECS:
+    for pillar_id, pillar_pkg, holdout_split in PILLAR_SPECS:
         p_t0 = time.perf_counter()
         seed_path = REPO_ROOT / "pillars" / pillar_id / "main.py"
+        if not seed_path.exists():
+            continue
         seed_source = seed_path.read_text(encoding="utf-8")
 
-        seed_eval = _invoke_pillar_evaluator(pillar_pkg, seed_source, split="test")
+        seed_eval = _invoke_pillar_evaluator(pillar_pkg, seed_source, split=holdout_split)
         seed_score = float(seed_eval.get("overall_score", 0.0))
 
         # Load evolved block from results JSON if present
@@ -104,16 +112,17 @@ def main() -> None:
                     if (EVOLVE_START_MARKER in eblock and "def " in eblock and len(eblock) > len(seed_source) * 0.7)
                     else replace_evolve_block(seed_source, eblock)
                 )
-                evolved_eval = _invoke_pillar_evaluator(pillar_pkg, evolved_source, split="test")
+                evolved_eval = _invoke_pillar_evaluator(pillar_pkg, evolved_source, split=holdout_split)
                 evolved_score = float(evolved_eval.get("overall_score", seed_score))
                 evolved_gate = bool(evolved_eval.get("gate_passed", False))
 
         # Verify anti-reward-hacking gate rejects forbidden AST import
+        sabotage_split = "dev" if holdout_split == "holdout" else "train"
         sabotaged_source = replace_evolve_block(
             seed_source,
             "import subprocess\nsubprocess.run(['echo', 'hack'])\n",
         )
-        sabotaged_eval = _invoke_pillar_evaluator(pillar_pkg, sabotaged_source, split="train")
+        sabotaged_eval = _invoke_pillar_evaluator(pillar_pkg, sabotaged_source, split=sabotage_split)
         sabotage_blocked = float(sabotaged_eval.get("overall_score", 0.0)) <= HARD_GATE_PENALTY * 0.99
 
         pillar_verifications.append(

@@ -128,17 +128,60 @@ def extract_evolve_block(source_code: str, *, require_markers: bool = True) -> s
         raise SandboxViolationError("EVOLVE-BLOCK contains only whitespace.")
 
     # Verify non-comment executable Python statements inside block
-    try:
-        block_tree = ast.parse(block_text)
-    except SyntaxError as exc:
-        raise SandboxViolationError(f"Syntax error inside EVOLVE-BLOCK: {exc}") from exc
+    # (supports both top-level column-0 blocks and indented function-body blocks with raw multiline strings)
+    parsed_tree: ast.Module | None = None
+    last_syn_err: SyntaxError | None = None
+    for candidate_ast_src in (block_text, f"def _ae_block_scope():\n{block_text}\n"):
+        try:
+            parsed_tree = ast.parse(candidate_ast_src)
+            break
+        except SyntaxError as exc:
+            last_syn_err = exc
 
-    if not block_tree.body:
+    if parsed_tree is None:
+        raise SandboxViolationError(f"Syntax error inside EVOLVE-BLOCK: {last_syn_err}") from last_syn_err
+
+    stmts = (
+        parsed_tree.body[0].body  # type: ignore[attr-defined]
+        if len(parsed_tree.body) == 1
+        and isinstance(parsed_tree.body[0], ast.FunctionDef)
+        and parsed_tree.body[0].name == "_ae_block_scope"
+        else parsed_tree.body
+    )
+    if not stmts or (
+        len(stmts) == 1 and isinstance(stmts[0], ast.Expr) and isinstance(stmts[0].value, ast.Constant)
+    ):
         raise SandboxViolationError(
-            "EVOLVE-BLOCK contains only comments and zero executable Python statements."
+            "EVOLVE-BLOCK contains only comments/docstrings and zero executable Python statements."
         )
 
     return block_text
+
+
+def _indent_col0_block_preserving_multiline_strings(code_lines: list[str], prefix: str) -> list[str]:
+    """Indent column-0 Python statements by `prefix` without corrupting multiline string interiors."""
+    joined = "\n".join(code_lines)
+    try:
+        tree = ast.parse(joined)
+    except SyntaxError:
+        return [f"{prefix}{ln}" if ln.strip() else ln for ln in code_lines]
+
+    interior_lines: set[int] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Constant) and isinstance(node.value, str):
+            start_ln = getattr(node, "lineno", 0)
+            end_ln = getattr(node, "end_lineno", 0)
+            if end_ln > start_ln > 0:
+                for ln_no in range(start_ln + 1, end_ln + 1):
+                    interior_lines.add(ln_no)
+
+    out: list[str] = []
+    for idx, ln in enumerate(code_lines, start=1):
+        if idx in interior_lines or not ln.strip():
+            out.append(ln)
+        else:
+            out.append(f"{prefix}{ln}")
+    return out
 
 
 def replace_evolve_block(template_source: str, new_block_code: str) -> str:
@@ -156,20 +199,28 @@ def replace_evolve_block(template_source: str, new_block_code: str) -> str:
     if start_idx < 0 or end_idx <= start_idx:
         raise SandboxViolationError("Canonical seed template is missing valid EVOLVE-BLOCK markers.")
 
+    # Detect expected base indentation of the first code line inside template's EVOLVE-BLOCK
+    template_inner = [ln for ln in lines[start_idx + 1 : end_idx] if ln.strip()]
+    expected_indent = ""
+    if template_inner:
+        first_tmpl = template_inner[0]
+        expected_indent = first_tmpl[: len(first_tmpl) - len(first_tmpl.lstrip(" "))]
+
     clean_inner = new_block_code.strip("\r\n")
-    # Strip accidental nested markers if LLM included them in snippet
     inner_lines = [
         ln
         for ln in clean_inner.splitlines()
         if ln.strip() not in (EVOLVE_START_MARKER, EVOLVE_END_MARKER)
     ]
-    if not inner_lines:
-        raise SandboxViolationError("Replacement EVOLVE-BLOCK has no code lines.")
-    # Ensure no blank first line immediately after EVOLVE-BLOCK-START
     while inner_lines and not inner_lines[0].strip():
         inner_lines.pop(0)
     if not inner_lines:
         raise SandboxViolationError("Replacement EVOLVE-BLOCK has only blank lines.")
+
+    first_cand = inner_lines[0]
+    cand_indent = first_cand[: len(first_cand) - len(first_cand.lstrip(" "))]
+    if expected_indent and not cand_indent:
+        inner_lines = _indent_col0_block_preserving_multiline_strings(inner_lines, expected_indent)
 
     rebuilt = lines[: start_idx + 1] + inner_lines + lines[end_idx:]
     return "\n".join(rebuilt) + "\n"
@@ -182,10 +233,20 @@ def validate_ast_safety(
     allowed_imports: frozenset[str] | None = None,
 ) -> ast.Module:
     """Parse Python source and reject forbidden imports, reflection, or missing entrypoints."""
-    try:
-        tree = ast.parse(source_code)
-    except SyntaxError as exc:
-        raise SandboxViolationError(f"Python syntax error at line {exc.lineno}: {exc.msg}") from exc
+    tree: ast.Module | None = None
+    first_err: SyntaxError | None = None
+    for candidate_src in (source_code, f"def _ae_ast_wrapper():\n{source_code}\n"):
+        try:
+            tree = ast.parse(candidate_src)
+            break
+        except SyntaxError as exc:
+            if first_err is None:
+                first_err = exc
+    if tree is None:
+        assert first_err is not None
+        raise SandboxViolationError(
+            f"Python syntax error at line {first_err.lineno}: {first_err.msg}"
+        ) from first_err
 
     for node in ast.walk(tree):
         if isinstance(node, ast.Import):

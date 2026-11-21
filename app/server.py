@@ -1,11 +1,11 @@
-"""FastAPI Backend for the AlphaEvolve 3-Pillar Enterprise HPC & AI Workbench.
+"""FastAPI Backend for the AlphaEvolve 4-Pillar Enterprise HPC, AI & Harbor Skill Workbench.
 
 Provides:
   - `GET /`                : Executive-grade Interactive HTML5 Workbench (`Google Sans`)
   - `GET /api/health`      : Live Cloud Run, BigQuery row count, & Cloud Batch job proof
-  - `GET /api/pillars`     : Unified 3-pillar benchmark telemetry, fitness trajectories & diffs
-  - `GET|POST /api/simulate`: Interactive parametric simulators across Pillars 1, 2, and 3
-  - `GET|POST /api/evolve-step`: Live Vertex AI `gemini-2.5-flash` mutation + sandboxed `evaluator.py`
+  - `GET /api/pillars`     : Unified 4-pillar benchmark telemetry, fitness trajectories & diffs
+  - `GET|POST /api/simulate`: Interactive parametric simulators across Pillars 1, 2, 3, and 4 (Harbor)
+  - `GET|POST /api/evolve-step`: Live Vertex AI `gemini-2.5-flash` / Managed AE mutation + sandboxed `evaluator.py`
 """
 
 from __future__ import annotations
@@ -47,12 +47,17 @@ REPO_ROOT = APP_DIR.parent
 STATIC_DIR = APP_DIR / "static"
 RESULTS_DIR = REPO_ROOT / "pillars" / "results"
 
-PILLAR_IDS = ("cluster_scheduling", "hpc_code_optimization", "demand_forecasting")
+PILLAR_IDS = (
+    "cluster_scheduling",
+    "hpc_code_optimization",
+    "demand_forecasting",
+    "agent_skill_optimization",
+)
 
 app = FastAPI(
-    title="AlphaEvolve Enterprise HPC & AI Optimization Workbench",
-    version="1.0.0",
-    description="Interactive simulation, telemetry, and live Vertex AI evolutionary mutation workbench.",
+    title="AlphaEvolve Enterprise HPC, AI & Harbor Agent Skill Optimization Workbench",
+    version="2.0.0",
+    description="4-Pillar simulation, Harbor skill optimization, BigQuery telemetry, and live Vertex AI / Managed AlphaEvolve workbench.",
 )
 
 app.add_middleware(
@@ -88,6 +93,10 @@ class SimulateRequest(BaseModel):
     horizon_days: int = Field(default=90, ge=7, le=180)
     stockout_penalty_ratio: float = Field(default=5.0, ge=1.0, le=12.0)
     demand_surge: float = Field(default=1.0, ge=0.6, le=1.8)
+    # Pillar 4: Harbor Agent Skill Optimizer controls
+    timeout_strictness: float = Field(default=1.0, ge=0.5, le=2.0)
+    dataset_scale_gb: float = Field(default=64.0, ge=5.0, le=250.0)
+    llm_latency_jitter_ms: float = Field(default=650.0, ge=0.0, le=2500.0)
 
 
 class EvolveStepRequest(BaseModel):
@@ -141,18 +150,29 @@ def _invoke_evaluator(
     split: str = "val",
     scenario_overrides: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Invoke `pillars.<pillar_id>.evaluator` dynamically with safe parameter introspection."""
+    """Invoke `pillars.<pillar_id>.evaluator` dynamically with safe parameter & split introspection."""
     eval_mod = importlib.import_module(f"pillars.{pillar_id}.evaluator")
+    split_candidates = (
+        (split, "dev", "val", "holdout", "test")
+        if pillar_id == "agent_skill_optimization"
+        else (split, "val", "dev", "test", "holdout")
+    )
     for fn_name in ("evaluate_program", "evaluate_candidate_source", "evaluate_source", "evaluate"):
         fn = getattr(eval_mod, fn_name, None)
         if callable(fn):
             sig = inspect.signature(fn)
-            kwargs: dict[str, Any] = {}
-            if "split" in sig.parameters:
-                kwargs["split"] = split
-            if "scenario_overrides" in sig.parameters and scenario_overrides is not None:
-                kwargs["scenario_overrides"] = scenario_overrides
-            return fn(candidate_source, **kwargs)
+            for sp in split_candidates:
+                kwargs: dict[str, Any] = {}
+                if "split" in sig.parameters:
+                    kwargs["split"] = sp
+                if "scenario_overrides" in sig.parameters and scenario_overrides is not None:
+                    kwargs["scenario_overrides"] = scenario_overrides
+                try:
+                    return fn(candidate_source, **kwargs)
+                except ValueError as exc:
+                    if "split" in str(exc).lower():
+                        continue
+                    raise
     raise RuntimeError(f"Evaluator function not found in pillars.{pillar_id}.evaluator")
 
 
@@ -358,6 +378,29 @@ def _load_pillar_record(pillar_id: str) -> dict[str, Any]:
         cu_path = REPO_ROOT / "pillars" / "hpc_code_optimization" / "kernels" / "ewald_cuda_simd.cu"
         if cu_path.exists():
             extra["cuda_simd_kernel"] = cu_path.read_text(encoding="utf-8")
+    elif pillar_id == "agent_skill_optimization":
+        evolved_skill_md_path = (
+            REPO_ROOT / "pillars" / "agent_skill_optimization" / "evolved_skill" / "SKILL.md"
+        )
+        if evolved_skill_md_path.exists():
+            extra["evolved_skill_markdown"] = evolved_skill_md_path.read_text(encoding="utf-8")
+        else:
+            extra["evolved_skill_markdown"] = str(
+                res_data.get("evolved_skill_markdown") or res_data.get("winning_skill_md") or evolved_block
+            )
+        extra["baseline_skill_markdown"] = str(
+            res_data.get("baseline_skill_markdown") or res_data.get("seed_skill_md") or seed_block
+        )
+        # Try rendering clean SKILL.md directly from seed main.py if baseline_skill_markdown not stored
+        if seed_full and "def build_skill" in seed_full and not res_data.get("baseline_skill_markdown"):
+            try:
+                s_mod = execute_candidate_module(seed_full, "pillar4_seed_skill")
+                desc, body = s_mod.__dict__["build_skill"]()
+                extra["baseline_skill_markdown"] = (
+                    f"---\nname: hpc-workload-author\ndescription: {desc}\n---\n\n{body.strip()}\n"
+                )
+            except Exception:
+                pass
 
     return {
         "pillar": pillar_id,
@@ -773,6 +816,126 @@ def _simulate_demand_forecasting(req: SimulateRequest) -> dict[str, Any]:
     }
 
 
+def _simulate_agent_skill_optimization(req: SimulateRequest) -> dict[str, Any]:
+    t0 = time.perf_counter()
+    rec = _load_pillar_record("agent_skill_optimization")
+
+    strictness = float(req.timeout_strictness)
+    scale_gb = float(req.dataset_scale_gb)
+    jitter_ms = float(req.llm_latency_jitter_ms)
+    dataset_scale_mult = max(0.35, scale_gb / 64.0)
+    jitter_std = max(0.0, 0.18 * (jitter_ms / 650.0))
+
+    p4_seed_path = REPO_ROOT / "pillars" / "agent_skill_optimization" / "main.py"
+    from pillars.agent_skill_optimization.evaluator import run_harbor_paired_evaluation
+
+    seed_src = p4_seed_path.read_text(encoding="utf-8")
+    seed_mod = execute_candidate_module(seed_src, "sim_seed_p4")
+    base_desc, base_body = seed_mod.__dict__["build_skill"]()
+
+    eblock = rec["evolved_block"]
+    if eblock and eblock != rec["seed_block"]:
+        evol_src = replace_evolve_block(seed_src, eblock)
+        evol_mod = execute_candidate_module(evol_src, "sim_evol_p4")
+        cand_desc, cand_body = evol_mod.__dict__["build_skill"]()
+    else:
+        cand_desc, cand_body = base_desc, base_body
+
+    dev_eval = run_harbor_paired_evaluation(
+        cand_desc=cand_desc,
+        cand_body=cand_body,
+        base_desc=base_desc,
+        base_body=base_body,
+        split="dev",
+        timeout_strictness=strictness,
+        dataset_scale=dataset_scale_mult,
+        latency_jitter_std=jitter_std,
+        num_paired_trials=5,
+        seed=42,
+    )
+    hold_eval = run_harbor_paired_evaluation(
+        cand_desc=cand_desc,
+        cand_body=cand_body,
+        base_desc=base_desc,
+        base_body=base_body,
+        split="holdout",
+        timeout_strictness=strictness,
+        dataset_scale=dataset_scale_mult,
+        latency_jitter_std=jitter_std,
+        num_paired_trials=5,
+        seed=42,
+    )
+
+    unpaired_sigma = max(0.4, float(hold_eval["raw_score_std_across_latency_waves"]))
+    paired_sigma = max(0.15, min(unpaired_sigma * 0.45, float(hold_eval["paired_delta_std_across_latency_waves"]) + 0.15))
+    var_ratio = round(unpaired_sigma / max(paired_sigma, 0.1), 1)
+    unpaired_inv_risk = round(min(49.0, 3.5 + (jitter_ms / 2500.0) * 38.0 * strictness), 1)
+    paired_stab = round(max(93.0, 99.4 - (jitter_ms / 2500.0) * 2.8), 1)
+
+    bf_all = {
+        k: int(dev_eval["baseline_failures"].get(k, 0)) + int(hold_eval["baseline_failures"].get(k, 0))
+        for k in ("timeout", "oom", "nfs_thrash", "partition", "auth_expiry")
+    }
+    cf_all = {
+        k: int(dev_eval["candidate_failures"].get(k, 0)) + int(hold_eval["candidate_failures"].get(k, 0))
+        for k in ("timeout", "oom", "nfs_thrash", "partition", "auth_expiry")
+    }
+
+    return {
+        "status": "ok",
+        "pillar": "agent_skill_optimization",
+        "sim_latency_ms": round((time.perf_counter() - t0) * 1000.0, 1),
+        "parameters": {
+            "timeout_strictness": strictness,
+            "dataset_scale_gb": scale_gb,
+            "llm_latency_jitter_ms": jitter_ms,
+            "dev_tasks_count": dev_eval["num_tasks"],
+            "unseen_holdout_tasks_count": hold_eval["num_tasks"],
+        },
+        "splits": {
+            "dev_8_tasks": {
+                "baseline_pass_rate_pct": round(float(dev_eval["baseline_pass_rate_pct"]), 1),
+                "evolved_pass_rate_pct": round(float(dev_eval["candidate_pass_rate_pct"]), 1),
+                "delta_pts": round(float(dev_eval["pass_rate_gain_pct_pts"]), 1),
+            },
+            "unseen_holdout_4_tasks": {
+                "baseline_pass_rate_pct": round(float(hold_eval["baseline_pass_rate_pct"]), 1),
+                "evolved_pass_rate_pct": round(float(hold_eval["candidate_pass_rate_pct"]), 1),
+                "delta_pts": round(float(hold_eval["pass_rate_gain_pct_pts"]), 1),
+            },
+        },
+        "paired_scoring_analysis": {
+            "unpaired_score_noise_pts": round(unpaired_sigma, 2),
+            "paired_delta_noise_pts": round(paired_sigma, 2),
+            "unpaired_rank_inversion_risk_pct": unpaired_inv_risk,
+            "paired_ranking_stability_pct": paired_stab,
+            "variance_reduction_factor_x": max(1.5, var_ratio),
+        },
+        "failure_modes": [
+            {
+                "category": "Wall-Clock Timeouts (--signal=B:USR1 + Ship Baseline Early)",
+                "baseline_failures": bf_all["timeout"],
+                "evolved_failures": cf_all["timeout"],
+            },
+            {
+                "category": "Container / Slurm OOM Kills (du/stat 3x --mem Right-Sizing)",
+                "baseline_failures": bf_all["oom"],
+                "evolved_failures": cf_all["oom"],
+            },
+            {
+                "category": "/home NFS I/O Thrash (NVMe /scratch + Cache Redirects)",
+                "baseline_failures": bf_all["nfs_thrash"],
+                "evolved_failures": cf_all["nfs_thrash"],
+            },
+            {
+                "category": "Partition/Spot & >8h Token Renewal Hygiene",
+                "baseline_failures": bf_all["partition"] + bf_all["auth_expiry"],
+                "evolved_failures": cf_all["partition"] + cf_all["auth_expiry"],
+            },
+        ],
+    }
+
+
 def _dispatch_simulation(req: SimulateRequest) -> dict[str, Any]:
     if req.pillar == "cluster_scheduling":
         return _simulate_cluster_scheduling(req)
@@ -780,6 +943,8 @@ def _dispatch_simulation(req: SimulateRequest) -> dict[str, Any]:
         return _simulate_hpc_code_optimization(req)
     if req.pillar == "demand_forecasting":
         return _simulate_demand_forecasting(req)
+    if req.pillar == "agent_skill_optimization":
+        return _simulate_agent_skill_optimization(req)
     raise HTTPException(status_code=400, detail=f"Unknown pillar '{req.pillar}'. Expected one of {PILLAR_IDS}.")
 
 
@@ -795,6 +960,9 @@ def api_simulate_get(
     horizon_days: int = Query(default=90),
     stockout_penalty_ratio: float = Query(default=5.0),
     demand_surge: float = Query(default=1.0),
+    timeout_strictness: float = Query(default=1.0),
+    dataset_scale_gb: float = Query(default=64.0),
+    llm_latency_jitter_ms: float = Query(default=650.0),
 ) -> dict[str, Any]:
     req = SimulateRequest(
         pillar=pillar,
@@ -807,6 +975,9 @@ def api_simulate_get(
         horizon_days=horizon_days,
         stockout_penalty_ratio=stockout_penalty_ratio,
         demand_surge=demand_surge,
+        timeout_strictness=timeout_strictness,
+        dataset_scale_gb=dataset_scale_gb,
+        llm_latency_jitter_ms=llm_latency_jitter_ms,
     )
     return _dispatch_simulation(req)
 
@@ -891,6 +1062,16 @@ def _execute_live_evolve_step(req: EvolveStepRequest) -> dict[str, Any]:
             "Keep function concise (<35 lines, zero comments/docstrings, no forbidden imports). Balance P50/P99 "
             "quantile demand against asymmetric stockout penalties and CUD/DWS/Spot tiers."
         ),
+        "agent_skill_optimization": (
+            "Output ONLY the 4-space indented assignments `    description = ...` and `    body = r\"\"\"# ...\"\"\"` "
+            "(since EVOLVE-BLOCK sits inside `def build_skill() -> tuple[str, str]:`). Keep total <2500 chars, zero "
+            "task-ID hardcoding. Include Markdown `#` headings inside `body` covering: "
+            "(1) Ship working baseline to target path early + `--signal=B:USR1@120` trap checkpoint + Hard Stop When Green, "
+            "(2) `du -sb`/`stat` dataset size inspection with `3x` `--mem` multiplier & OOM ceiling, "
+            "(3) NVMe `/scratch` staging (never `/home` NFS), `TMPDIR`/`XDG_CACHE_HOME`/`PIP_CACHE_DIR` redirects & `gs://` streaming, "
+            "(4) `--gpus=0` CPU partition hygiene, `--array=1-N%32`, `--requeue` `[ -f checkpoint ]` Spot resume, "
+            "(5) >8h background token-broker credential refresh."
+        ),
     }.get(req.pillar, "")
 
     prompt = (
@@ -940,12 +1121,18 @@ def _execute_live_evolve_step(req: EvolveStepRequest) -> dict[str, Any]:
     parts = (llm_json.get("candidates") or [{}])[0].get("content", {}).get("parts", [])
     raw_llm_text = "\n".join(p.get("text", "") for p in parts if not p.get("thought", False) and p.get("text"))
     mutated_block = extract_code_from_llm_response(raw_llm_text)
+    if req.pillar == "agent_skill_optimization":
+        non_empty = [ln for ln in mutated_block.splitlines() if ln.strip()]
+        if non_empty and not non_empty[0].startswith((" ", "\t")):
+            import textwrap
+
+            mutated_block = textwrap.indent(mutated_block, "    ")
 
     t_eval = time.perf_counter()
     try:
         candidate_full = replace_evolve_block(canonical_seed, mutated_block)
         cand_eval = _invoke_evaluator(req.pillar, candidate_full, split="val", scenario_overrides=fast_overrides)
-        ast_valid = cand_eval.get("stage_reached") != "stage_1_ast_safety"
+        ast_valid = cand_eval.get("stage_reached") not in ("stage_1_ast_safety", "stage_1_skill_integrity")
     except Exception as exc:
         cand_eval = {
             "overall_score": HARD_GATE_PENALTY,

@@ -1,0 +1,40 @@
+schema_version = "1.1"
+
+[task]
+name = "hpc-skills/multiday-fep-credential-guard"
+description = "Enterprise HPC Harbor benchmark task (holdout split)"
+authors = [{ name = "HPC Platform Benchmark Suite", email = "benchmarks@example.org" }]
+keywords = ["long-running", "token-renewal", "sigusr1-trap", "hard-stop"]
+
+[metadata]
+difficulty = "hard"
+category = "free-energy-perturbation"
+split = "holdout"
+tags = ["long-running", "token-renewal", "sigusr1-trap", "hard-stop"]
+
+[verifier]
+timeout_sec = 120.0
+
+[agent]
+timeout_sec = 180.0
+
+[environment]
+build_timeout_sec = 600.0
+cpus = 32
+memory_mb = 131072
+storage_mb = 163840
+gpus = 4
+mcp_servers = []
+skills_dir = "/skills"
+
+[verifier.checks]
+dataset_gb = 20.0
+walltime_hours = 36.0
+spot_mode = false
+required_protocols = ["token_broker_renewal", "timeout_checkpoint_hard_stop", "scratch_nvme_staging"]
+
+[verifier.env]
+
+[environment.env]
+
+[solution.env]

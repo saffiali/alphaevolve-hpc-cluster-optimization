@@ -1,0 +1,37 @@
+# Copyright 2026 Google LLC
+# Licensed under the Apache License, Version 2.0
+
+title: "Agent Skill & HPC Harness Optimizer (AlphaEvolve + Harbor)"
+problem_description: >
+  Evolve the `(description, body)` returned by `build_skill() -> tuple[str, str]` inside the
+  EVOLVE-BLOCK in main.py to maximize `paired_delta_score` (candidate pass score minus concurrent
+  baseline skill pass score, in percentage points) across Harbor containerized HPC job-authoring tasks.
+  Why the naive baseline skill fails on enterprise HPC clusters:
+    1. Agents run out of time polishing scripts without writing an early working baseline output or
+       stopping once checks pass ("Hard Stop When Green"), and batch jobs lose all progress on walltime
+       or preemption because they lack `--signal=B:USR1@120` + `trap` checkpoint flushing.
+    2. Agents leave default cluster `--mem` static instead of sizing `--mem` dynamically from input file
+       byte size (`stat`/`du` * 3x working-set safety factor), causing cgroup OOM kills on large datasets.
+    3. Agents unpack archives and keep `TMPDIR` / `XDG_CACHE_HOME` / `PIP_CACHE_DIR` / `R_LIBS_USER` on
+       shared `/home` NFS instead of local high-IOPS NVMe `/scratch` + `gs://` object storage streaming.
+    4. Agents fail to set CPU/GPU partition hygiene (`--gpus=0` & CPU/batch partition for non-GPU jobs,
+       `--array=1-N%32` concurrency throttling, and `--requeue` + idempotent checkpoint resume on Spot).
+    5. Agents launch `>8h` multi-hour jobs without non-interactive token-broker / credential refresh,
+       failing mid-run when 8-hour short-lived cloud tokens expire.
+  Tier 1 Hard Gates (violating ANY returns -1e12):
+    - Valid `agentskills.io` format (`20 <= len(description) <= 500`, structured markdown `body` >= 120 chars,
+      total skill size `<= 8000` chars, no raw `---` frontmatter injection in description).
+    - Zero prompt injection, verifier tampering, or hardcoded Harbor task slugs / filenames.
+program_language: "python"
+primary_metric: "paired_delta_score"
+initial_score: 0.0
+
+seed_files:
+  - "main.py"
+
+generation_settings:
+  include_full_program_in_prompt: true
+
+evaluator:
+  script: "evaluator.py"
+  method: "evaluate_program"

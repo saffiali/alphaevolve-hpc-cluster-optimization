@@ -110,18 +110,28 @@
     .pill-amber { background: var(--amber-soft); color: var(--amber); border-color: #fde293; }
     .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
 
+    code {
+      font-family: 'Google Sans Mono', monospace;
+      font-size: 0.91em;
+      background: var(--surface-alt);
+      padding: 1px 5px;
+      border-radius: 4px;
+      color: #1e293b;
+    }
+    pre.code-box code { background: transparent; padding: 0; color: inherit; }
+
     .nav-tabs {
       display: flex;
-      gap: 6px;
-      overflow-x: auto;
+      flex-wrap: wrap;
+      gap: 4px;
     }
     .tab-btn {
       background: transparent;
       border: none;
       border-bottom: 3px solid transparent;
-      padding: 10px 16px;
+      padding: 9px 12px;
       font-family: inherit;
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 500;
       color: var(--muted);
       cursor: pointer;
@@ -363,7 +373,7 @@
         <button class="tab-btn" id="tab-btn-pillar1" onclick="switchTab('pillar1')">Pillar 1: Cluster Scheduling</button>
         <button class="tab-btn" id="tab-btn-pillar2" onclick="switchTab('pillar2')">Pillar 2: HPC Code Optimization</button>
         <button class="tab-btn" id="tab-btn-pillar3" onclick="switchTab('pillar3')">Pillar 3: Demand &amp; Allocation</button>
-        <button class="tab-btn" id="tab-btn-pillar4" onclick="switchTab('pillar4')">Pillar 4: Harbor Skill Optimizer</button>
+        <button class="tab-btn" id="tab-btn-pillar4" onclick="switchTab('pillar4')">Pillar 4: Harbor Skills</button>
       </nav>
     </div>
   </header>
@@ -455,7 +465,7 @@
             <div>
               <span class="pill pill-amber">Pillar 4 • AlphaEvolve + Harbor</span>
               <div class="card-title" style="margin-top:8px;">Agent Skill &amp; Harness Optimizer</div>
-              <div class="card-subtitle">Evolves `def build_skill()` (`SKILL.md`) via paired GKE Harbor trials</div>
+              <div class="card-subtitle">Evolves <code>def build_skill()</code> (<code>SKILL.md</code>) via paired GKE Harbor trials</div>
             </div>
           </div>
           <div class="kpi-big" style="color: var(--amber);" id="ov-p4-headline">--</div>
@@ -536,7 +546,7 @@
                 <div class="arch-icon" style="background: var(--green-soft); color: var(--green);">BQ</div>
                 <div>
                   <div class="arch-node-title">Cloud Storage &amp; BigQuery</div>
-                  <div class="arch-node-sub">Read-only traces (`-o ro`) &amp; run telemetry</div>
+                  <div class="arch-node-sub">Read-only traces (<code>-o ro</code>) &amp; run telemetry</div>
                 </div>
               </div>
             </div>
@@ -681,7 +691,7 @@
           <div class="card mt-16">
             <div class="card-header">
               <div>
-                <div class="card-title">Evolved `# EVOLVE-BLOCK` Policy Diff (`pillars/cluster_scheduling/main.py`)</div>
+                <div class="card-title">Evolved <code># EVOLVE-BLOCK</code> Policy Diff (<code>pillars/cluster_scheduling/main.py</code>)</div>
                 <div class="card-subtitle">White-box Python dispatch logic auditable before Slurm / GKE Custom Compute Class rollout</div>
               </div>
               <div style="display:flex; gap:6px;">
@@ -701,7 +711,7 @@
       <div class="grid-sidebar">
         <div class="card">
           <div class="card-title">Molecular Force-Field Benchmark</div>
-          <div class="card-subtitle" style="margin-bottom:16px;">3D Electrostatic Softened Ewald &amp; Neighbor-Cutoff Solver (`N = 512 .. 8,192` particles)</div>
+          <div class="card-subtitle" style="margin-bottom:16px;">3D Electrostatic Softened Ewald &amp; Neighbor-Cutoff Solver (<code>N = 512 .. 8,192</code> particles)</div>
 
           <div class="control-group">
             <div class="control-label"><span>Particle Conformation Scale (N)</span><span class="control-val" id="val-p2-n">2,048</span></div>
@@ -762,7 +772,7 @@
           <div class="card mt-16">
             <div class="card-header">
               <div>
-                <div class="card-title" id="p2-code-title">Evolved Numerical Solver (`pillars/hpc_code_optimization/main.py`)</div>
+                <div class="card-title" id="p2-code-title">Evolved Numerical Solver (<code>pillars/hpc_code_optimization/main.py</code>)</div>
                 <div class="card-subtitle">Toggle between live-evolved Python/NumPy solver diff and companion CUDA/AVX-512 kernel</div>
               </div>
               <div style="display:flex; gap:6px;">
@@ -852,7 +862,7 @@
           <div class="card mt-16">
             <div class="card-header">
               <div>
-                <div class="card-title">Evolved `# EVOLVE-BLOCK` Forecaster &amp; Allocator Diff (`pillars/demand_forecasting/main.py`)</div>
+                <div class="card-title">Evolved <code># EVOLVE-BLOCK</code> Forecaster &amp; Allocator Diff (<code>pillars/demand_forecasting/main.py</code>)</div>
                 <div class="card-subtitle">Quantile regime decomposition + newsvendor asymmetric CUD/DWS sizing</div>
               </div>
             </div>
@@ -867,7 +877,7 @@
       <div class="grid-sidebar">
         <div class="card">
           <div class="card-title">Harbor Trial &amp; Latency Sliders</div>
-          <div class="card-subtitle" style="margin-bottom:16px;">Simulates GKE Harbor pod-per-trial evaluation (`def build_skill()`) with paired concurrent baseline delta scoring</div>
+          <div class="card-subtitle" style="margin-bottom:16px;">Simulates GKE Harbor pod-per-trial evaluation (<code>def build_skill()</code>) with paired concurrent baseline delta scoring</div>
 
           <div class="control-group">
             <div class="control-label"><span>Task Timeout Strictness</span><span class="control-val" id="val-p4-timeout">1.00x</span></div>
@@ -887,7 +897,7 @@
           <button class="btn btn-primary" style="width:100%;" onclick="runPillar4Sim()">Run Paired Harbor Evaluation</button>
 
           <div class="mt-20" style="padding-top:14px; border-top:1px solid var(--border);">
-            <div class="proof-item-label">Execution Topology (`alphaevolve-on-googlecloud`)</div>
+            <div class="proof-item-label">Execution Topology (alphaevolve-on-googlecloud)</div>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:8px;">
               <button class="btn btn-outline active" id="topo-btn-ge" style="font-size:11.5px; padding:7px 8px;" onclick="selectArchTopology('ge')">Managed GE_APP_ID</button>
               <button class="btn btn-outline" id="topo-btn-gke" style="font-size:11.5px; padding:7px 8px;" onclick="selectArchTopology('gke')">GKE Harbor + Ray</button>
@@ -895,7 +905,7 @@
               <button class="btn btn-outline" id="topo-btn-podman" style="font-size:11.5px; padding:7px 8px;" onclick="selectArchTopology('podman')">Rootless Podman</button>
             </div>
             <div class="card-subtitle mt-16" id="topo-detail-box" style="background:var(--surface-alt); padding:10px 12px; border-radius:9px; color:var(--text);">
-              <strong>Managed AlphaEvolve (`GE_APP_ID` Discovery Engine):</strong> Regional `eu-` / `us-` endpoints, server-side MAP-Elites + weighted Gemini ensembles (`gemini-3.5/3.8-flash` + `gemini-3.1-pro-preview`), and 6 self-service `ae` CLI skills.
+              <strong>Managed AlphaEvolve (<code>GE_APP_ID</code> Discovery Engine):</strong> Regional <code>eu-</code> / <code>us-</code> endpoints, server-side MAP-Elites + weighted Gemini ensembles (<code>gemini-3.5/3.8-flash</code> + <code>gemini-3.1-pro-preview</code>), and 6 self-service <code>ae</code> CLI skills.
             </div>
           </div>
         </div>
@@ -924,7 +934,7 @@
               <div class="card-header">
                 <div>
                   <div class="card-title">Why Paired Concurrent Scoring Matters</div>
-                  <div class="card-subtitle">Running candidate `SKILL.md` next to baseline `SKILL.md` simultaneously (`cand - base`)</div>
+                  <div class="card-subtitle">Running candidate <code>SKILL.md</code> next to baseline <code>SKILL.md</code> simultaneously (<code>cand - base</code>)</div>
                 </div>
                 <span class="pill pill-green" id="p4-var-badge">Variance Cut</span>
               </div>
@@ -939,7 +949,7 @@
                 <tbody id="p4-noise-tbody"></tbody>
               </table>
               <div class="card-subtitle mt-16">
-                <strong>10h+ Production Guardrails:</strong> Adaptive P95 latency window avoids stalled evaluations during slow model windows, while ring-buffered `emptyDir` (`2Gi`) + GCS streaming prevents trial logs from filling controller disks.
+                <strong>10h+ Production Guardrails:</strong> Adaptive P95 latency window avoids stalled evaluations during slow model windows, while ring-buffered <code>emptyDir</code> (<code>2Gi</code>) + Workload Identity GCS streaming prevents trial logs from filling controller disks.
               </div>
             </div>
 
@@ -957,8 +967,8 @@
           <div class="card mt-16">
             <div class="card-header">
               <div>
-                <div class="card-title">Side-by-Side `Baseline SKILL.md` vs. `AlphaEvolve Evolved SKILL.md` (`def build_skill()`)</div>
-                <div class="card-subtitle">Inspect the evolved skill protocol ("Ship Baseline Early", `--signal=B:USR1`, input-driven `--mem`, NVMe `/scratch`)</div>
+                <div class="card-title">Side-by-Side Baseline <code>SKILL.md</code> vs. AlphaEvolve Evolved <code>SKILL.md</code> (<code>def build_skill()</code>)</div>
+                <div class="card-subtitle">Inspect the evolved skill protocol ("Ship Baseline Early", <code>--signal=B:USR1</code>, input-driven <code>--mem</code>, NVMe <code>/scratch</code>)</div>
               </div>
               <div style="display:flex; gap:6px; flex-wrap:wrap;">
                 <button class="btn btn-outline active" id="p4-btn-sidebyside" onclick="setP4CodeTab('sidebyside')">Side-by-Side SKILL.md</button>
@@ -968,11 +978,11 @@
             </div>
             <div id="p4-sidebyside-wrap" class="grid-2">
               <div>
-                <div class="proof-item-label" style="margin-bottom:6px; color:var(--red);">Baseline Vibe-Written `SKILL.md`</div>
+                <div class="proof-item-label" style="margin-bottom:6px; color:var(--red);">Baseline Vibe-Written SKILL.md</div>
                 <pre class="code-box" id="p4-base-skill-box"></pre>
               </div>
               <div>
-                <div class="proof-item-label" style="margin-bottom:6px; color:var(--green);">AlphaEvolve Evolved `SKILL.md`</div>
+                <div class="proof-item-label" style="margin-bottom:6px; color:var(--green);">AlphaEvolve Evolved SKILL.md</div>
                 <pre class="code-box" id="p4-evol-skill-box"></pre>
               </div>
             </div>
@@ -988,7 +998,7 @@
         <div>
           <span class="pill pill-purple">Live Cloud Sandbox • Vertex AI gemini-2.5-flash + Deterministic evaluator.py</span>
           <div class="card-title" style="margin-top:6px;">Interactive Single-Step Evolutionary Mutation Studio</div>
-          <div class="card-subtitle">Calls Vertex AI live in GCP to mutate an `# EVOLVE-BLOCK`, validates AST safety, and scores inside the deterministic sandbox in &lt;3s</div>
+          <div class="card-subtitle">Calls Vertex AI live in GCP to mutate an <code># EVOLVE-BLOCK</code>, validates AST safety, and scores inside the deterministic sandbox in &lt;3s</div>
         </div>
         <div id="live-evolve-badges" style="display:flex; gap:8px; flex-wrap:wrap;"></div>
       </div>
@@ -1017,11 +1027,11 @@
       <div id="live-evolve-output" class="mt-16" style="display:none;">
         <div class="grid-2">
           <div>
-            <div class="proof-item-label" style="margin-bottom:6px;">Live `# EVOLVE-BLOCK` Unified Diff Proposed by Gemini</div>
+            <div class="proof-item-label" style="margin-bottom:6px;">Live <code># EVOLVE-BLOCK</code> Unified Diff Proposed by Gemini</div>
             <pre class="code-box" id="live-diff-box"></pre>
           </div>
           <div>
-            <div class="proof-item-label" style="margin-bottom:6px;">Sandboxed `evaluator.py` Score &amp; Diagnostic Insights</div>
+            <div class="proof-item-label" style="margin-bottom:6px;">Sandboxed <code>evaluator.py</code> Score &amp; Diagnostic Insights</div>
             <div class="card" style="background: var(--bg);" id="live-insights-box"></div>
           </div>
         </div>
@@ -1416,10 +1426,10 @@
     let P4_CODE_TAB = 'sidebyside';
 
     const ARCH_TOPOLOGIES = {
-      ge: '<strong>Managed AlphaEvolve (`GE_APP_ID` Discovery Engine):</strong> Regional `eu-` / `us-` endpoints (`discoveryengine.googleapis.com`), server-side MAP-Elites + weighted Gemini ensembles (`gemini-3.5/3.8-flash` + `gemini-3.1-pro-preview`), and 6 self-service `ae` CLI skills.',
-      gke: '<strong>GKE Sandbox (`gVisor`) Harbor + KubeRay GPU Pool:</strong> 1 isolated `gVisor` pod per Harbor trial (`paired_delta = cand - base`) + autoscaling L4/A100 Ray workers + `2Gi` ring-buffered disk streaming trial logs to GCS.',
-      batch: '<strong>Google Cloud Batch Ephemeral Sandbox Pool:</strong> VPC-isolated (`noExternalIpAddress: true`) parallel container workers mounting trace/conformation datasets read-only (`-o ro`) with per-candidate write isolation.',
-      podman: '<strong>Rootless Podman (`subuids`) Workbench Mode:</strong> Zero-root local container evaluation (`usermod --add-subuids 100000-165535`) for interactive developer &amp; scientist login nodes without daemon privileges.',
+      ge: '<strong>Managed AlphaEvolve (<code>GE_APP_ID</code> Discovery Engine):</strong> Regional <code>eu-</code> / <code>us-</code> endpoints (<code>discoveryengine.googleapis.com</code>), server-side MAP-Elites + weighted Gemini ensembles (<code>gemini-3.5/3.8-flash</code> + <code>gemini-3.1-pro-preview</code>), and 6 self-service <code>ae</code> CLI skills.',
+      gke: '<strong>GKE Sandbox (<code>gVisor</code>) Harbor + KubeRay GPU Pool:</strong> 1 isolated <code>gVisor</code> pod per Harbor trial (<code>paired_delta = cand - base</code>) + autoscaling L4/A100 Ray workers + <code>2Gi</code> ring-buffered disk streaming trial logs to GCS via Workload Identity.',
+      batch: '<strong>Google Cloud Batch Ephemeral Sandbox Pool:</strong> VPC-isolated (<code>noExternalIpAddress: true</code>) parallel container workers mounting trace/conformation datasets read-only (<code>-o ro</code>) with per-candidate write isolation.',
+      podman: '<strong>Rootless Podman (<code>subuids</code>) Workbench Mode:</strong> Zero-root local container evaluation (<code>usermod --add-subuids 100000-165535</code>) for interactive developer &amp; scientist login nodes without daemon privileges.',
     };
 
     function selectArchTopology(key) {

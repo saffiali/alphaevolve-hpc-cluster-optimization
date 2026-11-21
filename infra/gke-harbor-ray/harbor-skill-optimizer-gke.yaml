@@ -61,14 +61,23 @@ data:
     #!/usr/bin/env sh
     set -eu
     RING_DIR="/var/log/harbor-ringbuffer"
+    GCS_DEST="gs://${GCP_PROJECT_ID}-alphaevolve-hpc-poc/harbor-trials"
     mkdir -p "${RING_DIR}"
     while true; do
-      # Stream completed trial logs to GCS mount and prune oldest local files above 512 MiB
+      # Stream completed trial JSONL logs via Workload Identity to GCS and prune local files >5 min old
+      for f in "${RING_DIR}"/*.jsonl; do
+        [ -f "$f" ] || continue
+        gcloud storage cp --quiet "$f" "${GCS_DEST}/" 2>/dev/null || true
+      done
       find "${RING_DIR}" -type f -mmin +5 -delete 2>/dev/null || true
       sleep 30
     done
 ---
 # Pod-per-Trial Harbor Evaluator Template isolated via GKE Sandbox (gVisor)
+# Note: GKE Sandbox (`runtimeClassName: gvisor`) does not mount `gcsfuse.csi.storage.gke.io`;
+# instead, trial pods stream logs directly to `gs://<YOUR_GCP_PROJECT_ID>-alphaevolve-hpc-poc/harbor-trials/`
+# over Workload Identity (`google-cloud-storage` SDK + `gcloud storage` sidecar) using a bounded
+# `emptyDir` (`sizeLimit: 2Gi`) ring-buffer so node ephemeral disks never fill.
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -84,9 +93,6 @@ spec:
   ttlSecondsAfterFinished: 300
   template:
     metadata:
-      annotations:
-        gke-gcsfuse/volumes: "true"
-        gke-gcsfuse/ephemeral-storage-limit: "2Gi"
       labels:
         component: harbor-trial-sandbox
     spec:
@@ -112,8 +118,8 @@ spec:
               value: "<YOUR_GCP_PROJECT_ID>"
             - name: GE_APP_ID
               value: "<YOUR_GE_APP_ID>"
-            - name: HARBOR_LOG_STREAM_DIR
-              value: "/mnt/gcs-archive/harbor-trial-logs"
+            - name: HARBOR_GCS_STREAM_URI
+              value: "gs://<YOUR_GCP_PROJECT_ID>-alphaevolve-hpc-poc/harbor-trials"
             - name: HARBOR_LOCAL_SCRATCH_DIR
               value: "/var/log/harbor-ringbuffer"
           resources:
@@ -128,19 +134,20 @@ spec:
           volumeMounts:
             - name: local-ringbuffer
               mountPath: /var/log/harbor-ringbuffer
-            - name: gcs-trial-archive
-              mountPath: /mnt/gcs-archive
-        # Sidecar pruning local ring-buffer so controller/node ephemeral disks never fill
-        - name: log-ringbuffer-pruner
-          image: busybox:1.36
+        # Sidecar streaming trial logs to GCS via Workload Identity & pruning 2Gi local ring-buffer
+        - name: log-ringbuffer-streamer
+          image: gcr.io/google.com/cloudsdktool/google-cloud-cli:slim
           command: ["/bin/sh", "/scripts/ringbuffer-cleanup.sh"]
+          env:
+            - name: GCP_PROJECT_ID
+              value: "<YOUR_GCP_PROJECT_ID>"
           resources:
             requests:
               cpu: "50m"
-              memory: "64Mi"
-            limits:
-              cpu: "100m"
               memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
           volumeMounts:
             - name: local-ringbuffer
               mountPath: /var/log/harbor-ringbuffer
@@ -155,12 +162,6 @@ spec:
           configMap:
             name: harbor-skill-optimizer-guardrails
             defaultMode: 0755
-        - name: gcs-trial-archive
-          csi:
-            driver: gcsfuse.csi.storage.gke.io
-            volumeAttributes:
-              bucketName: "<YOUR_GCP_PROJECT_ID>-alphaevolve-hpc-poc"
-              mountOptions: "implicit-dirs,only-dir=harbor-trials"
 ---
 # Managed AlphaEvolve Controller & Evaluation Gateway Deployment
 apiVersion: apps/v1
